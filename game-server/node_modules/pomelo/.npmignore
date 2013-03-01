@@ -1,0 +1,16 @@
+.project
+*/node-log.log
+logs/*.log
+*.log
+!.gitignore
+node_modules/*
+.project
+.settings/
+**/*.svn
+*.svn
+*.swp
+*.sublime-project
+*.sublime-workspace
+lib/doc/
+lib-cov/
+coverage.html

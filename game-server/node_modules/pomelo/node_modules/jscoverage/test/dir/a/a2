@@ -1,0 +1,3 @@
+function a2(){
+  return "this is function a2";
+}

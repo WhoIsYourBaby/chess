@@ -1,0 +1,5 @@
+.project
+node_modules/
+coverage.html
+lib-cov/
+coverage.html
