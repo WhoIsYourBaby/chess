@@ -4,7 +4,7 @@
 	"private": false,
 	"dependencies": {
 		"pomelo": "0.3.5",
-		"log4js": ">= 0.4.1",
-		"crc": ">=0.0.1"
+		"log4js": "0.5.7",
+		"crc": "0.0.1"
 	}
 }
