@@ -1,11 +1,4 @@
 
-
-/**
- * hasOwnProperty.
- */
-
-var has = Object.prototype.hasOwnProperty;
-
 /**
  * Require the given path.
  *
@@ -70,7 +63,6 @@ require.aliases = {};
 
 require.resolve = function(path) {
   if (path.charAt(0) === '/') path = path.slice(1);
-  var index = path + '/index.js';
 
   var paths = [
     path,
@@ -82,11 +74,8 @@ require.resolve = function(path) {
 
   for (var i = 0; i < paths.length; i++) {
     var path = paths[i];
-    if (has.call(require.modules, path)) return path;
-  }
-
-  if (has.call(require.aliases, index)) {
-    return require.aliases[index];
+    if (require.modules.hasOwnProperty(path)) return path;
+    if (require.aliases.hasOwnProperty(path)) return require.aliases[path];
   }
 };
 
@@ -139,7 +128,7 @@ require.register = function(path, definition) {
  */
 
 require.alias = function(from, to) {
-  if (!has.call(require.modules, from)) {
+  if (!require.modules.hasOwnProperty(from)) {
     throw new Error('Failed to alias "' + from + '", it does not exist');
   }
   require.aliases[to] = from;
@@ -201,7 +190,7 @@ require.relative = function(parent) {
    */
 
   localRequire.exists = function(path) {
-    return has.call(require.modules, localRequire.resolve(path));
+    return require.modules.hasOwnProperty(localRequire.resolve(path));
   };
 
   return localRequire;
@@ -1703,6 +1692,7 @@ require.register("boot/index.js", function(exports, require, module){
 
 });
 require.alias("boot/index.js", "pomelo-client/deps/boot/index.js");
+require.alias("boot/index.js", "boot/index.js");
 require.alias("component-emitter/index.js", "boot/deps/emitter/index.js");
 require.alias("component-indexof/index.js", "component-emitter/deps/indexof/index.js");
 
