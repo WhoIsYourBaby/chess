@@ -1,5 +1,4 @@
 var pomelo = require('pomelo');
-var routeUtil = require('./app/util/routeUtil');
 /**
  * Init app for client.
  */
@@ -12,8 +11,6 @@ app.configure('production|development', 'connector', function(){
 		{
 			connector : pomelo.connectors.hybridconnector,
 			heartbeat : 3,
-			useDict : true,
-			useProtobuf : true
 		});
 });
 
@@ -23,15 +20,6 @@ app.configure('production|development', 'gate', function(){
 			connector : pomelo.connectors.hybridconnector,
 			useProtobuf : true
 		});
-});
-
-// app configure
-app.configure('production|development', function() {
-	// route configures
-	app.route('chat', routeUtil.chat);
-
-	// filter configures
-	app.filter(pomelo.timeout());
 });
 
 // start app

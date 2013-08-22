@@ -1,5 +1,3 @@
-var dispatcher = require('../../../util/dispatcher');
-
 module.exports = function(app) {
 	return new Handler(app);
 };
@@ -34,8 +32,8 @@ handler.queryEntry = function(msg, session, next) {
 		});
 		return;
 	}
-	// select connector
-	var res = dispatcher.dispatch(uid, connectors);
+	// here we just start `ONE` connector server, so we return the connectors[0] 
+	var res = connectors[0];
 	next(null, {
 		code: 200,
 		host: res.host,
