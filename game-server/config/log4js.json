@@ -45,6 +45,16 @@
     },
     {
       "type": "file",
+      "filename": "./logs/rpc-debug-${opts:serverId}.log",
+      "fileSize": 1048576,
+      "layout": {
+          "type": "basic"
+      },
+      "backups": 5,
+      "category":"rpc-debug"
+    },
+    {
+      "type": "file",
       "filename": "./logs/crash.log",
       "fileSize": 1048576,
       "layout": {
