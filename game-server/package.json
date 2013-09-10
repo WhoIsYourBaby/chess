@@ -3,7 +3,7 @@
 	"version": "0.0.1",
 	"private": false,
 	"dependencies": {
-		"pomelo": "0.5.4",
+		"pomelo": "0.6.3",
 		"log4js": "0.5.7",
 		"crc": "0.2.0"
 	}
