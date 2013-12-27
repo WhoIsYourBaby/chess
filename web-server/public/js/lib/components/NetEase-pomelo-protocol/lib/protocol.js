@@ -127,13 +127,19 @@
    * @return {Object}           {type: package type, buffer: body byte array}
    */
   Package.decode = function(buffer){
-    var bytes =  new ByteArray(buffer);
-    var type = bytes[0];
-    var index = 1;
-    var length = ((bytes[index++]) << 16 | (bytes[index++]) << 8 | bytes[index++]) >>> 0;
-    var body = length ? new ByteArray(length) : null;
-    copyArray(body, 0, bytes, PKG_HEAD_BYTES, length);
-    return {'type': type, 'body': body};
+    var offset = 0;
+    var bytes = new ByteArray(buffer);
+    var length = 0;
+    var rs = [];
+    while(offset < bytes.length) {
+      var type = bytes[offset++];
+      length = ((bytes[offset++]) << 16 | (bytes[offset++]) << 8 | bytes[offset++]) >>> 0;
+      var body = length ? new ByteArray(length) : null;
+      copyArray(body, 0, bytes, offset, length);
+      offset += length;
+      rs.push({'type': type, 'body': body});
+    }
+    return rs.length === 1 ? rs[0]: rs;
   };
 
   /**
@@ -181,7 +187,7 @@
 
     // add message id
     if(msgHasId(type)) {
-      offset = encodeMsgId(id, idBytes, buffer, offset);
+      offset = encodeMsgId(id, buffer, offset);
     }
 
     // add route
@@ -217,13 +223,14 @@
 
     // parse id
     if(msgHasId(type)) {
-      var byte = bytes[offset++];
-      id = byte & 0x7f;
-      while(byte & 0x80) {
-        id <<= 7;
-        byte = bytes[offset++];
-        id |= byte & 0x7f;
-      }
+      var m = parseInt(bytes[offset]);
+      var i = 0;
+      do{
+        var m = parseInt(bytes[offset]);
+        id = id + ((m & 0x7f) * Math.pow(2,(7*i)));
+        offset++;
+        i++;
+      }while(m >= 128);
     }
 
     // parse route
@@ -294,14 +301,20 @@
     return offset + MSG_FLAG_BYTES;
   };
 
-  var encodeMsgId = function(id, idBytes, buffer, offset) {
-    var index = offset + idBytes - 1;
-    buffer[index--] = id & 0x7f;
-    while(index >= offset) {
-      id >>= 7;
-      buffer[index--] = id & 0x7f | 0x80;
-    }
-    return offset + idBytes;
+  var encodeMsgId = function(id, buffer, offset) {
+    do{
+      var tmp = id % 128;
+      var next = Math.floor(id/128);
+
+      if(next !== 0){
+        tmp = tmp + 128;
+      }
+      buffer[offset++] = tmp;
+
+      id = next;
+    } while(id !== 0);
+
+    return offset;
   };
 
   var encodeMsgRoute = function(compressRoute, route, buffer, offset) {
@@ -331,4 +344,7 @@
   };
 
   module.exports = Protocol;
-})('object' === typeof module ? module.exports : (this.Protocol = {}),'object' === typeof module ? Buffer : Uint8Array, this);
+  if(typeof(window) != "undefined") {
+    window.Protocol = Protocol;
+  }
+})(typeof(window)=="undefined" ? module.exports : (this.Protocol = {}),typeof(window)=="undefined"  ? Buffer : Uint8Array, this);

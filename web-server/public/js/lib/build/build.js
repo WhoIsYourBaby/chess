@@ -195,25 +195,7 @@ require.relative = function(parent) {
 
   return localRequire;
 };
-require.register("component-indexof/index.js", function(exports, require, module){
-
-var indexOf = [].indexOf;
-
-module.exports = function(arr, obj){
-  if (indexOf) return arr.indexOf(obj);
-  for (var i = 0; i < arr.length; ++i) {
-    if (arr[i] === obj) return i;
-  }
-  return -1;
-};
-});
 require.register("component-emitter/index.js", function(exports, require, module){
-
-/**
- * Module dependencies.
- */
-
-var index = require('indexof');
 
 /**
  * Expose `Emitter`.
@@ -255,7 +237,8 @@ function mixin(obj) {
  * @api public
  */
 
-Emitter.prototype.on = function(event, fn){
+Emitter.prototype.on =
+Emitter.prototype.addEventListener = function(event, fn){
   this._callbacks = this._callbacks || {};
   (this._callbacks[event] = this._callbacks[event] || [])
     .push(fn);
@@ -281,7 +264,7 @@ Emitter.prototype.once = function(event, fn){
     fn.apply(this, arguments);
   }
 
-  fn._off = on;
+  on.fn = fn;
   this.on(event, on);
   return this;
 };
@@ -298,7 +281,8 @@ Emitter.prototype.once = function(event, fn){
 
 Emitter.prototype.off =
 Emitter.prototype.removeListener =
-Emitter.prototype.removeAllListeners = function(event, fn){
+Emitter.prototype.removeAllListeners =
+Emitter.prototype.removeEventListener = function(event, fn){
   this._callbacks = this._callbacks || {};
 
   // all
@@ -318,8 +302,14 @@ Emitter.prototype.removeAllListeners = function(event, fn){
   }
 
   // remove specific handler
-  var i = index(callbacks, fn._off || fn);
-  if (~i) callbacks.splice(i, 1);
+  var cb;
+  for (var i = 0; i < callbacks.length; i++) {
+    cb = callbacks[i];
+    if (cb === fn || cb.fn === fn) {
+      callbacks.splice(i, 1);
+      break;
+    }
+  }
   return this;
 };
 
@@ -502,13 +492,19 @@ require.register("NetEase-pomelo-protocol/lib/protocol.js", function(exports, re
    * @return {Object}           {type: package type, buffer: body byte array}
    */
   Package.decode = function(buffer){
-    var bytes =  new ByteArray(buffer);
-    var type = bytes[0];
-    var index = 1;
-    var length = ((bytes[index++]) << 16 | (bytes[index++]) << 8 | bytes[index++]) >>> 0;
-    var body = length ? new ByteArray(length) : null;
-    copyArray(body, 0, bytes, PKG_HEAD_BYTES, length);
-    return {'type': type, 'body': body};
+    var offset = 0;
+    var bytes = new ByteArray(buffer);
+    var length = 0;
+    var rs = [];
+    while(offset < bytes.length) {
+      var type = bytes[offset++];
+      length = ((bytes[offset++]) << 16 | (bytes[offset++]) << 8 | bytes[offset++]) >>> 0;
+      var body = length ? new ByteArray(length) : null;
+      copyArray(body, 0, bytes, offset, length);
+      offset += length;
+      rs.push({'type': type, 'body': body});
+    }
+    return rs.length === 1 ? rs[0]: rs;
   };
 
   /**
@@ -556,7 +552,7 @@ require.register("NetEase-pomelo-protocol/lib/protocol.js", function(exports, re
 
     // add message id
     if(msgHasId(type)) {
-      offset = encodeMsgId(id, idBytes, buffer, offset);
+      offset = encodeMsgId(id, buffer, offset);
     }
 
     // add route
@@ -592,13 +588,14 @@ require.register("NetEase-pomelo-protocol/lib/protocol.js", function(exports, re
 
     // parse id
     if(msgHasId(type)) {
-      var byte = bytes[offset++];
-      id = byte & 0x7f;
-      while(byte & 0x80) {
-        id <<= 7;
-        byte = bytes[offset++];
-        id |= byte & 0x7f;
-      }
+      var m = parseInt(bytes[offset]);
+      var i = 0;
+      do{
+        var m = parseInt(bytes[offset]);
+        id = id + ((m & 0x7f) * Math.pow(2,(7*i)));
+        offset++;
+        i++;
+      }while(m >= 128);
     }
 
     // parse route
@@ -669,14 +666,20 @@ require.register("NetEase-pomelo-protocol/lib/protocol.js", function(exports, re
     return offset + MSG_FLAG_BYTES;
   };
 
-  var encodeMsgId = function(id, idBytes, buffer, offset) {
-    var index = offset + idBytes - 1;
-    buffer[index--] = id & 0x7f;
-    while(index >= offset) {
-      id >>= 7;
-      buffer[index--] = id & 0x7f | 0x80;
-    }
-    return offset + idBytes;
+  var encodeMsgId = function(id, buffer, offset) {
+    do{
+      var tmp = id % 128;
+      var next = Math.floor(id/128);
+
+      if(next !== 0){
+        tmp = tmp + 128;
+      }
+      buffer[offset++] = tmp;
+
+      id = next;
+    } while(id !== 0);
+
+    return offset;
   };
 
   var encodeMsgRoute = function(compressRoute, route, buffer, offset) {
@@ -706,7 +709,10 @@ require.register("NetEase-pomelo-protocol/lib/protocol.js", function(exports, re
   };
 
   module.exports = Protocol;
-})('object' === typeof module ? module.exports : (this.Protocol = {}),'object' === typeof module ? Buffer : Uint8Array, this);
+  if(typeof(window) != "undefined") {
+    window.Protocol = Protocol;
+  }
+})(typeof(window)=="undefined" ? module.exports : (this.Protocol = {}),typeof(window)=="undefined"  ? Buffer : Uint8Array, this);
 
 });
 require.register("pomelonode-pomelo-protobuf/lib/client/protobuf.js", function(exports, require, module){
@@ -742,7 +748,11 @@ require.register("pomelonode-pomelo-protobuf/lib/client/protobuf.js", function(e
 
   // exports to support for components
   module.exports = Protobuf;
-})('object' === typeof module ? module.exports : (this.protobuf = {}), this);
+  if(typeof(window) != "undefined") {
+    window.protobuf = Protobuf;
+  }
+  
+})(typeof(window) == "undefined" ? module.exports : (this.protobuf = {}), this);
 
 /**
  * constants
@@ -1334,6 +1344,10 @@ require.register("pomelonode-pomelo-jsclient-websocket/lib/pomelo-client.js", fu
   var Message = Protocol.Message;
   var EventEmitter = window.EventEmitter;
 
+  if(typeof(window) != "undefined" && typeof(sys) != 'undefined' && sys.localStorage) {
+    window.localStorage = sys.localStorage;
+  }
+  
   var RES_OK = 200;
   var RES_FAIL = 500;
   var RES_OLD_CLIENT = 501;
@@ -1364,6 +1378,11 @@ require.register("pomelonode-pomelo-jsclient-websocket/lib/pomelo-client.js", fu
   var heartbeatTimeoutId = null;
 
   var handshakeCallback = null;
+
+  var decode = null;
+  var encode = null;
+
+  var useCrypto;
 
   var handshakeBuffer = {
     'sys': {
@@ -1409,6 +1428,7 @@ require.register("pomelonode-pomelo-jsclient-websocket/lib/pomelo-client.js", fu
     };
     var onclose = function(event){
       pomelo.emit('close',event);
+      pomelo.emit('disconnect', event);
       console.error('socket close: ', event);
     };
     socket = new WebSocket(url);
@@ -1568,7 +1588,8 @@ require.register("pomelonode-pomelo-jsclient-websocket/lib/pomelo-client.js", fu
   };
 
   var onKick = function(data) {
-    pomelo.emit('onKick');
+    data = JSON.parse(Protocol.strdecode(data));
+    pomelo.emit('onKick', data);
   };
 
   handlers[Package.TYPE_HANDSHAKE] = handshake;
@@ -1576,8 +1597,15 @@ require.register("pomelonode-pomelo-jsclient-websocket/lib/pomelo-client.js", fu
   handlers[Package.TYPE_DATA] = onData;
   handlers[Package.TYPE_KICK] = onKick;
 
-  var processPackage = function(msg) {
-    handlers[msg.type](msg.body);
+  var processPackage = function(msgs) {
+    if(Array.isArray(msgs)) {
+      for(var i=0; i<msgs.length; i++) {
+        var msg = msgs[i];
+        handlers[msg.type](msg.body);
+      }
+    } else {
+      handlers[msgs.type](msgs.body);
+    }
   };
 
   var processMessage = function(pomelo, msg) {
@@ -1691,20 +1719,20 @@ require.register("boot/index.js", function(exports, require, module){
   window.pomelo = pomelo;
 
 });
+
+
+
+
 require.alias("boot/index.js", "pomelo-client/deps/boot/index.js");
 require.alias("boot/index.js", "boot/index.js");
 require.alias("component-emitter/index.js", "boot/deps/emitter/index.js");
-require.alias("component-indexof/index.js", "component-emitter/deps/indexof/index.js");
 
 require.alias("NetEase-pomelo-protocol/lib/protocol.js", "boot/deps/pomelo-protocol/lib/protocol.js");
 require.alias("NetEase-pomelo-protocol/lib/protocol.js", "boot/deps/pomelo-protocol/index.js");
 require.alias("NetEase-pomelo-protocol/lib/protocol.js", "NetEase-pomelo-protocol/index.js");
-
 require.alias("pomelonode-pomelo-protobuf/lib/client/protobuf.js", "boot/deps/pomelo-protobuf/lib/client/protobuf.js");
 require.alias("pomelonode-pomelo-protobuf/lib/client/protobuf.js", "boot/deps/pomelo-protobuf/index.js");
 require.alias("pomelonode-pomelo-protobuf/lib/client/protobuf.js", "pomelonode-pomelo-protobuf/index.js");
-
 require.alias("pomelonode-pomelo-jsclient-websocket/lib/pomelo-client.js", "boot/deps/pomelo-jsclient-websocket/lib/pomelo-client.js");
 require.alias("pomelonode-pomelo-jsclient-websocket/lib/pomelo-client.js", "boot/deps/pomelo-jsclient-websocket/index.js");
 require.alias("pomelonode-pomelo-jsclient-websocket/lib/pomelo-client.js", "pomelonode-pomelo-jsclient-websocket/index.js");
-

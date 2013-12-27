@@ -3,8 +3,8 @@
   "description": "Main app boot component",
   "dependencies": {
     "component/emitter":"master",
-    "NetEase/pomelo-protocol": "0.3.x",
-    "pomelonode/pomelo-protobuf": "*",
+    "NetEase/pomelo-protocol": "master",
+    "pomelonode/pomelo-protobuf": "master",
     "pomelonode/pomelo-jsclient-websocket": "master"
   },
   "scripts": ["index.js"]

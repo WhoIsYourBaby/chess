@@ -30,7 +30,11 @@
 
   // exports to support for components
   module.exports = Protobuf;
-})('object' === typeof module ? module.exports : (this.protobuf = {}), this);
+  if(typeof(window) != "undefined") {
+    window.protobuf = Protobuf;
+  }
+  
+})(typeof(window) == "undefined" ? module.exports : (this.protobuf = {}), this);
 
 /**
  * constants
