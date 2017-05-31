@@ -1,3 +1,5 @@
+var DouniuRoom = require('../../../game/DouniuRoom.js');
+
 module.exports = function(app) {
 	return new ChatRemote(app);
 };
@@ -26,6 +28,10 @@ ChatRemote.prototype.add = function(uid, sid, name, flag, cb) {
 	channel.pushMessage(param);
 
 	if( !! channel) {
+		if (channel.getUserAmount() == 0) {
+			var room = new DouniuRoom(channel);
+			channel.gameRoom = room;
+		}
 		channel.add(uid, sid);
 	}
 
