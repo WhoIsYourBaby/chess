@@ -21,5 +21,5 @@ DouniuRoom.prototype.kickUser = function(usermodel) {
   }
 };
 
-
+//开始游戏，给所有人发牌
 DouniuRoom.prototype.startGame = function() {};

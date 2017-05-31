@@ -28,11 +28,12 @@ ChatRemote.prototype.add = function(uid, sid, name, flag, cb) {
 	channel.pushMessage(param);
 
 	if( !! channel) {
-		if (channel.getUserAmount() == 0) {
+		if (!channel.gameRoom) {
 			var room = new DouniuRoom(channel);
 			channel.gameRoom = room;
 		}
 		channel.add(uid, sid);
+		channel.gameRoom.joinUser(uid);
 	}
 
 	cb(this.get(name, flag));
@@ -72,6 +73,7 @@ ChatRemote.prototype.kick = function(uid, sid, name) {
 	// leave channel
 	if( !! channel) {
 		channel.leave(uid, sid);
+		channel.gameRoom.kickUser(uid);
 	}
 	var username = uid.split('*')[0];
 	var param = {
