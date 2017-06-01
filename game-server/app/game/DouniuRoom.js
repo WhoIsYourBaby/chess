@@ -1,4 +1,4 @@
-var PokerManager = require('PokerManager.js');
+var PokerManager = require('./PokerManager.js');
 //百人牛牛
 //绑定的room
 var DouniuRoom = function(channel) {
