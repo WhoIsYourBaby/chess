@@ -31,6 +31,7 @@ ChatRemote.prototype.add = function(uid, sid, name, flag, cb) {
 		if (!channel.gameRoom) {
 			var room = new DouniuRoom(channel);
 			channel.gameRoom = room;
+			channel.gameRoom.startGame();
 		}
 		channel.add(uid, sid);
 		channel.gameRoom.joinUser(uid);

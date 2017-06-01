@@ -54,8 +54,14 @@ PokerManager.prototype.getPokers = function() {
     return this.pokers;
 };
 
-PokerManager.prototype.dealPoker = function() {
-    var poker = this.pokers[this.pokers.length - 1];
-    this.pokers.pop();
-    return poker;
+//发一张牌
+PokerManager.prototype.dealOnePoker = function() {
+    return this.pokers.pop();
+}
+
+//发count张牌
+PokerManager.prototype.dealSomePoker = function(count) {
+    var somepk = this.pokers.slice(-count);
+    this.pokers.splice(-count, count);
+    return somepk;
 }

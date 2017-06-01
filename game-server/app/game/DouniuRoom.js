@@ -53,4 +53,9 @@ DouniuRoom.prototype.pushWillStartMessage = function() {
 
 //给所有人push发牌结果消息
 DouniuRoom.prototype.dealPokers = function() {
+  this.channel.pushMessage('brnn.dealpokers', {
+    code : 200,
+    msg : '发牌啦',
+    data : '5副扑克+输赢计算结果'
+  })
 };
