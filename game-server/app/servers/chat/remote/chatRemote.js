@@ -34,7 +34,7 @@ ChatRemote.prototype.add = function(uid, sid, name, flag, cb) {
 		}
 		channel.add(uid, sid);
 		channel.gameRoom.joinUser(uid);
-		if (channel.getUserAmount() == 2) {
+		if (channel.getUserAmount() > 0) {
 			channel.gameRoom.startGame();
 		}
 	}

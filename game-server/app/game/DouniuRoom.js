@@ -1,3 +1,4 @@
+var PokerManager = require('PokerManager.js');
 //百人牛牛
 //绑定的room
 var DouniuRoom = function(channel) {
@@ -44,18 +45,29 @@ DouniuRoom.prototype.willStartTimerCall = function() {
 
 //state: 0,下注时间等待开始 | 1,游戏开始计算输赢 | 2,其他场景
 DouniuRoom.prototype.pushWillStartMessage = function() {
+  var data = {
+    state : 0,
+    time : this.willWait
+  }
   this.channel.pushMessage('brnn.willstart', {
     code : 200,
-    msg : "下注时间 this.willWait秒",
-    state : 0,
+    msg : "下注时间",
+    data : data
   });
 }
 
 //给所有人push发牌结果消息
 DouniuRoom.prototype.dealPokers = function() {
-  this.channel.pushMessage('brnn.dealpokers', {
+  var pkmanager = new PokerManager();
+  pkmanager.recreatePoker(false);
+  var pokerRes = [];
+  for (var index = 0; index < 5; index++) {
+    var aPkGroup = pkmanager.dealSomePoker(5);
+    pokerRes.push(aPkGroup);
+  }
+  this.channel.pushMessage('brnn.dealpoker', {
     code : 200,
     msg : '发牌啦',
-    data : '5副扑克+输赢计算结果'
+    data : pokerRes
   })
 };
