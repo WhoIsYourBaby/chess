@@ -19,7 +19,7 @@ DouniuRoom.prototype.kickUser = function(usermodel) {
   for (var index = 0; index < this.userList.length; index++) {
     var element = this.userList[index];
     if (element == usermodel) {
-      this.userList.spice(index, 1);
+      this.userList.splice(index, 1);
     }
   }
 };
