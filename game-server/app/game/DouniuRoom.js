@@ -63,6 +63,22 @@ DouniuRoom.prototype.dealPokers = function() {
   var pokerRes = [];
   for (var index = 0; index < 5; index++) {
     var aPkGroup = pkmanager.dealSomePoker(5);
+    var nnRes = calculateResult(aPkGroup);
+
+    //如果有牛替换组成牛大小的两张牌到数组末尾
+    if (nnRes.hasNiu) {
+      var tmp = aPkGroup[4];
+      aPkGroup[4] = aPkGroup[nnRes.pIndex1];
+      aPkGroup[nnRes.pIndex1] = tmp;
+
+      var tmp = aPkGroup[3];
+      aPkGroup[3] = aPkGroup[nnRes.pIndex2];
+      aPkGroup[nnRes.pIndex2] = tmp;
+    }
+    var dic = {
+      poker : aPkGroup,
+      result : nnRes
+    }
     pokerRes.push(aPkGroup);
   }
   this.channel.pushMessage('brnn.dealpoker', {
@@ -71,3 +87,43 @@ DouniuRoom.prototype.dealPokers = function() {
     data : pokerRes
   })
 };
+
+var calculateResult = function(pokers) {
+  var calPokers = pokers.slice(0);
+  var total = 0;
+  for (var index = 0; index < calPokers.length; index++) {
+    var pk = calPokers[index];
+    pk.nnValue = pk.value > 10 ? 10 : pk.value;
+    total += pk.nnValue;
+  }
+  var niuN = total % 10;
+  var hasNiu = false;
+  var res = {};
+  for (var index = 0; index < calPokers.length; index++) {
+    for (var sec = index + 1; sec < calPokers.length; sec++) {
+      var pkf = calPokers[index];
+      var pkl = calPokers[sec];
+      var testN = (pkf.nnValue + pkl.nnValue) % 10;
+      if (testN == niuN) {
+        hasNiu = true;
+        res.hasNiu = hasNiu;
+        res.niuN = niuN;
+        res.pIndex1 = index;
+        res.pIndex2 = sec;
+        break ;
+      }
+    }
+    if (hasNiu) {
+      break ;
+    }
+  }
+
+  //没牛的情况
+  if (!hasNiu) {
+    res.hasNiu = false;
+    res.niuN = -1;
+    res.pIndex1 = -1;
+    res.pIndex2 = -1;
+  }
+  return res;
+}
