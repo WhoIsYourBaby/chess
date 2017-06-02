@@ -139,10 +139,36 @@ var calculateResult = function(pokers) {
   }
 
   //3 判断五小
-  if (wuxiaoCount == 5 && total < 10) {
-    
+  if (wuxiaoCount == 5 && total <= 10) {
+    nntype = 5;
+    res.nntype = nntype;
+    res.niuN = 0;     //五小的时候为0
+    res.pIndex1 = -1;
+    res.pIndex2 = -1;
+    return res;
   }
 
+  //4 判断五花
+  if (huaCount == 5) {
+    nntype = 4;
+    res.nntype = nntype;
+    res.niuN = 0;     //五小的时候为0
+    res.pIndex1 = -1;
+    res.pIndex2 = -1;
+    return res;
+  }
+
+  //5 判断四花
+  if (huaCount == 4 && tenCount == 1) {
+    nntype = 3;
+    res.nntype = nntype;
+    res.niuN = 0;     //五小的时候为0
+    res.pIndex1 = -1;
+    res.pIndex2 = -1;
+    return res;
+  }
+
+  //6 判断牛牛
   var niuN = total % 10;
   var hasNiu = false;
   
