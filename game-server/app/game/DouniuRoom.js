@@ -60,6 +60,7 @@ DouniuRoom.prototype.pushWillStartMessage = function() {
 DouniuRoom.prototype.dealPokers = function() {
   var pkmanager = new PokerManager();
   pkmanager.recreatePoker(false);
+  pkmanager.randomPoker();
   var pokerRes = [];
   for (var index = 0; index < 5; index++) {
     var aPkGroup = pkmanager.dealSomePoker(5);
@@ -79,7 +80,7 @@ DouniuRoom.prototype.dealPokers = function() {
       poker : aPkGroup,
       result : nnRes
     }
-    pokerRes.push(aPkGroup);
+    pokerRes.push(dic);
   }
   this.channel.pushMessage('brnn.dealpoker', {
     code : 200,
@@ -89,20 +90,19 @@ DouniuRoom.prototype.dealPokers = function() {
 };
 
 var calculateResult = function(pokers) {
-  var calPokers = pokers.slice(0);
   var total = 0;
-  for (var index = 0; index < calPokers.length; index++) {
-    var pk = calPokers[index];
+  for (var index = 0; index < pokers.length; index++) {
+    var pk = pokers[index];
     pk.nnValue = pk.value > 10 ? 10 : pk.value;
     total += pk.nnValue;
   }
   var niuN = total % 10;
   var hasNiu = false;
   var res = {};
-  for (var index = 0; index < calPokers.length; index++) {
-    for (var sec = index + 1; sec < calPokers.length; sec++) {
-      var pkf = calPokers[index];
-      var pkl = calPokers[sec];
+  for (var index = 0; index < pokers.length; index++) {
+    for (var sec = index + 1; sec < pokers.length; sec++) {
+      var pkf = pokers[index];
+      var pkl = pokers[sec];
       var testN = (pkf.nnValue + pkl.nnValue) % 10;
       if (testN == niuN) {
         hasNiu = true;
