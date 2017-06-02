@@ -9,7 +9,7 @@ module.exports = PokerManager;
 
 //bool hasJoker, false则不会有joker
 PokerManager.prototype.recreatePoker = function(hasJoker) {
-    //color 1:黑桃,2:方块,3:梅花,4:红桃,0:joker
+    //color 1:方块,2:梅花,3:红桃,4:黑桃,0:joker
     for (var index = 1; index <= 13; index++) {
         for (var color = 1; color <= 4; color++) {
             var card = {
