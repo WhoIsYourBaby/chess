@@ -37,7 +37,7 @@ DouniuRoom.prototype.willStartTimerCall = function() {
   this.willWait --;
   this.pushWillStartMessage();
   if (this.willWait == 0) {
-    clearTimeout(this.willStartTimer);
+    clearInterval(this.willStartTimer);
     this.dealPokers();
   }
 };
@@ -67,7 +67,7 @@ DouniuRoom.prototype.dealPokers = function() {
     var nnRes = calculateResult(aPkGroup);
 
     //如果有牛替换组成牛大小的两张牌到数组末尾
-    if (nnRes.hasNiu) {
+    if (nnRes.nntype == 1 || nnRes.nntype == 2) {
       var tmp = aPkGroup[4];
       aPkGroup[4] = aPkGroup[nnRes.pIndex1];
       aPkGroup[nnRes.pIndex1] = tmp;
@@ -92,7 +92,7 @@ DouniuRoom.prototype.dealPokers = function() {
     data : pokerRes
   })
 
-  setTimeout(this.startGame.bind(this), 3);
+  setTimeout(this.startGame.bind(this), 3000);
 };
 
 var calculateResult = function(pokers) {
@@ -179,7 +179,11 @@ var calculateResult = function(pokers) {
       var testN = (pkf.nnValue + pkl.nnValue) % 10;
       if (testN == niuN) {
         hasNiu = true;
-        res.hasNiu = hasNiu;
+        if (niuN == 0) {
+          res.nntype = 2;
+        } else {
+          res.nntype = 1;
+        }
         res.niuN = niuN;
         res.pIndex1 = index;
         res.pIndex2 = sec;
@@ -193,7 +197,7 @@ var calculateResult = function(pokers) {
 
   //没牛的情况
   if (!hasNiu) {
-    res.hasNiu = false;
+    res.nntype = 0;
     res.niuN = -1;
     res.pIndex1 = -1;
     res.pIndex2 = -1;
