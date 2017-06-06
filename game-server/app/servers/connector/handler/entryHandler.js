@@ -9,7 +9,7 @@ var Handler = function(app) {
 var handler = Handler.prototype;
 
 /**
- * New client entry chat server.
+ * New client entry brnn server.
  *
  * @param  {Object}   msg     request message
  * @param  {Object}   session current session object
@@ -41,7 +41,7 @@ handler.enter = function(msg, session, next) {
 	session.on('closed', onUserLeave.bind(null, self.app));
 
 	//put user into channel
-	self.app.rpc.chat.chatRemote.add(session, uid, self.app.get('serverId'), rid, true, function(users){
+	self.app.rpc.brnn.brnnRemote.add(session, uid, self.app.get('serverId'), rid, true, function(users){
 		next(null, {
 			users:users
 		});
@@ -59,5 +59,5 @@ var onUserLeave = function(app, session) {
 	if(!session || !session.uid) {
 		return;
 	}
-	app.rpc.chat.chatRemote.kick(session, session.uid, app.get('serverId'), session.get('rid'), null);
+	app.rpc.brnn.brnnRemote.kick(session, session.uid, app.get('serverId'), session.get('rid'), null);
 };
