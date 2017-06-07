@@ -19,26 +19,20 @@ var handler = Handler.prototype;
 handler.enter = function(msg, session, next) {
 	var self = this;
 	var rid = msg.rid;
-	var uid = msg.username + '*' + rid;
+	var uid = msg.userid + '*' + rid;
 	var sessionService = self.app.get('sessionService');
 
 	//duplicate log in
-	if( !! sessionService.getByUid(uid)) {
-		next(null, {
-			code: 500,
-			error: true
+	if(!sessionService.getByUid(uid)) {
+		session.bind(uid);
+		session.set('rid', rid);
+		session.push('rid', function(err) {
+			if(err) {
+				console.error('set rid for session service failed! error is : %j', err.stack);
+			}
 		});
-		return;
+		session.on('closed', onUserLeave.bind(null, self.app));
 	}
-
-	session.bind(uid);
-	session.set('rid', rid);
-	session.push('rid', function(err) {
-		if(err) {
-			console.error('set rid for session service failed! error is : %j', err.stack);
-		}
-	});
-	session.on('closed', onUserLeave.bind(null, self.app));
 
 	//put user into channel
 	self.app.rpc.brnn.brnnRemote.add(session, uid, self.app.get('serverId'), rid, true, function(users){
@@ -59,5 +53,12 @@ var onUserLeave = function(app, session) {
 	if(!session || !session.uid) {
 		return;
 	}
-	app.rpc.brnn.brnnRemote.kick(session, session.uid, app.get('serverId'), session.get('rid'), null);
+	app.rpc.brnn.brnnRemote.exit(session, session.uid, app.get('serverId'), session.get('rid'), null);
+};
+
+
+handler.exit = function(msg, session, next) {
+	this.app.rpc.brnn.brnnRemote.exit(session, session.uid, this.app.get('serverId'), session.get('rid'), function(res) {
+		next(null, res);
+	});
 };
