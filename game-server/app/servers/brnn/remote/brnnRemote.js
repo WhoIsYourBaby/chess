@@ -98,10 +98,8 @@ BrnnRemote.prototype.exit = function(uid, sid, name, cb) {
         });
         return ;
     }
-	logger.debug('before : ' + channel.getUserAmount());
     channel.leave(uid, sid);
     channel.gameRoom.kickUser(uid);
-	logger.debug('after : ' + channel.getUserAmount());
     if (channel.getUserAmount() == 0) {
         channel.destroy();
 		cb({

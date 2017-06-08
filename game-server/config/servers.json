@@ -15,16 +15,16 @@
     },
     "production":{
            "connector":[
-             {"id":"connector-server-1", "host":"10.0.0.18", "port":3201, "clientPort": 3102, "frontend": true}
+             {"id":"connector-server-1", "host":"39.108.83.192", "port":3201, "clientPort": 3102, "frontend": true}
          ],
         "chat":[
-             {"id":"chat-server-1", "host":"10.0.0.18", "port":3202}
+             {"id":"chat-server-1", "host":"39.108.83.192", "port":3202}
         ],
         "brnn":[
-             {"id":"brnn-server-1", "host":"10.0.0.18", "port":3203}
+             {"id":"brnn-server-1", "host":"39.108.83.192", "port":3203}
         ],
         "gate":[
-           {"id": "gate-server-1", "host": "10.0.0.18", "clientPort": 3001, "frontend": true}
+           {"id": "gate-server-1", "host": "39.108.83.192", "clientPort": 3001, "frontend": true}
         ]
   }
 }
