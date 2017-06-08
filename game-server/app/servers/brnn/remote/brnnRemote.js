@@ -1,4 +1,5 @@
 var DouniuRoom = require('../../../game/DouniuRoom.js');
+var logger = require('pomelo-logger').getLogger('pomelo', __filename);
 
 module.exports = function(app) {
 	return new BrnnRemote(app);
@@ -97,8 +98,10 @@ BrnnRemote.prototype.exit = function(uid, sid, name, cb) {
         });
         return ;
     }
+	logger.debug('before : ' + channel.getUserAmount());
     channel.leave(uid, sid);
     channel.gameRoom.kickUser(uid);
+	logger.debug('after : ' + channel.getUserAmount());
     if (channel.getUserAmount() == 0) {
         channel.destroy();
 		cb({
