@@ -40,3 +40,21 @@ handler.queryEntry = function(msg, session, next) {
 		port: res.clientPort
 	});
 };
+
+
+handler.guestLogin = function(msg, session, next){
+	var sqlHelper = this.app.get('sqlHelper');//获取全局mysql client
+	var sql = "insert into t_user () values ();";
+	sqlHelper.query(sql, null, function(err, results, fileds){
+		if (err) {
+			//失败
+			console.log(JSON.stringify(err));
+		} else {
+			console.log(JSON.stringify(results));
+			next(null, {
+					code : 1,
+					msg : 'ok'
+			});
+		}
+	});
+}
