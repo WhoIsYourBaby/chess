@@ -1,3 +1,6 @@
+var UToken = require('../../../game/UToken.js');
+
+
 module.exports = function(app) {
 	return new Handler(app);
 };
@@ -44,16 +47,23 @@ handler.queryEntry = function(msg, session, next) {
 
 handler.guestLogin = function(msg, session, next){
 	var sqlHelper = this.app.get('sqlHelper');//获取全局mysql client
-	var sql = "insert into t_user () values ();";
-	sqlHelper.query(sql, null, function(err, results, fileds){
+	sqlHelper.guestLogin(function(err, userinfo){
+		console.log(userinfo);
+		var token = new UToken(userinfo.userid);
 		if (err) {
 			//失败
-			console.log(JSON.stringify(err));
+			next(null, {
+				code : -101,
+				msg : '游客登录失败，请重试'
+			});
 		} else {
-			console.log(JSON.stringify(results));
 			next(null, {
 					code : 1,
-					msg : 'ok'
+					msg : 'ok',
+					data : {
+						userinfo : userinfo,
+						token : token
+					}
 			});
 		}
 	});

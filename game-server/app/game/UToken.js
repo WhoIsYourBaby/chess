@@ -1,13 +1,13 @@
 
 var UToken = function(userid){
     this.userid = userid;
-    this.exp = '';
+    this.exp = new Date().getTime() + 1000 * 60 * 60;        //毫秒级
 };
 
 module.exports = UToken;
 
 UToken.prototype.refresh = function(){
-    this.exp = '';
+    this.exp = new Date().getTime() + 1000 * 60 * 60;
 };
 
 UToken.prototype.encrypt = function(){
