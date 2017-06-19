@@ -3,7 +3,7 @@ var secret_key = 'InmbuvP6Z8';
 
 var UToken = function(userid){
     this.userid = userid;
-    this.exp = new Date().getTime() + 1000 * 60 * 60;        //毫秒级
+    this.exp = new Date().getTime() + 1000 * 60 * 60;        //过期时间点毫秒级
 };
 
 module.exports = UToken;
