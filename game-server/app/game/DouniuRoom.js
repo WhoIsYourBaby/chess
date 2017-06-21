@@ -4,7 +4,7 @@ var PokerManager = require('./PokerManager.js');
 var DouniuRoom = function(channel) {
   this.channel = channel;
   this.userList = [];
-  this.maxWillWait = 5; //sec
+  this.maxWillWait = 10; //sec
   this.willWait = 0;
 };
 

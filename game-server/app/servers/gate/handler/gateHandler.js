@@ -1,5 +1,5 @@
 var UToken = require('../../../game/UToken.js');
-
+var GMResponse = require('../../../game/GMResponse.js');
 
 module.exports = function(app) {
 	return new Handler(app);
@@ -57,14 +57,25 @@ handler.guestLogin = function(msg, session, next){
 				msg : '游客登录失败，请重试'
 			});
 		} else {
-			next(null, {
-					code : 1,
-					msg : 'ok',
-					data : {
+			// get all connectors
+			var connectors = this.app.getServersByType('connector');
+			if(!connectors || connectors.length === 0) {
+				var response = new GMResponse(-103, '没有找到connector');
+				next(null, response);
+				return;
+			}
+			// here we just start `ONE` connector server, so we return the connectors[0] 
+			var res = connectors[0];
+			var data = {
 						userinfo : userinfo,
-						token : token
-					}
-			});
+						token : token,
+						connector : {
+							host: res.host,
+							port: res.clientPort
+						}
+					};
+			var response = new GMResponse(1, 'ok', data);
+			next(null, response);
 		}
-	});
+	}.bind(this));
 }

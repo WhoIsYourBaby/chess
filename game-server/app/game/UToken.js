@@ -12,6 +12,14 @@ UToken.prototype.refresh = function(){
     this.exp = new Date().getTime() + 1000 * 60 * 60;
 };
 
+UToken.prototype.isValid = function(){
+    if (this.userid && this.exp) {
+        var now = new Date().getTime();
+        return (now < this.exp);
+    }
+    return false;
+};
+
 UToken.prototype.encrypt = function(){
     var crypto = require('crypto');
     var cipher = crypto.createCipher('aes-256-cbc',secret_key);
@@ -23,6 +31,7 @@ UToken.prototype.encrypt = function(){
 
 
 UToken.prototype.decrypt = function(tokenString){
+    var crypto = require('crypto');
     var decipher = crypto.createDecipher('aes-256-cbc', secret_key);
     var dec = decipher.update(tokenString,'hex','utf8');
     dec += decipher.final('utf8');
