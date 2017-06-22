@@ -81,7 +81,7 @@ handler.enterRoom = function(msg, session, next) {
 
 	if (msg.rtype == 'brnn') {
 		//put user into channel
-		this.app.rpc.brnn.brnnRemote.add(session, token.userid, this.app.get('serverId'), rid, true, function(users){
+		this.app.rpc.brnn.brnnRemote.add(session, token.userid, this.app.get('serverId'), msg.rtype, true, function(users){
 			next(null, {
 				users:users
 			});
