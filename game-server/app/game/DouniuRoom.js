@@ -3,23 +3,28 @@ var PokerManager = require('./PokerManager.js');
 //绑定的room
 var DouniuRoom = function(channel) {
   this.channel = channel;
-  this.userList = [];
+  this.userList = [];     //所有在房间中的玩家的userid
+  this.chipPk1 = {};      //第一幅牌下注玩家{userid, gold}
+  this.chipPk2 = {};      //第一幅牌下注玩家
+  this.chipPk3 = {};      //第一幅牌下注玩家
+  this.chipPk4 = {};      //第一幅牌下注玩家
+
   this.maxWillWait = 10; //sec
   this.willWait = 0;
 };
 
 module.exports = DouniuRoom;
 
-//需要在外部对channel新增uid
-DouniuRoom.prototype.joinUser = function(usermodel) {
-    this.userList.push(usermodel);
+//需要在外部对channel新增userid
+DouniuRoom.prototype.joinUser = function(userid) {
+    this.userList.push(userid);
 };
 
 //需要在外部对channel删除uid
-DouniuRoom.prototype.kickUser = function(usermodel) {
+DouniuRoom.prototype.kickUser = function(userid) {
   for (var index = 0; index < this.userList.length; index++) {
     var element = this.userList[index];
-    if (element == usermodel) {
+    if (element == userid) {
       this.userList.splice(index, 1);
     }
   }
@@ -204,3 +209,13 @@ var calculateResult = function(pokers) {
   }
   return res;
 }
+
+
+DouniuRoom.prototype.chipIn = function(userid, gold, pkindex) {
+  if (pkindex == 0) {
+    return false;
+  }
+  if (pkindex == 1) {
+    //todo
+  }
+};

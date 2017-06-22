@@ -13,6 +13,8 @@
 @property (nonatomic, copy) NSString *connectorIP;
 @property (nonatomic, copy) NSString *connectorPort;
 
+@property (nonatomic, copy) NSString *token;
+
 @end
 
 @implementation ViewController
@@ -83,10 +85,11 @@
 
 //1、连接gate服务器，返回connector服务器地址
 - (void)connectGate{
-    [client connectToHost:@"39.108.83.192" onPort:@"3101" params:nil withCallback:^(id arg) {
-        [client requestWithRoute:@"gate.gateHandler.queryEntry" andParams:@{@"userid" : @"ligun123"} andCallback:^(id arg) {
-            self.connectorIP = arg[@"host"];
-            self.connectorPort = [arg[@"port"] stringValue];
+    [client connectToHost:@"127.0.0.1" onPort:@"3101" params:nil withCallback:^(id arg) {
+        [client requestWithRoute:@"gate.gateHandler.guestLogin" andParams:@{@"userid" : @"ligun123"} andCallback:^(id arg) {
+            self.connectorIP = arg[@"data"][@"connector"][@"host"];
+            self.connectorPort = [arg[@"data"][@"connector"][@"port"] stringValue];
+            self.token = arg[@"data"][@"token"];
             [client disconnect];
         }];
     }];
@@ -101,14 +104,18 @@
 
 //3、request——> connector.entryHandler.enter进入房间
 - (void)enterRoom{
-    [client requestWithRoute:@"connector.entryHandler.enter" andParams:@{@"userid" : @"ligun",
-                                                                         @"rid" : @"111"} andCallback:^(id arg) {
+    [client requestWithRoute:@"connector.entryHandler.enterRoom" andParams:@{@"token" : self.token,
+                                                                         @"rtype" : @"brnn"} andCallback:^(id arg) {
                                                                              NSLog(@"%s -> %@", __FUNCTION__, arg);
                                                                          }];
 }
 
 //废弃的方法
 - (void)sendProto{
+    [client requestWithRoute:@"connector.entryHandler.enterRoom" andParams:@{@"token" : self.token,
+                                                                             @"rtype" : @"brnn"} andCallback:^(id arg) {
+                                                                                 NSLog(@"%s -> %@", __FUNCTION__, arg);
+                                                                             }];
 }
 
 
