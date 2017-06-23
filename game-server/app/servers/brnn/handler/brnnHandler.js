@@ -26,12 +26,6 @@ handler.chipIn = function(msg, session, next) {
     //TODO 判断余额
     var sqlHelper = this.app.get('sqlHelper');
     sqlHelper.queryUserInfo(userid, function(err, userinfo) {
-        if (userinfo.gold) {
-            
-        }
+        var cpr = room.chipIn(userid, gold, pkindex, userinfo.gold);
     }.bind(this));
-    next(null, {
-        code : 1,
-        msg : 'Test'
-    });
 };

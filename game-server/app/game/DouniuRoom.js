@@ -1,16 +1,16 @@
 var PokerManager = require('./PokerManager.js');
+var GMResponse = require('./GMResponse.js');
 //百人牛牛
 //绑定的room
 var DouniuRoom = function(channel) {
   this.channel = channel;
   this.userList = [];     //所有在房间中的玩家的userid
-  this.chipPk1 = {};      //第一幅牌下注玩家{userid, gold}
-  this.chipPk2 = {};      //第一幅牌下注玩家
-  this.chipPk3 = {};      //第一幅牌下注玩家
-  this.chipPk4 = {};      //第一幅牌下注玩家
+  this.chipList = {};
 
   this.maxWillWait = 10; //sec
   this.willWait = 0;
+
+  this.state = 0;   //state: 0,下注时间等待开始 | 1,游戏开始计算输赢 | 2,其他场景
 };
 
 module.exports = DouniuRoom;
@@ -34,6 +34,7 @@ DouniuRoom.prototype.kickUser = function(userid) {
 //发5副牌，其中一个庄家
 //房间所有玩家向非庄家下注
 DouniuRoom.prototype.startGame = function() {
+  this.state = 0;
   this.willWait = this.maxWillWait;
   this.willStartTimer = setInterval(this.willStartTimerCall.bind(this), 1000);
 };
@@ -42,23 +43,20 @@ DouniuRoom.prototype.willStartTimerCall = function() {
   this.willWait --;
   this.pushWillStartMessage();
   if (this.willWait == 0) {
+    this.state = 1;
     clearInterval(this.willStartTimer);
     this.dealPokers();
   }
 };
 
 
-//state: 0,下注时间等待开始 | 1,游戏开始计算输赢 | 2,其他场景
 DouniuRoom.prototype.pushWillStartMessage = function() {
   var data = {
-    state : 0,
+    state : this.state,
     time : this.willWait
   }
-  this.channel.pushMessage('brnn.willstart', {
-    code : 200,
-    msg : "下注时间",
-    data : data
-  });
+  var response = new GMResponse(1, 'ok', data);
+  this.channel.pushMessage('brnn.willstart', response);
 }
 
 //给所有人push发牌结果消息
@@ -91,11 +89,12 @@ DouniuRoom.prototype.dealPokers = function() {
     }
     pokerRes.push(dic);
   }
-  this.channel.pushMessage('brnn.dealpoker', {
-    code : 200,
-    msg : '发牌啦',
-    data : pokerRes
-  })
+  var data = {
+    state : this.state,
+    pokerRes : pokerRes
+  };
+  var response = new GMResponse(1, 'ok', data);
+  this.channel.pushMessage('brnn.dealpoker', response);
 
   setTimeout(this.startGame.bind(this), 3000);
 };
@@ -211,11 +210,31 @@ var calculateResult = function(pokers) {
 }
 
 
-DouniuRoom.prototype.chipIn = function(userid, gold, pkindex) {
-  if (pkindex == 0) {
+//return 下注成功true，否则false（可能余额不够）
+//pkindex > 0
+//balance : 余额
+DouniuRoom.prototype.chipIn = function(userid, gold, pkindex, balance) {
+  if (pkindex <= 0) {
     return false;
   }
-  if (pkindex == 1) {
-    //todo
+  
+  var goldBefore = this.getGoldChipedForUser(userid);
+  if (goldBefore >= balance) {
+    return false;
   }
+  var key = 'pk' + pkindex;
+  this.chipList[userid][key] = gold;
 };
+
+
+DouniuRoom.prototype.getGoldChipedForUser = function(userid) {
+  var chipinfo = this.chipList[userid];
+  var goldnow = 0;
+  for (var key in chipinfo) {
+    if (chipinfo.hasOwnProperty(key)) {
+      var element = chipinfo[key];
+      goldnow += element;
+    }
+  }
+  return goldnow;
+}
