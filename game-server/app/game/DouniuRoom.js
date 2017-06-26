@@ -96,9 +96,49 @@ DouniuRoom.prototype.dealPokers = function() {
   var response = new GMResponse(1, 'ok', data);
   this.channel.pushMessage('brnn.dealpoker', response);
 
+  setTimeout(function() {
+    this.pushGoldResult(pokerRes);
+  }.bind(this), 3000);
+};
+
+//return 下注成功true，否则false（可能余额不够）
+//pkindex > 0
+//balance : 余额
+DouniuRoom.prototype.chipIn = function(userid, gold, pkindex, balance) {
+  if (pkindex <= 0) {
+    return false;
+  }
+  
+  var goldBefore = this.getGoldChipedForUser(userid);
+  if (goldBefore >= balance) {
+    return false;
+  }
+  var key = 'pk' + pkindex;
+  this.chipList[userid][key] = gold;
+};
+
+
+DouniuRoom.prototype.getGoldChipedForUser = function(userid) {
+  var chipinfo = this.chipList[userid];
+  var goldnow = 0;
+  for (var key in chipinfo) {
+    if (chipinfo.hasOwnProperty(key)) {
+      var element = chipinfo[key];
+      goldnow += element;
+    }
+  }
+  return goldnow;
+}
+
+DouniuRoom.prototype.pushGoldResult = function (pokerRes) {
+  var res = new GMResponse(1, 'ok', {pk : pokerRes, list : this.userList});
+  this.channel.pushMessage('brnn.goldresult', res);
+
   setTimeout(this.startGame.bind(this), 3000);
 };
 
+
+//计算牌面大小
 var calculateResult = function(pokers) {
   //1 遍历所有元素，设置nnValue(大于10都设置为10)
   //顺便统计五花、四花(>10)、五小(<10)、炸弹条件满足情况
@@ -210,31 +250,3 @@ var calculateResult = function(pokers) {
 }
 
 
-//return 下注成功true，否则false（可能余额不够）
-//pkindex > 0
-//balance : 余额
-DouniuRoom.prototype.chipIn = function(userid, gold, pkindex, balance) {
-  if (pkindex <= 0) {
-    return false;
-  }
-  
-  var goldBefore = this.getGoldChipedForUser(userid);
-  if (goldBefore >= balance) {
-    return false;
-  }
-  var key = 'pk' + pkindex;
-  this.chipList[userid][key] = gold;
-};
-
-
-DouniuRoom.prototype.getGoldChipedForUser = function(userid) {
-  var chipinfo = this.chipList[userid];
-  var goldnow = 0;
-  for (var key in chipinfo) {
-    if (chipinfo.hasOwnProperty(key)) {
-      var element = chipinfo[key];
-      goldnow += element;
-    }
-  }
-  return goldnow;
-}
