@@ -132,6 +132,9 @@ DouniuRoom.prototype.getGoldChipedForUser = function(userid) {
 }
 
 DouniuRoom.prototype.pushGoldResult = function (pokerRes) {
+  var compareResult = [];
+  //todo...
+
   var res = new GMResponse(1, 'ok', {pk : pokerRes, list : this.userList});
   this.channel.pushMessage('brnn.goldresult', res);
 
