@@ -113,8 +113,7 @@ DouniuRoom.prototype.chipIn = function(userid, gold, pkindex, balance) {
   if (goldBefore >= balance) {
     return false;
   }
-  var key = 'pk' + pkindex;
-  this.chipList[userid][key] = gold;
+  this.chipList[userid][pkindex] = gold;
   return true;
 };
 
@@ -132,10 +131,36 @@ DouniuRoom.prototype.getGoldChipedForUser = function(userid) {
 }
 
 DouniuRoom.prototype.pushGoldResult = function (pokerRes) {
-  var compareResult = [];
-  //todo...
+  var compareResult = {};
+  for (var index = 1; index < pokerRes.length; index++) {
+    var pkn = pokerRes[index]['result'];
+    var pk0 = pokerRes[0]['result'];
+    var dbcount = doubleCountForPoker(result);
+    if (comparePoker(pk0, pkn) >= 0) {
+      dbcount *= -1;  //赢钱是正，输钱是负
+    }
+    compareResult[index] = dbcount;
+  }
 
-  var res = new GMResponse(1, 'ok', {pk : pokerRes, list : this.userList});
+  var userGoldResult = [];
+  for (var userid in this.chipList) {
+    if (this.chipList.hasOwnProperty(userid)) {
+      var chipinfo = this.chipList[userid];
+      var goldResult = 0;
+      for (var pkindex in chipinfo) {
+        if (chipinfo.hasOwnProperty(pkindex)) {
+          var goldChiped = chipinfo[pkindex];
+          //todo .. 计算所有下注的牌输赢
+          dbcount = compareResult[pkindex];
+          goldResult += (dbcount * goldChiped);
+        }
+      }
+      var allGoldInfo = {getGold : goldResult, userid : userid};
+      userGoldResult.push(allGoldInfo);
+    }
+  }
+
+  var res = new GMResponse(1, 'ok', userGoldResult);
   this.channel.pushMessage('brnn.goldresult', res);
 
   setTimeout(this.startGame.bind(this), 3000);
