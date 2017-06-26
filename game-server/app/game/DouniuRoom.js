@@ -115,6 +115,7 @@ DouniuRoom.prototype.chipIn = function(userid, gold, pkindex, balance) {
   }
   var key = 'pk' + pkindex;
   this.chipList[userid][key] = gold;
+  return true;
 };
 
 
@@ -250,3 +251,59 @@ var calculateResult = function(pokers) {
 }
 
 
+//pk1 > pk2 -> 1;
+//pk1 = pk2 -> 0;
+//pk1 < pk2 -> -1;
+var comparePoker = function(pk1, pk2) {
+  if (pk1.nntype > pk2.nntype) {
+    return 1;
+  } else if (pk1,nntype == pk2.nntype) {
+    if (pk1.niuN > pk2.niuN) {
+      return 1;
+    } else if (pk1.niuN == pk2.niuN) {
+      return 0;
+    } else {
+      return -1;
+    }
+  } else {
+    return -1;
+  }
+}
+
+
+/*
+nntype表示用户牌型
+炸弹(6) > 五小(5) > 五花(4) > 四花(3) > 牛牛(2) > 有分(1) > 没分(0)
+牌型翻倍情况：
+无分和牛1，牛2，牛3，牛4，牛5，牛6： 1倍
+牛7，牛8，牛9： 2倍
+牛牛： 3倍
+四花： 4倍
+五花： 5倍
+五小： 6倍
+炸弹： 8倍
+*/
+var doubleCountForPoker = function(poker) {
+  switch (poker.nntype) {
+    case 6:
+      return 8;
+    case 5:
+      return 6;
+    case 4:
+      return 5;
+    case 3:
+      return 4;
+    case 2:
+      return 3;
+    case 1:
+      {
+        if (poker.niuN > 6) {
+          return 2;
+        } else return 1;
+      }
+    case 0:
+      return 1;
+    default:
+      return 1;
+  }
+}

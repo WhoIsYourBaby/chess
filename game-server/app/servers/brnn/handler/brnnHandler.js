@@ -27,5 +27,12 @@ handler.chipIn = function(msg, session, next) {
     var sqlHelper = this.app.get('sqlHelper');
     sqlHelper.queryUserInfo(userid, function(err, userinfo) {
         var cpr = room.chipIn(userid, gold, pkindex, userinfo.gold);
+        if (cpr) {
+            var response = new GMResponse(1, 'ok');
+            next(null,response);
+        } else {
+            var response = new GMResponse(-105, '下注失败，可能余额不够');
+            next(null,response);
+        }
     }.bind(this));
 };

@@ -14,6 +14,7 @@
 @property (nonatomic, copy) NSString *connectorPort;
 
 @property (nonatomic, copy) NSString *token;
+@property (nonatomic, strong) NSString *userid;
 
 @end
 
@@ -112,10 +113,14 @@
 
 //废弃的方法
 - (void)sendProto{
-    [client requestWithRoute:@"connector.entryHandler.enterRoom" andParams:@{@"token" : self.token,
-                                                                             @"rtype" : @"brnn"} andCallback:^(id arg) {
-                                                                                 NSLog(@"%s -> %@", __FUNCTION__, arg);
-                                                                             }];
+    //pkindex,gold,userid
+    [client requestWithRoute:@"connector.brnnHandler.chipIn"
+                   andParams:@{@"pkindex" : @(1),
+                               @"userid" : self.userid,
+                               @"gold" : @(1000)}
+                 andCallback:^(id arg) {
+                       NSLog(@"%s -> %@", __FUNCTION__, arg);
+                   }];
 }
 
 
