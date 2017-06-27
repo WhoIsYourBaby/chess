@@ -113,6 +113,9 @@ DouniuRoom.prototype.chipIn = function(userid, gold, pkindex, balance) {
   if (goldBefore >= balance) {
     return false;
   }
+  if (!this.chipList[userid]) {
+    this.chipList[userid] = {};
+  }
   this.chipList[userid][pkindex] = gold;
   return true;
 };
@@ -135,11 +138,14 @@ DouniuRoom.prototype.pushGoldResult = function (pokerRes) {
   for (var index = 1; index < pokerRes.length; index++) {
     var pkn = pokerRes[index]['result'];
     var pk0 = pokerRes[0]['result'];
-    var dbcount = doubleCountForPoker(result);
     if (comparePoker(pk0, pkn) >= 0) {
+      var dbcount = doubleCountForPoker(pk0);
       dbcount *= -1;  //赢钱是正，输钱是负
+      compareResult[index] = dbcount;
+    } else {
+      var dbcount = doubleCountForPoker(pkn);
+      compareResult[index] = dbcount;
     }
-    compareResult[index] = dbcount;
   }
 
   var userGoldResult = [];
@@ -283,9 +289,11 @@ var calculateResult = function(pokers) {
 //pk1 = pk2 -> 0;
 //pk1 < pk2 -> -1;
 var comparePoker = function(pk1, pk2) {
+  console.log(pk1);
+  console.log(pk2);
   if (pk1.nntype > pk2.nntype) {
     return 1;
-  } else if (pk1,nntype == pk2.nntype) {
+  } else if (pk1.nntype == pk2.nntype) {
     if (pk1.niuN > pk2.niuN) {
       return 1;
     } else if (pk1.niuN == pk2.niuN) {

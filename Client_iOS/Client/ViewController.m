@@ -91,6 +91,7 @@
             self.connectorIP = arg[@"data"][@"connector"][@"host"];
             self.connectorPort = [arg[@"data"][@"connector"][@"port"] stringValue];
             self.token = arg[@"data"][@"token"];
+            self.userid = arg[@"data"][@"userinfo"][@"userid"];
             [client disconnect];
         }];
     }];
@@ -111,10 +112,10 @@
                                                                          }];
 }
 
-//废弃的方法
+//chipin
 - (void)sendProto{
     //pkindex,gold,userid
-    [client requestWithRoute:@"connector.brnnHandler.chipIn"
+    [client requestWithRoute:@"brnn.brnnHandler.chipIn"
                    andParams:@{@"pkindex" : @(1),
                                @"userid" : self.userid,
                                @"gold" : @(1000)}
