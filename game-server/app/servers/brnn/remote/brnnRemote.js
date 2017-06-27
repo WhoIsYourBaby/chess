@@ -29,7 +29,8 @@ BrnnRemote.prototype.add = function(userid, sid, name, flag, cb) {
 
 	if( !! channel) {
 		if (!channel.gameRoom) {
-			var room = new DouniuRoom(channel);
+			var sqlHelper = this.app.get('sqlHelper');
+			var room = new DouniuRoom(channel, sqlHelper);
 			channel.gameRoom = room;
 			channel.gameRoom.startGame();
 		}

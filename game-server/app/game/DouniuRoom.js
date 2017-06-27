@@ -2,8 +2,9 @@ var PokerManager = require('./PokerManager.js');
 var GMResponse = require('./GMResponse.js');
 //百人牛牛
 //绑定的room
-var DouniuRoom = function(channel) {
+var DouniuRoom = function(channel, sqlHelper) {
   this.channel = channel;
+  this.sqlHelper = sqlHelper;
   this.userList = [];     //所有在房间中的玩家的userid
   this.chipList = {};
 
@@ -165,11 +166,21 @@ DouniuRoom.prototype.pushGoldResult = function (pokerRes) {
       userGoldResult.push(allGoldInfo);
     }
   }
+  //根据userid排序,方便查询这些用户的总金币并显示
+  userGoldResult.sort(function(a, b){
+    return a.userid > b.userid;
+  });
+  this.sqlHelper.updateUsersGold(userGoldResult, function(err, allGoldResult) {
+    if (err) {
+      var res = new GMResponse(-1001, '无法正确结算', err);
+      this.channel.pushMessage('brnn.goldresult', res);
+    } else {
+      var res = new GMResponse(1, 'ok', allGoldResult);
+      this.channel.pushMessage('brnn.goldresult', res);
+    }
 
-  var res = new GMResponse(1, 'ok', userGoldResult);
-  this.channel.pushMessage('brnn.goldresult', res);
-
-  setTimeout(this.startGame.bind(this), 3000);
+    setTimeout(this.startGame.bind(this), 3000);
+  }.bind(this));
 };
 
 

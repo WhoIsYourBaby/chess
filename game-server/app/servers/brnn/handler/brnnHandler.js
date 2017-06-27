@@ -24,7 +24,6 @@ Handler.prototype.chipIn = function(msg, session, next) {
         return ;
     }
     var room = channel.gameRoom;
-    //TODO 判断余额
     var sqlHelper = this.app.get('sqlHelper');
     sqlHelper.queryUserInfo(userid, function(err, userinfo) {
         var cpr = room.chipIn(userid, gold, pkindex, userinfo.gold);
