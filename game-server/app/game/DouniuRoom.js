@@ -37,6 +37,7 @@ DouniuRoom.prototype.kickUser = function(userid) {
 DouniuRoom.prototype.startGame = function() {
   this.state = 0;
   this.willWait = this.maxWillWait;
+  this.chipList = {};
   this.willStartTimer = setInterval(this.willStartTimerCall.bind(this), 1000);
 };
 
