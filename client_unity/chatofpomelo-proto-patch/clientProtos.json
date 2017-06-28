@@ -1,0 +1,19 @@
+{
+  "chat.chatHandler.send": {
+    "required string rid": 1,
+    "required string content": 2,
+    "required string from": 3,
+    "required string target": 4
+  },
+
+  "connector.entryHandler.enter": {
+    "required string username": 1,
+    "required string rid": 2
+  },
+
+  "gate.gateHandler.queryEntry": {
+    "required string uid": 1
+  }
+}
+
+

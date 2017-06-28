@@ -1,0 +1,12 @@
+player_win_x64.pdb
+player_win_x64_s.pdb
+Temp
+Library
+/pomelo-unitychat_Data
+/pomelo-unitychat.exe
+/player_win_x64.pdb
+/player_win_x64_s.pdb
+/.vs
+/pomelo-unitychat.CSharp.csproj
+/pomelo-unitychat.CSharp.csproj.user
+/pomelo-unitychat.sln
