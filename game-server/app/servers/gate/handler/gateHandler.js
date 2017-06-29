@@ -79,3 +79,42 @@ handler.guestLogin = function(msg, session, next){
 		}
 	}.bind(this));
 }
+
+
+handler.refreshToken = function(msg, session, next){
+	var tokenStr = msg.token;
+	var token = new UToken();
+	token.decrypt(tokenStr);
+	if (token.isValid() == false) {
+		next(null, new GMResponse(-101, '非法token'));
+		return ;
+	}
+	token.refresh();
+	var sqlHelper = this.app.get('sqlHelper');
+	sqlHelper.queryUserInfo(token.userid, function(err, userinfo){
+		if (userinfo) {
+			// get all connectors
+			var connectors = this.app.getServersByType('connector');
+			if(!connectors || connectors.length === 0) {
+				var response = new GMResponse(-103, '没有找到connector');
+				next(null, response);
+				return;
+			}
+			// here we just start `ONE` connector server, so we return the connectors[0] 
+			var res = connectors[0];
+			var tokenString = token.encrypt();
+			var data = {
+						userinfo : userinfo,
+						token : tokenString,
+						connector : {
+							host: res.host,
+							port: res.clientPort
+						}
+					};
+			var response = new GMResponse(1, 'ok', data);
+			next(null, response);
+		} else {
+			next(null, new GMResponse(-102, '无此用户数据'));
+		}
+	}.bind(this));
+};
