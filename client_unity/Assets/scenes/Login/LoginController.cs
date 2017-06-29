@@ -5,18 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class LoginController : MonoBehaviour {
 
-	void Start() 
-	{
+	void Start() {
 		PomeloSingleton pml = PomeloSingleton.CreateInstance ();
-		if (pml.getToken() == null) {
+		if (pml.getToken() != null) {
 			pml.refreshToken (delegate {
+				Debug.Log("resfresh token over");
 				SceneManager.LoadScene("Home");
 			});
 		}
 	}
 
-	void Update()
-	{
+	void Update() {
 		PomeloSingleton.CreateInstance ().updatePerFrame ();
 	}
 

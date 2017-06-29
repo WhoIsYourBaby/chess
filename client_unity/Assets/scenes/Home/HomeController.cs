@@ -16,6 +16,5 @@ public class HomeController : MonoBehaviour {
 	}
 
 	public void playBrnn () {
-		PomeloSingleton pml = PomeloSingleton.CreateInstance ();
 	}
 }

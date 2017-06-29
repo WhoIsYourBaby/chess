@@ -42,6 +42,14 @@ public class PomeloSingleton {
 		return PlayerPrefs.GetString ("token");
 	}
 
+	public void setToken (string token) {
+		PlayerPrefs.SetString ("token", token);
+	}
+
+	public PomeloClient getPomeloClient() {
+		return pmlClient;
+	}
+
 	//连接到gate之后会主动断开连接，届时会调用callback
 	public void guestLogin(Action callback) {
 		pmlClient.Connect ("127.0.0.1", 3101, "", 
@@ -52,22 +60,6 @@ public class PomeloSingleton {
 				});
 			}, 
 			callback);
-	}
-
-
-	public void updatePerFrame () {
-		if (pmlClient != null) {
-			pmlClient.poll ();
-		}
-	}
-
-	//游客登录、刷新token成功后回调方法
-	public void onLoginSeccuss(JsonData obj) {
-		handleLoginResponse (obj);
-
-		pmlClient.close ();
-		pmlClient = null;
-		resetPomeloClient ();
 	}
 
 	//刷新token
@@ -85,14 +77,47 @@ public class PomeloSingleton {
 			callback);
 	}
 
-	private void handleLoginResponse (JsonData obj) {
+	//连接到gate返回的connector
+	public void connectToConnector(Action callback){
+		pmlClient.Connect (connectorHost, connectorPort, "", 
+			delegate {
+				//必须要handshake之后才能正常通信
+				pmlClient.HandShake(null, delegate(JsonData obj) {
+					callback();
+				});
+			}, 
+			delegate {
+				pmlClient.close();
+				pmlClient = null;
+				resetPomeloClient();
+			});
+	}
+
+	public void updatePerFrame () {
+		if (pmlClient != null) {
+			pmlClient.poll ();
+		}
+	}
+
+	//游客登录、刷新token成功后回调方法
+	void onLoginSeccuss(JsonData obj) {
+		handleLoginResponse (obj);
+
+		pmlClient.close ();
+		pmlClient = null;
+		resetPomeloClient ();
+	}
+
+
+
+	void handleLoginResponse (JsonData obj) {
 		int code = (int)obj ["code"];
 		if (code < 0) {
 			Debug.Log (obj["msg"]);
 			return;
 		}
 		string token = (string)obj ["data"] ["token"];
-		PlayerPrefs.SetString ("token", token);
+		setToken (token);
 
 		connectorHost = (string)obj ["data"] ["connector"] ["host"];
 		connectorPort = (int)obj ["data"] ["connector"] ["port"];
@@ -101,13 +126,13 @@ public class PomeloSingleton {
 		userinfoModel = JsonMapper.ToObject<MUserInfo> (userinfoJson);
 	}
 
-	public void requestGuestLogin() {
+	void requestGuestLogin() {
 		JsonData data = new JsonData();
 		data["userid"] = "abc";
 		pmlClient.request ("gate.gateHandler.guestLogin", data, onLoginSeccuss);
 	}
 
-	public void requestRefreshToken() {
+	void requestRefreshToken() {
 		JsonData data = new JsonData();
 		data["token"] = getToken();
 		pmlClient.request ("gate.gateHandler.refreshToken", data, onLoginSeccuss);

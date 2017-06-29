@@ -65,7 +65,7 @@ handler.enterRoom = function(msg, session, next) {
 		return ;
 	}
 
-	var rid = msg.rid;
+	var rid = msg.rid;		//brnn不需要rid，用rtype作为rid
 	
 	//duplicate log in
 	if(!sessionService.getByUid(token.userid)) {
