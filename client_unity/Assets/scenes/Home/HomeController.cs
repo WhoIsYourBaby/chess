@@ -16,5 +16,10 @@ public class HomeController : MonoBehaviour {
 	}
 
 	public void playBrnn () {
+		string token = PomeloSingleton.CreateInstance ().getToken();
+		pp.connector.entryHandler.enterRoom (token, "brnn", null,
+		delegate(LitJson.JsonData obj) {
+				SceneManager.LoadScene("BrnnRoom");
+		});
 	}
 }

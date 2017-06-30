@@ -9,7 +9,7 @@ public class PomeloSingleton {
 
 	PomeloClient pmlClient;
 
-	MUserInfo userinfoModel;
+	public MUserInfo userinfoModel;
 
 	string connectorHost;
 	int connectorPort;

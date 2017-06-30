@@ -103,23 +103,23 @@ DouniuRoom.prototype.dealPokers = function() {
   }.bind(this), 3000);
 };
 
-//return 下注成功true，否则false（可能余额不够）
+//return 下注成功返回该用户目前的下注情况，否则null（可能余额不够）
 //pkindex > 0
 //balance : 余额
 DouniuRoom.prototype.chipIn = function(userid, gold, pkindex, balance) {
   if (pkindex <= 0) {
-    return false;
+    return null;
   }
   
   var goldBefore = this.getGoldChipedForUser(userid);
   if (goldBefore >= balance) {
-    return false;
+    return null;
   }
   if (!this.chipList[userid]) {
     this.chipList[userid] = {};
   }
   this.chipList[userid][pkindex] = gold;
-  return true;
+  return this.chipList[userid];
 };
 
 

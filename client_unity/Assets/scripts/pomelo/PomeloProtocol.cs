@@ -27,7 +27,7 @@ namespace pp {
 
 	namespace brnn {
 		class brnnHandler {
-			public static void chipIn(string userid, string gold, int pkindex, Action<JsonData> callback) {
+			public static void chipIn(string userid, int gold, int pkindex, Action<JsonData> callback) {
 				JsonData data = new JsonData ();
 				data ["userid"] = userid;
 				data ["gold"] = gold;
