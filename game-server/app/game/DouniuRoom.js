@@ -58,7 +58,7 @@ DouniuRoom.prototype.pushWillStartMessage = function() {
     time : this.willWait
   }
   var response = new GMResponse(1, 'ok', data);
-  this.channel.pushMessage('brnn.willstart', response);
+  this.channel.pushMessage('brnn.onWillStart', response);
 }
 
 //给所有人push发牌结果消息
@@ -96,7 +96,7 @@ DouniuRoom.prototype.dealPokers = function() {
     pokerRes : pokerRes
   };
   var response = new GMResponse(1, 'ok', data);
-  this.channel.pushMessage('brnn.dealpoker', response);
+  this.channel.pushMessage('brnn.onDealPoker', response);
 
   setTimeout(function() {
     this.pushGoldResult(pokerRes);
@@ -174,10 +174,10 @@ DouniuRoom.prototype.pushGoldResult = function (pokerRes) {
   this.sqlHelper.updateUsersGold(userGoldResult, function(err, allGoldResult) {
     if (err) {
       var res = new GMResponse(-1001, '无法正确结算', err);
-      this.channel.pushMessage('brnn.goldresult', res);
+      this.channel.pushMessage('brnn.onGoldResult', res);
     } else {
       var res = new GMResponse(1, 'ok', allGoldResult);
-      this.channel.pushMessage('brnn.goldresult', res);
+      this.channel.pushMessage('brnn.onGoldResult', res);
     }
 
     setTimeout(this.startGame.bind(this), 3000);

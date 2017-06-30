@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MUserInfo {
-	public int userid;
+	public string userid;
 	public string username;
 	public string usernick;
 	public string phone;
