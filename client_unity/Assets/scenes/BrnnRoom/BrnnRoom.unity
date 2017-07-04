@@ -269,7 +269,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: 1000
 --- !u!222 &171061125
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -817,6 +817,7 @@ GameObject:
   - component: {fileID: 829107463}
   - component: {fileID: 829107462}
   - component: {fileID: 829107461}
+  - component: {fileID: 829107465}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -905,6 +906,27 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &829107465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 829107460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6ce64d91a695412b8451471b742d99b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonExit: {fileID: 2093551549}
+  buttonPkChoose1: {fileID: 727969243}
+  buttonPkChoose2: {fileID: 555617295}
+  buttonPkChoose3: {fileID: 170344678}
+  buttonPkChoose4: {fileID: 1394602157}
+  buttonGoldChoose1: {fileID: 1477592862}
+  buttonGoldChoose2: {fileID: 996387891}
+  buttonGoldChoose3: {fileID: 1136773017}
+  buttonGoldChoose4: {fileID: 1341378829}
+  buttonGoldChoose5: {fileID: 1060130424}
 --- !u!1 &950272269
 GameObject:
   m_ObjectHideFlags: 0
@@ -1042,7 +1064,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 996387894}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &996387894
@@ -1264,7 +1297,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1136773020}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1136773020
@@ -1367,7 +1411,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: 200
 --- !u!222 &1267584358
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1441,7 +1485,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: 100
 --- !u!222 &1288331130
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1819,7 +1863,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1477592865}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1477592865
@@ -2107,7 +2162,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: 500
 --- !u!222 &1695004279
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2181,7 +2236,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: 2000
 --- !u!222 &1707738368
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -2,20 +2,45 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
+
+enum EnumGoldChoose
+{
+	gc100,
+	gc200,
+	gc500,
+	gc1000,
+	gc2000
+}
 
 public class BrnnRoomController : MonoBehaviour {
 
-	int goldIndex;	//选中的金币额度索引100~2000
+	EnumGoldChoose goldIndex;	//选中的金币额度索引100~2000
 
 	int goldOnPk1;
 	int goldOnPk2;
 	int goldOnPk3;
 	int goldOnPk4;
 
+	//iboutlet
+	public GameObject buttonExit;
+	public GameObject buttonPkChoose1;
+	public GameObject buttonPkChoose2;
+	public GameObject buttonPkChoose3;
+	public GameObject buttonPkChoose4;
+
+	public GameObject buttonGoldChoose1;
+	public GameObject buttonGoldChoose2;
+	public GameObject buttonGoldChoose3;
+	public GameObject buttonGoldChoose4;
+	public GameObject buttonGoldChoose5;
+
+
 	// Use this for initialization
 	void Start () {
 		//init
-		goldIndex = 4;
+		goldIndex = EnumGoldChoose.gc2000;
 		goldOnPk1 = 0;
 		goldOnPk2 = 0;
 		goldOnPk3 = 0;
@@ -39,7 +64,77 @@ public class BrnnRoomController : MonoBehaviour {
 
 		pp.observer.brnn.onGoldResult (delegate(LitJson.JsonData obj) {
 			//计算输赢结果
+			resetUIState();
 		});
+
+		initUI ();
+		resetUIState ();
+	}
+
+	//reset state
+	void resetUIState () {
+		goldOnPk1 = 0;
+		goldOnPk2 = 0;
+		goldOnPk3 = 0;
+		goldOnPk4 = 0;
+		resetUIState ();
+	}
+
+	void resetGoldButtonSelect () {
+		switch (this.goldIndex) {
+		case(EnumGoldChoose.gc100):
+			buttonGoldChoose1.GetComponent<Button> ().Select ();
+			break;
+		case(EnumGoldChoose.gc200):
+			buttonGoldChoose2.GetComponent<Button> ().Select ();
+			break;
+		case(EnumGoldChoose.gc500):
+			buttonGoldChoose3.GetComponent<Button> ().Select ();
+			break;
+		case(EnumGoldChoose.gc1000):
+			buttonGoldChoose4.GetComponent<Button> ().Select ();
+			break;
+		case(EnumGoldChoose.gc2000):
+			buttonGoldChoose5.GetComponent<Button> ().Select ();
+			break;
+		default:
+			buttonGoldChoose5.GetComponent<Button> ().Select ();
+			break;
+		}
+	}
+
+	void initUI () {
+		Button tmpBtn = buttonExit.GetComponent<Button>();
+		tmpBtn.onClick.AddListener (exitRoom);
+
+		//pk choose
+		tmpBtn = buttonPkChoose1.GetComponent<Button> ();
+		tmpBtn.onClick.AddListener (chipInPk1Choose);
+
+		tmpBtn = buttonPkChoose2.GetComponent<Button> ();
+		tmpBtn.onClick.AddListener (chipInPk2Choose);
+
+		tmpBtn = buttonPkChoose3.GetComponent<Button> ();
+		tmpBtn.onClick.AddListener (chipInPk3Choose);
+
+		tmpBtn = buttonPkChoose4.GetComponent<Button> ();
+		tmpBtn.onClick.AddListener (chipInPk4Choose);
+
+		//gold choose
+		tmpBtn = buttonGoldChoose1.GetComponent<Button> ();
+		tmpBtn.onClick.AddListener (chipInGold1Choose);
+
+		tmpBtn = buttonGoldChoose2.GetComponent<Button> ();
+		tmpBtn.onClick.AddListener (chipInGold2Choose);
+
+		tmpBtn = buttonGoldChoose3.GetComponent<Button> ();
+		tmpBtn.onClick.AddListener (chipInGold3Choose);
+
+		tmpBtn = buttonGoldChoose4.GetComponent<Button> ();
+		tmpBtn.onClick.AddListener (chipInGold4Choose);
+
+		tmpBtn = buttonGoldChoose5.GetComponent<Button> ();
+		tmpBtn.onClick.AddListener (chipInGold5Choose);
 	}
 	
 	// Update is called once per frame
@@ -90,38 +185,38 @@ public class BrnnRoomController : MonoBehaviour {
 		chipIn (goldOnPk4, 4);
 	}
 
-	//选择金币,重复选择累加下注
+	//选择金币
 	public void chipInGold1Choose() {
-		this.goldIndex = 0;	//100
+		this.goldIndex = EnumGoldChoose.gc100;	//100
 	}
 
 	public void chipInGold2Choose() {
-		this.goldIndex = 1;	//200
+		this.goldIndex = EnumGoldChoose.gc200;	//200
 	}
 
 	public void chipInGold3Choose() {
-		this.goldIndex = 2;	//500
+		this.goldIndex = EnumGoldChoose.gc500;	//500
 	}
 
 	public void chipInGold4Choose() {
-		this.goldIndex = 3;	//1000
+		this.goldIndex = EnumGoldChoose.gc1000;	//1000
 	}
 
 	public void chipInGold5Choose() {
-		this.goldIndex = 4;	//2000
+		this.goldIndex = EnumGoldChoose.gc2000;	//2000
 	}
 
-	int goldOnIndex(int index) {
-		switch (index) {
-		case(0):
+	int goldOnIndex(EnumGoldChoose gc) {
+		switch (gc) {
+		case(EnumGoldChoose.gc100):
 			return 100;
-		case(1):
+		case(EnumGoldChoose.gc200):
 			return 200;
-		case(2):
+		case(EnumGoldChoose.gc500):
 			return 500;
-		case(3):
+		case(EnumGoldChoose.gc1000):
 			return 1000;
-		case(4):
+		case(EnumGoldChoose.gc2000):
 			return 2000;
 		default:
 			return 2000;
