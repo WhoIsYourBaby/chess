@@ -25,10 +25,11 @@ public class BrnnRoomController : MonoBehaviour {
 
 	//iboutlet
 	public GameObject buttonExit;
-	public GameObject buttonPkChoose1;
-	public GameObject buttonPkChoose2;
-	public GameObject buttonPkChoose3;
-	public GameObject buttonPkChoose4;
+
+	public GameObject panelPkChoose1;
+	public GameObject panelPkChoose2;
+	public GameObject panelPkChoose3;
+	public GameObject panelPkChoose4;
 
 	public GameObject buttonGoldChoose1;
 	public GameObject buttonGoldChoose2;
@@ -108,16 +109,20 @@ public class BrnnRoomController : MonoBehaviour {
 		tmpBtn.onClick.AddListener (exitRoom);
 
 		//pk choose
-		tmpBtn = buttonPkChoose1.GetComponent<Button> ();
+		GameObject btnPkChoose = panelPkChoose1.transform.FindChild("Button").gameObject;
+		tmpBtn = btnPkChoose.GetComponent<Button> ();
 		tmpBtn.onClick.AddListener (chipInPk1Choose);
 
-		tmpBtn = buttonPkChoose2.GetComponent<Button> ();
+		btnPkChoose = panelPkChoose2.transform.FindChild("Button").gameObject;
+		tmpBtn = btnPkChoose.GetComponent<Button> ();
 		tmpBtn.onClick.AddListener (chipInPk2Choose);
 
-		tmpBtn = buttonPkChoose3.GetComponent<Button> ();
+		btnPkChoose = panelPkChoose3.transform.FindChild("Button").gameObject;
+		tmpBtn = btnPkChoose.GetComponent<Button> ();
 		tmpBtn.onClick.AddListener (chipInPk3Choose);
 
-		tmpBtn = buttonPkChoose4.GetComponent<Button> ();
+		btnPkChoose = panelPkChoose4.transform.FindChild("Button").gameObject;
+		tmpBtn = btnPkChoose.GetComponent<Button> ();
 		tmpBtn.onClick.AddListener (chipInPk4Choose);
 
 		//gold choose
