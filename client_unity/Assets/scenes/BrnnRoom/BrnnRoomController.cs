@@ -72,6 +72,11 @@ public class BrnnRoomController : MonoBehaviour {
 		resetUIState ();
 	}
 
+	// Update is called once per frame
+	void Update () {
+
+	}
+
 	//reset state
 	void resetUIState () {
 		goldOnPk1 = 0;
@@ -134,11 +139,6 @@ public class BrnnRoomController : MonoBehaviour {
 
 		tmpBtn = buttonGoldChoose5.GetComponent<Button> ();
 		tmpBtn.onClick.AddListener (chipInGold5Choose);
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
 	}
 
 
