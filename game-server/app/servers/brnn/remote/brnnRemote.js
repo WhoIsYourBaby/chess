@@ -87,20 +87,28 @@ BrnnRemote.prototype.exit = function(userid, sid, name, cb) {
     var channelService = this.app.get('channelService');
     var channel = channelService.getChannel(rid, false);
     if (!channel) {
-		cb({
+		if (cb) {
+			cb({
             code : 0,
             msg : '未找到指定房间'
-        });
+        	});
+		}
         return ;
     }
+	console.log(userid + "*" + sid + "*" + rid);
     channel.leave(userid, sid);
     channel.gameRoom.kickUser(userid);
     if (channel.getUserAmount() == 0) {
+		channel.gameRoom.destroy();
+		delete channel.gameRoom;
         channel.destroy();
-		cb({
+		if (cb) {
+			cb({
             code : 1,
             msg : '离开房间，房间被销毁'
-        });
+        	});
+		}
+		console.log("房间释放成功");
     } else {
         channel.pushMessage('brnn.onLeave', {
             code : 1,
@@ -109,9 +117,11 @@ BrnnRemote.prototype.exit = function(userid, sid, name, cb) {
                 userid : userid
             }
         });
-		cb({
+		if (cb) {
+			cb({
             code : 1,
             msg : '离开房间'
-        });
+    		});
+		}
     }
 };

@@ -167,6 +167,14 @@ DouniuRoom.prototype.pushGoldResult = function (pokerRes) {
       userGoldResult.push(allGoldInfo);
     }
   }
+
+  //如果没有人下注，直接返回，无需再查数据库
+  if (userGoldResult.length == 0) {
+    var res = new GMResponse(1, 'ok', []);
+    this.channel.pushMessage('brnn.onGoldResult', res);
+    setTimeout(this.startGame.bind(this), 3000);
+    return ;
+  }
   //根据userid排序,方便查询这些用户的总金币并显示
   userGoldResult.sort(function(a, b){
     return a.userid > b.userid;
@@ -182,6 +190,12 @@ DouniuRoom.prototype.pushGoldResult = function (pokerRes) {
 
     setTimeout(this.startGame.bind(this), 3000);
   }.bind(this));
+};
+
+
+DouniuRoom.prototype.destroy = function () {
+  clearInterval(this.willStartTimer);
+  clearTimeout(this.startGame);
 };
 
 
@@ -301,8 +315,6 @@ var calculateResult = function(pokers) {
 //pk1 = pk2 -> 0;
 //pk1 < pk2 -> -1;
 var comparePoker = function(pk1, pk2) {
-  console.log(pk1);
-  console.log(pk2);
   if (pk1.nntype > pk2.nntype) {
     return 1;
   } else if (pk1.nntype == pk2.nntype) {

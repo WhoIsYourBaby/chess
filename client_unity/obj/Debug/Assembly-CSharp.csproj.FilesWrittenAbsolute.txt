@@ -63,3 +63,5 @@
 /Users/Mac/develop/gameserver/client_unity/Temp/bin/Debug/Unity.CecilTools.dll
 /Users/Mac/develop/gameserver/client_unity/Temp/bin/Debug/Mono.Cecil.Pdb.dll
 /Users/Mac/develop/gameserver/client_unity/Temp/bin/Debug/Mono.Cecil.Mdb.dll
+/Users/gunli/develop/chatofpomelo-websocket/client_unity/Temp/bin/Debug/UnityEngine.Purchasing.dll
+/Users/gunli/develop/chatofpomelo-websocket/client_unity/Temp/bin/Debug/UnityEngine.Advertisements.dll

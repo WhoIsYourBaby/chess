@@ -215,6 +215,11 @@ RectTransform:
   m_PrefabParentObject: {fileID: 224859027844867164, guid: 800b8bf18ace54feba17739f41617c2c,
     type: 2}
   m_PrefabInternal: {fileID: 66771510}
+--- !u!1 &66771512 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1254988201125824, guid: 800b8bf18ace54feba17739f41617c2c,
+    type: 2}
+  m_PrefabInternal: {fileID: 66771510}
 --- !u!1001 &86337194
 Prefab:
   m_ObjectHideFlags: 0
@@ -337,6 +342,11 @@ Prefab:
 --- !u!224 &86337195 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 224859027844867164, guid: 800b8bf18ace54feba17739f41617c2c,
+    type: 2}
+  m_PrefabInternal: {fileID: 86337194}
+--- !u!1 &86337196 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1254988201125824, guid: 800b8bf18ace54feba17739f41617c2c,
     type: 2}
   m_PrefabInternal: {fileID: 86337194}
 --- !u!1 &147859403
@@ -538,7 +548,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 100
+  far clip plane: 1000
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -750,6 +760,11 @@ RectTransform:
   m_PrefabParentObject: {fileID: 224859027844867164, guid: 800b8bf18ace54feba17739f41617c2c,
     type: 2}
   m_PrefabInternal: {fileID: 794727139}
+--- !u!1 &794727141 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1254988201125824, guid: 800b8bf18ace54feba17739f41617c2c,
+    type: 2}
+  m_PrefabInternal: {fileID: 794727139}
 --- !u!1001 &804349918
 Prefab:
   m_ObjectHideFlags: 0
@@ -874,6 +889,11 @@ RectTransform:
   m_PrefabParentObject: {fileID: 224859027844867164, guid: 800b8bf18ace54feba17739f41617c2c,
     type: 2}
   m_PrefabInternal: {fileID: 804349918}
+--- !u!1 &804349920 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1254988201125824, guid: 800b8bf18ace54feba17739f41617c2c,
+    type: 2}
+  m_PrefabInternal: {fileID: 804349918}
 --- !u!1 &829107460
 GameObject:
   m_ObjectHideFlags: 0
@@ -983,10 +1003,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonExit: {fileID: 2093551549}
-  panelPkChoose1: {fileID: 0}
-  panelPkChoose2: {fileID: 0}
-  panelPkChoose3: {fileID: 0}
-  panelPkChoose4: {fileID: 0}
+  panelPkChoose1: {fileID: 794727141}
+  panelPkChoose2: {fileID: 804349920}
+  panelPkChoose3: {fileID: 86337196}
+  panelPkChoose4: {fileID: 66771512}
   buttonGoldChoose1: {fileID: 1477592862}
   buttonGoldChoose2: {fileID: 996387891}
   buttonGoldChoose3: {fileID: 1136773017}

@@ -65,21 +65,19 @@ handler.enterRoom = function(msg, session, next) {
 		return ;
 	}
 
-	var rid = msg.rid;		//brnn不需要rid，用rtype作为rid
-	
-	//duplicate log in
-	if(!sessionService.getByUid(token.userid)) {
-		session.bind(token.userid);
-		session.set('rid', rid);
-		session.push('rid', function(err) {
-			if(err) {
-				console.error('set rid for session service failed! error is : %j', err.stack);
-			}
-		});
-		session.on('closed', onUserLeave.bind(null, this.app));
-	}
-
 	if (msg.rtype == 'brnn') {
+		var rid = msg.rtype;		//brnn不需要rid，用rtype作为rid
+		//duplicate log in
+		if(!sessionService.getByUid(token.userid)) {
+			session.bind(token.userid);
+			session.set('rid', rid);
+			session.push('rid', function(err) {
+				if(err) {
+					console.error('set rid for session service failed! error is : %j', err.stack);
+				}
+			});
+			session.on('closed', brnnOnUserLeave.bind(null, this.app));
+		}
 		//put user into channel
 		this.app.rpc.brnn.brnnRemote.add(session, token.userid, this.app.get('serverId'), msg.rtype, true, function(users){
 			next(null, {
@@ -96,7 +94,15 @@ handler.enterRoom = function(msg, session, next) {
  * @param {Object} session current session object
  *
  */
+//废弃的方法
 var onUserLeave = function(app, session) {
+	if(!session || !session.uid) {
+		return;
+	}
+	app.rpc.brnn.brnnRemote.exit(session, session.uid, app.get('serverId'), session.get('rid'), null);
+};
+
+var brnnOnUserLeave = function(app, session) {
 	if(!session || !session.uid) {
 		return;
 	}
