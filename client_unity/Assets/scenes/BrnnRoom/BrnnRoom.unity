@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -146,7 +146,7 @@ Prefab:
     - target: {fileID: 224859027844867164, guid: 800b8bf18ace54feba17739f41617c2c,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 2.3125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224859027844867164, guid: 800b8bf18ace54feba17739f41617c2c,
         type: 2}
@@ -270,7 +270,7 @@ Prefab:
     - target: {fileID: 224859027844867164, guid: 800b8bf18ace54feba17739f41617c2c,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 2.3125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224859027844867164, guid: 800b8bf18ace54feba17739f41617c2c,
         type: 2}
@@ -696,7 +696,7 @@ Prefab:
     - target: {fileID: 224859027844867164, guid: 800b8bf18ace54feba17739f41617c2c,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 2.3125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224859027844867164, guid: 800b8bf18ace54feba17739f41617c2c,
         type: 2}
@@ -805,7 +805,7 @@ Prefab:
     - target: {fileID: 224859027844867164, guid: 800b8bf18ace54feba17739f41617c2c,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 2.3125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224859027844867164, guid: 800b8bf18ace54feba17739f41617c2c,
         type: 2}
@@ -983,10 +983,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonExit: {fileID: 2093551549}
-  buttonPkChoose1: {fileID: 1331006614}
-  buttonPkChoose2: {fileID: 1161199969}
-  buttonPkChoose3: {fileID: 1126208917}
-  buttonPkChoose4: {fileID: 1030606260}
+  panelPkChoose1: {fileID: 0}
+  panelPkChoose2: {fileID: 0}
+  panelPkChoose3: {fileID: 0}
+  panelPkChoose4: {fileID: 0}
   buttonGoldChoose1: {fileID: 1477592862}
   buttonGoldChoose2: {fileID: 996387891}
   buttonGoldChoose3: {fileID: 1136773017}
@@ -1176,11 +1176,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 996387891}
---- !u!1 &1030606260 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1254988201125824, guid: 800b8bf18ace54feba17739f41617c2c,
-    type: 2}
-  m_PrefabInternal: {fileID: 66771510}
 --- !u!1 &1060130424
 GameObject:
   m_ObjectHideFlags: 0
@@ -1292,11 +1287,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1060130424}
---- !u!1 &1126208917 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1254988201125824, guid: 800b8bf18ace54feba17739f41617c2c,
-    type: 2}
-  m_PrefabInternal: {fileID: 86337194}
 --- !u!1 &1136773017
 GameObject:
   m_ObjectHideFlags: 0
@@ -1419,11 +1409,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1136773017}
---- !u!1 &1161199969 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1254988201125824, guid: 800b8bf18ace54feba17739f41617c2c,
-    type: 2}
-  m_PrefabInternal: {fileID: 804349918}
 --- !u!1 &1267584355
 GameObject:
   m_ObjectHideFlags: 0
@@ -1572,11 +1557,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1288331127}
---- !u!1 &1331006614 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1254988201125824, guid: 800b8bf18ace54feba17739f41617c2c,
-    type: 2}
-  m_PrefabInternal: {fileID: 794727139}
 --- !u!1 &1341378829
 GameObject:
   m_ObjectHideFlags: 0
