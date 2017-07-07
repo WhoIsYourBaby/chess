@@ -220,6 +220,16 @@ GameObject:
   m_PrefabParentObject: {fileID: 1254988201125824, guid: 800b8bf18ace54feba17739f41617c2c,
     type: 2}
   m_PrefabInternal: {fileID: 66771510}
+--- !u!1 &66771513 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1401809091892744, guid: 800b8bf18ace54feba17739f41617c2c,
+    type: 2}
+  m_PrefabInternal: {fileID: 66771510}
+--- !u!1 &66771514 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1811751031534264, guid: 800b8bf18ace54feba17739f41617c2c,
+    type: 2}
+  m_PrefabInternal: {fileID: 66771510}
 --- !u!1001 &86337194
 Prefab:
   m_ObjectHideFlags: 0
@@ -347,6 +357,16 @@ RectTransform:
 --- !u!1 &86337196 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1254988201125824, guid: 800b8bf18ace54feba17739f41617c2c,
+    type: 2}
+  m_PrefabInternal: {fileID: 86337194}
+--- !u!1 &86337197 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1401809091892744, guid: 800b8bf18ace54feba17739f41617c2c,
+    type: 2}
+  m_PrefabInternal: {fileID: 86337194}
+--- !u!1 &86337198 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1811751031534264, guid: 800b8bf18ace54feba17739f41617c2c,
     type: 2}
   m_PrefabInternal: {fileID: 86337194}
 --- !u!1 &147859403
@@ -765,6 +785,16 @@ GameObject:
   m_PrefabParentObject: {fileID: 1254988201125824, guid: 800b8bf18ace54feba17739f41617c2c,
     type: 2}
   m_PrefabInternal: {fileID: 794727139}
+--- !u!1 &794727142 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1401809091892744, guid: 800b8bf18ace54feba17739f41617c2c,
+    type: 2}
+  m_PrefabInternal: {fileID: 794727139}
+--- !u!1 &794727143 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1811751031534264, guid: 800b8bf18ace54feba17739f41617c2c,
+    type: 2}
+  m_PrefabInternal: {fileID: 794727139}
 --- !u!1001 &804349918
 Prefab:
   m_ObjectHideFlags: 0
@@ -894,6 +924,16 @@ GameObject:
   m_PrefabParentObject: {fileID: 1254988201125824, guid: 800b8bf18ace54feba17739f41617c2c,
     type: 2}
   m_PrefabInternal: {fileID: 804349918}
+--- !u!1 &804349921 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1401809091892744, guid: 800b8bf18ace54feba17739f41617c2c,
+    type: 2}
+  m_PrefabInternal: {fileID: 804349918}
+--- !u!1 &804349922 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1811751031534264, guid: 800b8bf18ace54feba17739f41617c2c,
+    type: 2}
+  m_PrefabInternal: {fileID: 804349918}
 --- !u!1 &829107460
 GameObject:
   m_ObjectHideFlags: 0
@@ -1004,9 +1044,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonExit: {fileID: 2093551549}
   panelPkChoose1: {fileID: 794727141}
+  textMyChip1: {fileID: 794727143}
+  textTotalChip1: {fileID: 794727142}
   panelPkChoose2: {fileID: 804349920}
+  textMyChip2: {fileID: 804349922}
+  textTotalChip2: {fileID: 804349921}
   panelPkChoose3: {fileID: 86337196}
+  textMyChip3: {fileID: 86337198}
+  textTotalChip3: {fileID: 86337197}
   panelPkChoose4: {fileID: 66771512}
+  textMyChip4: {fileID: 66771514}
+  textTotalChip4: {fileID: 66771513}
   buttonGoldChoose1: {fileID: 1477592862}
   buttonGoldChoose2: {fileID: 996387891}
   buttonGoldChoose3: {fileID: 1136773017}

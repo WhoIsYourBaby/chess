@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using LitJson;
 
 
 enum EnumGoldChoose
@@ -27,9 +28,20 @@ public class BrnnRoomController : MonoBehaviour {
 	public GameObject buttonExit;
 
 	public GameObject panelPkChoose1;
+	public GameObject textMyChip1;
+	public GameObject textTotalChip1;
+
 	public GameObject panelPkChoose2;
+	public GameObject textMyChip2;
+	public GameObject textTotalChip2;
+
 	public GameObject panelPkChoose3;
+	public GameObject textMyChip3;
+	public GameObject textTotalChip3;
+
 	public GameObject panelPkChoose4;
+	public GameObject textMyChip4;
+	public GameObject textTotalChip4;
 
 	public GameObject buttonGoldChoose1;
 	public GameObject buttonGoldChoose2;
@@ -74,7 +86,7 @@ public class BrnnRoomController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-
+		PomeloSingleton.CreateInstance ().updatePerFrame ();
 	}
 
 	//reset state
@@ -155,6 +167,23 @@ public class BrnnRoomController : MonoBehaviour {
 		pp.brnn.brnnHandler.chipIn (userinfo.userid, gold, pkindex, 
 		delegate(LitJson.JsonData obj) {
 				//下注成功后服务器将返回用户的下注情况
+				MResponse res = new MResponse (obj);
+				if (res.isOk()) {
+					JsonData data = res.data;
+					Debug.Log(data.ToJson());
+
+					int p1 = (int)data["1"];
+					textMyChip1.GetComponent<Text>().text = p1.ToString();
+
+					int p2 = (int)data["2"];
+					textMyChip1.GetComponent<Text>().text = p2.ToString();
+
+					int p3 = (int)data["3"];
+					textMyChip1.GetComponent<Text>().text = p3.ToString();
+
+					int p4 = (int)data["4"];
+					textMyChip1.GetComponent<Text>().text = p4.ToString();
+				}
 		});
 	}
 
