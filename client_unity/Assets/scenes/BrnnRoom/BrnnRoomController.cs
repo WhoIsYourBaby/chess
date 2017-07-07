@@ -73,7 +73,8 @@ public class BrnnRoomController : MonoBehaviour {
 			//下注时间倒计时
 			MResponse res = new MResponse(obj);
 			if (res.isOk()) {
-				this.state = (EnumGameState)res.data["state"];
+				int stateInt = (int)res.data["state"];
+				this.state = (EnumGameState)stateInt;
 			}
 		});
 
