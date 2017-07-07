@@ -15,6 +15,13 @@ enum EnumGoldChoose
 	gc2000
 }
 
+
+enum EnumGameState {
+	Ready,	//准备、下注时间
+	Poker,	//发牌时间
+	Other	//空闲时间
+}
+
 public class BrnnRoomController : MonoBehaviour {
 
 	EnumGoldChoose goldIndex;	//选中的金币额度索引100~2000
@@ -23,6 +30,8 @@ public class BrnnRoomController : MonoBehaviour {
 	int goldOnPk2;
 	int goldOnPk3;
 	int goldOnPk4;
+
+	EnumGameState state;
 
 	//iboutlet
 	public GameObject buttonExit;
@@ -52,13 +61,6 @@ public class BrnnRoomController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		//init
-		goldIndex = EnumGoldChoose.gc2000;
-		goldOnPk1 = 0;
-		goldOnPk2 = 0;
-		goldOnPk3 = 0;
-		goldOnPk4 = 0;
-
 		pp.observer.brnn.onAdd (delegate(LitJson.JsonData obj) {
 			//提示用户加入房间
 		});
@@ -69,19 +71,23 @@ public class BrnnRoomController : MonoBehaviour {
 
 		pp.observer.brnn.onWillStart (delegate(LitJson.JsonData obj) {
 			//下注时间倒计时
+			this.state = EnumGameState.Ready;
 		});
 
 		pp.observer.brnn.onDealPoker (delegate(LitJson.JsonData obj) {
 			//发牌
+			this.state = EnumGameState.Poker;
 		});
 
 		pp.observer.brnn.onGoldResult (delegate(LitJson.JsonData obj) {
 			//计算输赢结果
-			resetUIState();
+			this.state = EnumGameState.Other;
+			readyForPlay();
 		});
 
+		goldIndex = EnumGoldChoose.gc2000;
 		initEvent ();
-		resetUIState ();
+		readyForPlay ();
 	}
 
 	// Update is called once per frame
@@ -90,11 +96,15 @@ public class BrnnRoomController : MonoBehaviour {
 	}
 
 	//reset state
-	void resetUIState () {
+	void readyForPlay () {
+		//data init
 		goldOnPk1 = 0;
 		goldOnPk2 = 0;
 		goldOnPk3 = 0;
 		goldOnPk4 = 0;
+		state = EnumGameState.Other;
+
+		updatePokerBannerGoldWithData (null);
 	}
 
 	void resetGoldButtonSelect () {
@@ -163,6 +173,11 @@ public class BrnnRoomController : MonoBehaviour {
 
 
 	public void chipIn(int gold, int pkindex){
+		if (this.state != EnumGameState.Ready) {
+			//下注时间已过
+			Debug.Log("下注时间已过");
+			return;
+		}
 		MUserInfo userinfo = PomeloSingleton.CreateInstance ().userinfoModel;
 		pp.brnn.brnnHandler.chipIn (userinfo.userid, gold, pkindex, 
 		delegate(LitJson.JsonData obj) {
@@ -245,19 +260,27 @@ public class BrnnRoomController : MonoBehaviour {
 	//data为空的时候统统值为0
 	void updatePokerBannerGoldWithData (JsonData data) {
 		if (data == null) {
-			
+			textMyChip1.GetComponent<Text>().text = "0";
+			textMyChip2.GetComponent<Text>().text = "0";
+			textMyChip3.GetComponent<Text>().text = "0";
+			textMyChip4.GetComponent<Text>().text = "0";
+
+			textTotalChip1.GetComponent<Text>().text = "0";
+			textTotalChip2.GetComponent<Text>().text = "0";
+			textTotalChip3.GetComponent<Text>().text = "0";
+			textTotalChip4.GetComponent<Text>().text = "0";
 		} else {
 			int p1 = (int)data["1"];
 			textMyChip1.GetComponent<Text>().text = p1.ToString();
 
 			int p2 = (int)data["2"];
-			textMyChip1.GetComponent<Text>().text = p2.ToString();
+			textMyChip2.GetComponent<Text>().text = p2.ToString();
 
 			int p3 = (int)data["3"];
-			textMyChip1.GetComponent<Text>().text = p3.ToString();
+			textMyChip3.GetComponent<Text>().text = p3.ToString();
 
 			int p4 = (int)data["4"];
-			textMyChip1.GetComponent<Text>().text = p4.ToString();
+			textMyChip4.GetComponent<Text>().text = p4.ToString();
 		}
 	}
 }
