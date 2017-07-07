@@ -43,9 +43,11 @@ DouniuRoom.prototype.startGame = function() {
 
 DouniuRoom.prototype.willStartTimerCall = function() {
   this.willWait --;
+  if (this.willWait <=1) {
+    this.state = 1;
+  }
   this.pushWillStartMessage();
   if (this.willWait == 0) {
-    this.state = 1;
     clearInterval(this.willStartTimer);
     this.dealPokers();
   }
@@ -100,6 +102,7 @@ DouniuRoom.prototype.dealPokers = function() {
 
   setTimeout(function() {
     this.pushGoldResult(pokerRes);
+    this.state = 2;
   }.bind(this), 3000);
 };
 

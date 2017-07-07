@@ -17,9 +17,9 @@ enum EnumGoldChoose
 
 
 enum EnumGameState {
-	Ready,	//准备、下注时间
-	Poker,	//发牌时间
-	Other	//空闲时间
+	Ready	= 0,	//准备、下注时间
+	Poker	= 1,	//发牌时间
+	Other	= 2	//空闲时间
 }
 
 public class BrnnRoomController : MonoBehaviour {
@@ -66,12 +66,15 @@ public class BrnnRoomController : MonoBehaviour {
 		});
 
 		pp.observer.brnn.onLeave (delegate(LitJson.JsonData obj) {
-			//用户离开了放假
+			//用户离开了房间
 		});
 
 		pp.observer.brnn.onWillStart (delegate(LitJson.JsonData obj) {
 			//下注时间倒计时
-			this.state = EnumGameState.Ready;
+			MResponse res = new MResponse(obj);
+			if (res.isOk()) {
+				this.state = (EnumGameState)res.data["state"];
+			}
 		});
 
 		pp.observer.brnn.onDealPoker (delegate(LitJson.JsonData obj) {
@@ -130,6 +133,7 @@ public class BrnnRoomController : MonoBehaviour {
 		}
 	}
 
+	//给按钮添加点击事件
 	void initEvent () {
 		Button tmpBtn = buttonExit.GetComponent<Button>();
 		tmpBtn.onClick.AddListener (exitRoom);
