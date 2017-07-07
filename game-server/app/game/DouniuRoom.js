@@ -106,11 +106,11 @@ DouniuRoom.prototype.dealPokers = function() {
   }.bind(this), 3000);
 };
 
-//return 下注成功返回该用户目前的下注情况，否则null（可能余额不够）
+//return 下注成功返回该用户目前的下注情况，否则null（可能余额不够、或者非下注时间）
 //pkindex > 0
 //balance : 余额
 DouniuRoom.prototype.chipIn = function(userid, gold, pkindex, balance) {
-  if (pkindex <= 0) {
+  if (pkindex <= 0 ||  this.state != 0) {
     return null;
   }
   
