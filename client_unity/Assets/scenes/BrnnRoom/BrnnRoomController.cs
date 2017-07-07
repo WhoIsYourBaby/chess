@@ -80,7 +80,7 @@ public class BrnnRoomController : MonoBehaviour {
 			resetUIState();
 		});
 
-		initUI ();
+		initEvent ();
 		resetUIState ();
 	}
 
@@ -120,7 +120,7 @@ public class BrnnRoomController : MonoBehaviour {
 		}
 	}
 
-	void initUI () {
+	void initEvent () {
 		Button tmpBtn = buttonExit.GetComponent<Button>();
 		tmpBtn.onClick.AddListener (exitRoom);
 
@@ -172,17 +172,7 @@ public class BrnnRoomController : MonoBehaviour {
 					JsonData data = res.data;
 					Debug.Log(data.ToJson());
 
-					int p1 = (int)data["1"];
-					textMyChip1.GetComponent<Text>().text = p1.ToString();
-
-					int p2 = (int)data["2"];
-					textMyChip1.GetComponent<Text>().text = p2.ToString();
-
-					int p3 = (int)data["3"];
-					textMyChip1.GetComponent<Text>().text = p3.ToString();
-
-					int p4 = (int)data["4"];
-					textMyChip1.GetComponent<Text>().text = p4.ToString();
+					updatePokerBannerGoldWithData(data);
 				}
 		});
 	}
@@ -251,4 +241,23 @@ public class BrnnRoomController : MonoBehaviour {
 		}
 	}
 
+	//更新用户下注的金额
+	//data为空的时候统统值为0
+	void updatePokerBannerGoldWithData (JsonData data) {
+		if (data == null) {
+			
+		} else {
+			int p1 = (int)data["1"];
+			textMyChip1.GetComponent<Text>().text = p1.ToString();
+
+			int p2 = (int)data["2"];
+			textMyChip1.GetComponent<Text>().text = p2.ToString();
+
+			int p3 = (int)data["3"];
+			textMyChip1.GetComponent<Text>().text = p3.ToString();
+
+			int p4 = (int)data["4"];
+			textMyChip1.GetComponent<Text>().text = p4.ToString();
+		}
+	}
 }
