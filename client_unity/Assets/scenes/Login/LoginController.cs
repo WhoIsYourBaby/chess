@@ -7,12 +7,13 @@ public class LoginController : MonoBehaviour {
 
 	void Start() {
 		PomeloSingleton pml = PomeloSingleton.CreateInstance ();
-		if (pml.getToken() != null) {
-			pml.refreshToken (delegate {
-				Debug.Log("resfresh token over");
-				SceneManager.LoadScene("Home");
-			});
+		if (pml.getToken() == null || pml.getToken().Length == 0) {
+			return;
 		}
+		pml.refreshToken (delegate {
+			Debug.Log("resfresh token over");
+			SceneManager.LoadScene("Home");
+		});
 	}
 
 	void Update() {

@@ -58,6 +58,11 @@ public class BrnnRoomController : MonoBehaviour {
 	public GameObject buttonGoldChoose4;
 	public GameObject buttonGoldChoose5;
 
+	//state iboutlet
+	public GameObject imageState;
+	public GameObject imageTime0;
+	public GameObject imageTime1;
+
 
 	// Use this for initialization
 	void Start () {
@@ -75,17 +80,21 @@ public class BrnnRoomController : MonoBehaviour {
 			if (res.isOk()) {
 				int stateInt = (int)res.data["state"];
 				this.state = (EnumGameState)stateInt;
+				int time = (int)res.data["time"];
+				updateStateUI(time);
 			}
 		});
 
 		pp.observer.brnn.onDealPoker (delegate(LitJson.JsonData obj) {
 			//发牌
 			this.state = EnumGameState.Poker;
+			updateStateUI(-1);
 		});
 
 		pp.observer.brnn.onGoldResult (delegate(LitJson.JsonData obj) {
 			//计算输赢结果
 			this.state = EnumGameState.Other;
+			updateStateUI(-1);
 			readyForPlay();
 		});
 
@@ -275,17 +284,78 @@ public class BrnnRoomController : MonoBehaviour {
 			textTotalChip3.GetComponent<Text>().text = "0";
 			textTotalChip4.GetComponent<Text>().text = "0";
 		} else {
-			int p1 = (int)data["1"];
-			textMyChip1.GetComponent<Text>().text = p1.ToString();
+			if (data.ContainsKey("1")) {
+				int p1 = (int)data["1"];
+				textMyChip1.GetComponent<Text>().text = p1.ToString();
+			}
 
-			int p2 = (int)data["2"];
-			textMyChip2.GetComponent<Text>().text = p2.ToString();
+			if (data.ContainsKey("2")) {
+				int p2 = (int)data["2"];
+				textMyChip2.GetComponent<Text>().text = p2.ToString();
+			}
 
-			int p3 = (int)data["3"];
-			textMyChip3.GetComponent<Text>().text = p3.ToString();
+			if (data.ContainsKey("3")) {
+				int p3 = (int)data["3"];
+				textMyChip3.GetComponent<Text>().text = p3.ToString();
+			}
 
-			int p4 = (int)data["4"];
-			textMyChip4.GetComponent<Text>().text = p4.ToString();
+			if (data.ContainsKey("4")) {
+				int p4 = (int)data["4"];
+				textMyChip4.GetComponent<Text>().text = p4.ToString();
+			}
+		}
+	}
+
+	//update state
+	//time < 0 的时候隐藏imagetime
+	void updateStateUI (int time) {
+		//1 setup time
+		this.imageTime0.SetActive (time >= 0);
+		this.imageTime1.SetActive (time >= 0);
+
+		string timeString = time.ToString ();
+		if (timeString.Length > 1) {
+			char[] arr = timeString.ToCharArray ();
+			char time0 = arr [0];
+			char time1 = arr [1];
+
+			string time0SpriName = string.Format ("po9_n_{0}", time0.ToString());
+			Sprite time0Spri = GameConfig.loadResourceSpriteInSheet ("po9_n", time0SpriName);
+			imageTime0.GetComponent<Image> ().sprite = time0Spri;
+
+			string time1SpriName = string.Format ("po9_n_{0}", time1.ToString());
+			Sprite time1Spri = GameConfig.loadResourceSpriteInSheet ("po9_n", time1SpriName);
+			imageTime1.GetComponent<Image> ().sprite = time1Spri;
+		} else {
+			char[] arr = timeString.ToCharArray ();
+			char time0 = '0';
+			char time1 = arr [0];
+
+			string time0SpriName = string.Format ("po9_n_{0}", time0.ToString());
+			Sprite time0Spri = GameConfig.loadResourceSpriteInSheet ("po9_n", time0SpriName);
+			imageTime0.GetComponent<Image> ().sprite = time0Spri;
+
+			string time1SpriName = string.Format ("po9_n_{0}", time1.ToString());
+			Sprite time1Spri = GameConfig.loadResourceSpriteInSheet ("po9_n", time1SpriName);
+			imageTime1.GetComponent<Image> ().sprite = time1Spri;
+		}
+
+		//2 setup state
+		string stateImageName = stateImageNameWithState(this.state);
+		Sprite spriteState = Resources.Load<Sprite> (stateImageName);
+		imageState.GetComponent<Image>().sprite = spriteState;
+	}
+
+	string stateImageNameWithState (EnumGameState state) {
+		switch (state) {
+		case EnumGameState.Ready:
+			return "longhu21_n";
+		case EnumGameState.Poker:
+			return "longhu22_n";
+		case EnumGameState.Other:
+			return "longhu23_n";
+		default:
+			return "longhu23_n";
 		}
 	}
 }

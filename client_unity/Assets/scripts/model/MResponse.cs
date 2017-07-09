@@ -11,7 +11,9 @@ public class MResponse {
 	public MResponse(JsonData resJson) {
 		code = (int)resJson ["code"];
 		msg = (string)resJson ["msg"];
-		data = resJson ["data"];
+		if (resJson.ContainsKey("data")) {
+			data = resJson ["data"];
+		}
 	}
 
 	public bool isOk () {

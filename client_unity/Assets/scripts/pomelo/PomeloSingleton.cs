@@ -64,7 +64,7 @@ public class PomeloSingleton {
 
 	//刷新token
 	public void refreshToken (Action callback) {
-		if (getToken() == null) {
+		if (getToken() == null || getToken().Length == 0) {
 			return;
 		}
 		pmlClient.Connect ("127.0.0.1", 3101, "", 

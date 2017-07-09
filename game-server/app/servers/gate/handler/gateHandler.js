@@ -84,6 +84,7 @@ handler.guestLogin = function(msg, session, next){
 handler.refreshToken = function(msg, session, next){
 	var tokenStr = msg.token;
 	var token = new UToken();
+	console.log(tokenStr);
 	token.decrypt(tokenStr);
 	if (token.isValid() == false) {
 		next(null, new GMResponse(-101, '非法token'));
