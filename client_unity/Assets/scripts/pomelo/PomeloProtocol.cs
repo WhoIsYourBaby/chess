@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using Pomelo.DotNetClient;
 using LitJson;
+using UnityEngine;
 
 namespace pp {
 	namespace connector {
@@ -32,6 +33,7 @@ namespace pp {
 				data ["userid"] = userid;
 				data ["gold"] = gold;
 				data ["pkindex"] = pkindex;
+				Debug.Log (data.ToJson());
 				PomeloClient pml = PomeloSingleton.CreateInstance ().getPomeloClient ();
 				pml.request ("brnn.brnnHandler.chipIn", data, callback);
 			}

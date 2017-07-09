@@ -152,13 +152,13 @@ public class BrnnRoomController : MonoBehaviour {
 		tmpBtn.onClick.AddListener (chipInPk1Choose);
 
 		tmpBtn = panelPkChoose2.GetComponentInChildren<Button>();
-		tmpBtn.onClick.AddListener (chipInPk1Choose);
+		tmpBtn.onClick.AddListener (chipInPk2Choose);
 
 		tmpBtn = panelPkChoose3.GetComponentInChildren<Button>();
-		tmpBtn.onClick.AddListener (chipInPk1Choose);
+		tmpBtn.onClick.AddListener (chipInPk3Choose);
 
 		tmpBtn = panelPkChoose4.GetComponentInChildren<Button>();
-		tmpBtn.onClick.AddListener (chipInPk1Choose);
+		tmpBtn.onClick.AddListener (chipInPk4Choose);
 
 		//gold choose
 		tmpBtn = buttonGoldChoose1.GetComponent<Button> ();
@@ -320,11 +320,11 @@ public class BrnnRoomController : MonoBehaviour {
 			char time1 = arr [1];
 
 			string time0SpriName = string.Format ("po9_n_{0}", time0.ToString());
-			Sprite time0Spri = GameConfig.loadResourceSpriteInSheet ("po9_n", time0SpriName);
+			Sprite time0Spri = GameConfig.loadResourceSpriteInSheet ("png/po9_n", time0SpriName);
 			imageTime0.GetComponent<Image> ().sprite = time0Spri;
 
 			string time1SpriName = string.Format ("po9_n_{0}", time1.ToString());
-			Sprite time1Spri = GameConfig.loadResourceSpriteInSheet ("po9_n", time1SpriName);
+			Sprite time1Spri = GameConfig.loadResourceSpriteInSheet ("png/po9_n", time1SpriName);
 			imageTime1.GetComponent<Image> ().sprite = time1Spri;
 		} else {
 			char[] arr = timeString.ToCharArray ();
@@ -332,17 +332,17 @@ public class BrnnRoomController : MonoBehaviour {
 			char time1 = arr [0];
 
 			string time0SpriName = string.Format ("po9_n_{0}", time0.ToString());
-			Sprite time0Spri = GameConfig.loadResourceSpriteInSheet ("po9_n", time0SpriName);
+			Sprite time0Spri = GameConfig.loadResourceSpriteInSheet ("png/po9_n", time0SpriName);
 			imageTime0.GetComponent<Image> ().sprite = time0Spri;
 
 			string time1SpriName = string.Format ("po9_n_{0}", time1.ToString());
-			Sprite time1Spri = GameConfig.loadResourceSpriteInSheet ("po9_n", time1SpriName);
+			Sprite time1Spri = GameConfig.loadResourceSpriteInSheet ("png/po9_n", time1SpriName);
 			imageTime1.GetComponent<Image> ().sprite = time1Spri;
 		}
 
 		//2 setup state
 		string stateImageName = stateImageNameWithState(this.state);
-		Sprite spriteState = Resources.Load<Sprite> (stateImageName);
+		Sprite spriteState = Resources.Load<Sprite> ("png/" + stateImageName);
 		imageState.GetComponent<Image>().sprite = spriteState;
 	}
 
