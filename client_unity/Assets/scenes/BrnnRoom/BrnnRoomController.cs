@@ -77,12 +77,14 @@ public class BrnnRoomController : MonoBehaviour {
 		pp.observer.brnn.onWillStart (delegate(LitJson.JsonData obj) {
 			//下注时间倒计时
 			MResponse res = new MResponse(obj);
-			if (res.isOk()) {
-				int stateInt = (int)res.data["state"];
-				this.state = (EnumGameState)stateInt;
-				int time = (int)res.data["time"];
-				updateStateUI(time);
+			if (res.isOk() == false) {
+				Debug.Log(res.msg);
+				return ;
 			}
+			int stateInt = (int)res.data["state"];
+			this.state = (EnumGameState)stateInt;
+			int time = (int)res.data["time"];
+			updateStateUI(time);
 		});
 
 		pp.observer.brnn.onDealPoker (delegate(LitJson.JsonData obj) {
@@ -197,12 +199,14 @@ public class BrnnRoomController : MonoBehaviour {
 		delegate(LitJson.JsonData obj) {
 				//下注成功后服务器将返回用户的下注情况
 				MResponse res = new MResponse (obj);
-				if (res.isOk()) {
-					JsonData data = res.data;
-					Debug.Log(data.ToJson());
-
-					updatePokerBannerGoldWithData(data);
+				if (res.isOk() == false) {
+					Debug.Log(res.msg);
+					return ;
 				}
+				JsonData data = res.data;
+				Debug.Log(data.ToJson());
+
+				updatePokerBannerGoldWithData(data);
 		});
 	}
 
