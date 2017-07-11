@@ -107,3 +107,4 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+game-server/logs/
