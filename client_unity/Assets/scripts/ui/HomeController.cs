@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class HomeController : MonoBehaviour {
 
+	public GameObject testPoker;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -23,5 +25,17 @@ public class HomeController : MonoBehaviour {
 					SceneManager.LoadScene("BrnnRoom");
 				});
 		});
+	}
+
+	public void moveButtonAction () {
+		PokerItem pokeritem = testPoker.GetComponent<PokerItem> ();
+		pokeritem.runMoveAnimationTo (new Vector2(-300, 400), delegate {
+			Debug.Log("Move over!!!!!!!!");
+		});
+	}
+
+	public void flipButtonAction () {
+		PokerItem pokeritem = testPoker.GetComponent<PokerItem> ();
+		pokeritem.runFlipAnimation (true);
 	}
 }
