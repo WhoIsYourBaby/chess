@@ -93,6 +93,22 @@ public class BrnnRoomController : MonoBehaviour {
 			//发牌
 			this.state = EnumGameState.Poker;
 			updateStateUI(-1);
+
+			//设置发牌动画
+			MResponse res = new MResponse(obj);
+			if (res.isOk() == false) {
+				Debug.Log(res.msg);
+				return ;
+			}
+
+			JsonData pokerRes = res.data["pokerRes"];
+			if (pokerRes.IsArray == false) {
+				Debug.Log("数据格式错误");
+				return ;
+			}
+			for (int i = 0; i < pokerRes.Count; i++) {
+				JsonData poker = pokerRes[i]["poker"];
+			}
 		});
 
 		pp.observer.brnn.onGoldResult (delegate(LitJson.JsonData obj) {
@@ -111,6 +127,11 @@ public class BrnnRoomController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		PomeloSingleton.CreateInstance ().updatePerFrame ();
+	}
+
+	//change ui on this method
+	void OnGui () {
+		
 	}
 
 	//reset state
