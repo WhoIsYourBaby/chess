@@ -33,6 +33,8 @@ public class BrnnRoomController : MonoBehaviour {
 
 	EnumGameState state;
 
+	GameObject pokerPrefab;
+
 	//iboutlet
 	public GameObject buttonExit;
 
@@ -101,6 +103,7 @@ public class BrnnRoomController : MonoBehaviour {
 		});
 
 		goldIndex = EnumGoldChoose.gc2000;
+		pokerPrefab = Resources.Load<GameObject> ("prefab/PokerItem");
 		initEvent ();
 		readyForPlay ();
 	}
