@@ -102,13 +102,8 @@ public class BrnnRoomController : MonoBehaviour {
 			}
 
 			JsonData pokerRes = res.data["pokerRes"];
-			if (pokerRes.IsArray == false) {
-				Debug.Log("数据格式错误");
-				return ;
-			}
-			for (int i = 0; i < pokerRes.Count; i++) {
-				JsonData poker = pokerRes[i]["poker"];
-			}
+			MBrnnPokerRes pokerResModel = new MBrnnPokerRes(pokerRes);
+
 		});
 
 		pp.observer.brnn.onGoldResult (delegate(LitJson.JsonData obj) {

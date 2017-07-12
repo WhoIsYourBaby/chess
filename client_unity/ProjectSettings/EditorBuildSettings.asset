@@ -8,8 +8,6 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/scenes/chat.unity
   - enabled: 1
-    path: Assets/scenes/Login/Login.unity
+    path: Assets/scenes/Login.unity
   - enabled: 1
-    path: Assets/scenes/Home/Home.unity
-  - enabled: 1
-    path: Assets/scenes/BrnnRoom/BrnnRoom.unity
+    path: Assets/scenes/Home.unity
