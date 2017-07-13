@@ -33,6 +33,8 @@ public class BrnnRoomController : MonoBehaviour {
 
 	EnumGameState state;
 
+	MBrnnPokerRes pokerRes;
+
 	GameObject pokerPrefab;
 
 	//iboutlet
@@ -68,6 +70,12 @@ public class BrnnRoomController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		//init
+		goldIndex = EnumGoldChoose.gc2000;
+		pokerPrefab = Resources.Load<GameObject> ("prefab/PokerItem");
+		initEvent ();
+		readyForPlay ();
+
 		pp.observer.brnn.onAdd (delegate(LitJson.JsonData obj) {
 			//提示用户加入房间
 		});
@@ -102,8 +110,8 @@ public class BrnnRoomController : MonoBehaviour {
 			}
 
 			JsonData pokerRes = res.data["pokerRes"];
-			MBrnnPokerRes pokerResModel = new MBrnnPokerRes(pokerRes);
-
+			this.pokerRes = new MBrnnPokerRes(pokerRes);
+			runPushPokerAnimation(this.pokerRes);
 		});
 
 		pp.observer.brnn.onGoldResult (delegate(LitJson.JsonData obj) {
@@ -113,10 +121,6 @@ public class BrnnRoomController : MonoBehaviour {
 			readyForPlay();
 		});
 
-		goldIndex = EnumGoldChoose.gc2000;
-		pokerPrefab = Resources.Load<GameObject> ("prefab/PokerItem");
-		initEvent ();
-		readyForPlay ();
 	}
 
 	// Update is called once per frame
@@ -125,7 +129,7 @@ public class BrnnRoomController : MonoBehaviour {
 	}
 
 	//change ui on this method
-	void OnGui () {
+	void OnGUI () {
 		
 	}
 
@@ -379,6 +383,27 @@ public class BrnnRoomController : MonoBehaviour {
 			return "longhu23_n";
 		default:
 			return "longhu23_n";
+		}
+	}
+
+	void runPushPokerAnimation (MBrnnPokerRes pokerRes) {
+		if (pokerRes.pokerGroup.Count <= 0) {
+			Debug.Log ("count is 0");
+			yield break;
+		}
+		ArrayList tmpPokerList = (ArrayList)pokerRes.pokerGroup [0];
+		if (tmpPokerList.Count <= 0) {
+			Debug.Log ("count is 0");
+			yield break;
+		}
+
+		for (int i = 0; i < tmpPokerList.Count; i++) {
+			ArrayList pokerList = (ArrayList)pokerRes.pokerGroup [0];
+			MPoker pokerModel = (MPoker)pokerList [i];
+			PokerItem pkit = pokerModel.createPokerItem ();
+			pkit.transform.SetParent (panelPkChoose1.transform);
+			pkit.GetComponent<RectTransform> ().anchoredPosition = new Vector2 (731, 300);
+			pkit.runMoveAnimationTo (new Vector2(0, 0));
 		}
 	}
 }

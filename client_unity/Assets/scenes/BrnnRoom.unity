@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -146,7 +146,7 @@ Prefab:
     - target: {fileID: 224859027844867164, guid: 800b8bf18ace54feba17739f41617c2c,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 2.3125
       objectReference: {fileID: 0}
     - target: {fileID: 224859027844867164, guid: 800b8bf18ace54feba17739f41617c2c,
         type: 2}
@@ -285,7 +285,7 @@ Prefab:
     - target: {fileID: 224859027844867164, guid: 800b8bf18ace54feba17739f41617c2c,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 2.3125
       objectReference: {fileID: 0}
     - target: {fileID: 224859027844867164, guid: 800b8bf18ace54feba17739f41617c2c,
         type: 2}
@@ -857,7 +857,7 @@ Prefab:
     - target: {fileID: 224859027844867164, guid: 800b8bf18ace54feba17739f41617c2c,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 266.75
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224859027844867164, guid: 800b8bf18ace54feba17739f41617c2c,
         type: 2}
@@ -882,7 +882,7 @@ Prefab:
     - target: {fileID: 224859027844867164, guid: 800b8bf18ace54feba17739f41617c2c,
         type: 2}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224859027844867164, guid: 800b8bf18ace54feba17739f41617c2c,
         type: 2}
@@ -892,7 +892,7 @@ Prefab:
     - target: {fileID: 224859027844867164, guid: 800b8bf18ace54feba17739f41617c2c,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224859027844867164, guid: 800b8bf18ace54feba17739f41617c2c,
         type: 2}
@@ -986,7 +986,7 @@ Prefab:
     - target: {fileID: 224859027844867164, guid: 800b8bf18ace54feba17739f41617c2c,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 2.3125
       objectReference: {fileID: 0}
     - target: {fileID: 224859027844867164, guid: 800b8bf18ace54feba17739f41617c2c,
         type: 2}

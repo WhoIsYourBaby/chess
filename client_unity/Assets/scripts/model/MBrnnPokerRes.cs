@@ -4,8 +4,8 @@ using UnityEngine;
 using LitJson;
 
 public class MBrnnPokerRes {
-	ArrayList pokerGroup;
-	ArrayList resultList;
+	public ArrayList pokerGroup;
+	public ArrayList resultList;
 
 	public MBrnnPokerRes (JsonData pokerRes) {
 		if (pokerRes.IsArray == false) {
