@@ -262,6 +262,9 @@ public class BrnnRoomController : MonoBehaviour {
 	//选择金币
 	public void chipInGold1Choose() {
 		this.goldIndex = EnumGoldChoose.gc100;	//100
+
+		//test
+
 	}
 
 	public void chipInGold2Choose() {
@@ -389,21 +392,24 @@ public class BrnnRoomController : MonoBehaviour {
 	void runPushPokerAnimation (MBrnnPokerRes pokerRes) {
 		if (pokerRes.pokerGroup.Count <= 0) {
 			Debug.Log ("count is 0");
-			yield break;
+			return;
 		}
 		ArrayList tmpPokerList = (ArrayList)pokerRes.pokerGroup [0];
 		if (tmpPokerList.Count <= 0) {
 			Debug.Log ("count is 0");
-			yield break;
+			return;
 		}
 
 		for (int i = 0; i < tmpPokerList.Count; i++) {
 			ArrayList pokerList = (ArrayList)pokerRes.pokerGroup [0];
 			MPoker pokerModel = (MPoker)pokerList [i];
-			PokerItem pkit = pokerModel.createPokerItem ();
+			GameObject pkit = pokerModel.createPokerItem (this.pokerPrefab);
 			pkit.transform.SetParent (panelPkChoose1.transform);
+			pkit.GetComponent<RectTransform> ().anchoredPosition3D = new Vector3 (731, 300, 0);
 			pkit.GetComponent<RectTransform> ().anchoredPosition = new Vector2 (731, 300);
-			pkit.runMoveAnimationTo (new Vector2(0, 0));
+			pkit.GetComponent<PokerItem> ().runMoveAnimationDelayTo (0.1, new Vector2(0, 0), delegate {
+				Debug.Log("move over");
+			});
 		}
 	}
 }

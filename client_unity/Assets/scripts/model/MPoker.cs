@@ -23,6 +23,7 @@ public class MPoker {
 		pokerObj.GetComponent<RectTransform> ().pivot = new Vector2 (0.5f, 0.5f);
 		pokerObj.GetComponent<RectTransform> ().anchorMin = new Vector2 (0.5f,0.5f);
 		pokerObj.GetComponent<RectTransform> ().anchorMax = new Vector2 (0.5f,0.5f);
+		pokerObj.GetComponent<RectTransform> ().anchoredPosition3D = new Vector3 (0,0,0);
 
 		return pokerObj;
 	}
