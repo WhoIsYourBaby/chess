@@ -67,6 +67,8 @@ public class BrnnRoomController : MonoBehaviour {
 	public GameObject imageTime0;
 	public GameObject imageTime1;
 
+	public GameObject panelDesk;
+
 
 	// Use this for initialization
 	void Start () {
@@ -401,15 +403,46 @@ public class BrnnRoomController : MonoBehaviour {
 		}
 
 		for (int i = 0; i < tmpPokerList.Count; i++) {
-			ArrayList pokerList = (ArrayList)pokerRes.pokerGroup [0];
-			MPoker pokerModel = (MPoker)pokerList [i];
-			GameObject pkit = pokerModel.createPokerItem (this.pokerPrefab);
-			pkit.transform.SetParent (panelPkChoose1.transform);
-			pkit.GetComponent<RectTransform> ().anchoredPosition3D = new Vector3 (731, 300, 0);
-			pkit.GetComponent<RectTransform> ().anchoredPosition = new Vector2 (731, 300);
-			pkit.GetComponent<PokerItem> ().runMoveAnimationDelayTo (0.1, new Vector2(0, 0), delegate {
-				Debug.Log("move over");
+			MPoker pokerModel1 = pokerInRes (1, i);
+			GameObject pkit1 = pokerModel1.createPokerItem (this.pokerPrefab);
+			singlePokerAnimation (pkit1, 0.1f + (0.5f * i), new Vector2(-426, -107), delegate {
+				resetPokerParent(pkit1, panelPkChoose1.transform.FindChild("pokerLayout").gameObject);
+			});
+
+			MPoker pokerModel2 = pokerInRes (2, i);
+			GameObject pkit2 = pokerModel2.createPokerItem (this.pokerPrefab);
+			singlePokerAnimation (pkit2, 0.2f + (0.5f * i), new Vector2(-140, -107), delegate {
+				resetPokerParent(pkit2, panelPkChoose2.transform.FindChild("pokerLayout").gameObject);
+			});
+
+			MPoker pokerModel3 = pokerInRes (3, i);
+			GameObject pkit3 = pokerModel3.createPokerItem (this.pokerPrefab);
+			singlePokerAnimation (pkit3, 0.3f + (0.5f * i), new Vector2(140, -107), delegate {
+				resetPokerParent(pkit3, panelPkChoose3.transform.FindChild("pokerLayout").gameObject);
+			});
+
+			MPoker pokerModel4 = pokerInRes (4, i);
+			GameObject pkit4 = pokerModel4.createPokerItem (this.pokerPrefab);
+			singlePokerAnimation (pkit4, 0.4f + (0.5f * i), new Vector2(426, -107), delegate {
+				resetPokerParent(pkit4, panelPkChoose4.transform.FindChild("pokerLayout").gameObject);
 			});
 		}
+	}
+
+	MPoker pokerInRes (int gIndex, int lIndex) {
+		ArrayList pokerList = (ArrayList)pokerRes.pokerGroup [gIndex];
+		MPoker pokerModel = (MPoker)pokerList [lIndex];
+		return pokerModel;
+	}
+
+	void singlePokerAnimation (GameObject pkit, float delay, Vector2 pos, System.Action callback) {
+		pkit.transform.SetParent (panelDesk.transform);
+		pkit.GetComponent<RectTransform> ().anchoredPosition3D = new Vector3 (326, 200, 0);
+		pkit.GetComponent<RectTransform> ().anchoredPosition = new Vector2 (326, 200);
+		StartCoroutine (pkit.GetComponent<PokerItem> ().runMoveAnimationDelayTo (delay, pos, callback));
+	}
+
+	void resetPokerParent (GameObject pkObj, GameObject parentObj) {
+		pkObj.transform.SetParent (parentObj.transform);
 	}
 }

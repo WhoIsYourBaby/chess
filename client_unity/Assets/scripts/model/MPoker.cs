@@ -10,7 +10,15 @@ public class MPoker {
 		color = c;
 	}
 
-	public Sprite getSprite() {
+	//前面
+	public Sprite getFrontSprite() {
+		string filename = string.Format ("png/{0}{1}", value, color);
+		Sprite spri = Resources.Load<Sprite> (filename);
+		return spri;
+	}
+
+	//后面
+	public Sprite getBackendSprite() {
 		string filename = string.Format ("png/{0}{1}", value, color);
 		Sprite spri = Resources.Load<Sprite> (filename);
 		return spri;

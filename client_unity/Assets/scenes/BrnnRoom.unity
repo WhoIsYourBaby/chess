@@ -1199,6 +1199,7 @@ MonoBehaviour:
   imageState: {fileID: 666063181}
   imageTime0: {fileID: 1944721494}
   imageTime1: {fileID: 684291258}
+  panelDesk: {fileID: 1350006967}
 --- !u!1 &950272269
 GameObject:
   m_ObjectHideFlags: 0

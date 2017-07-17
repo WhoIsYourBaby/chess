@@ -36,6 +36,6 @@ public class HomeController : MonoBehaviour {
 
 	public void flipButtonAction () {
 		PokerItem pokeritem = testPoker.GetComponent<PokerItem> ();
-		pokeritem.runFlipAnimation (true);
+		pokeritem.runFlipAnimation (true, true);
 	}
 }
