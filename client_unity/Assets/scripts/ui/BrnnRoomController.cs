@@ -442,9 +442,8 @@ public class BrnnRoomController : MonoBehaviour {
 
 			MPoker pokerModel4 = pokerInRes (4, i);
 			GameObject pkit4 = pokerModel4.createPokerItem (this.pokerPrefab);
-			singlePokerAnimation (pkit4, 0.4f + (0.5f * i), new Vector2(5066, -107), delegate {
+			singlePokerAnimation (pkit4, 0.4f + (0.5f * i), new Vector2(506, -107), delegate {
 				resetPokerParent(pkit4, panelPkChoose4.transform.FindChild("pokerLayout").gameObject);
-				
 			});
 		}
 	}

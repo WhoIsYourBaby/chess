@@ -7,7 +7,7 @@ public class PokerItem : MonoBehaviour {
 
 	public Vector2 desPosition;	//目的位置
 	public bool isMoving = false;		//是否允许移动
-	public MPoker pokerModel;
+	public MPoker pokerModel = null;
 
 	public bool isFront = false;
 
@@ -18,7 +18,6 @@ public class PokerItem : MonoBehaviour {
 	void Start () {
 		desPosition = Vector2.zero;
 		moveOverCallback = null;
-		pokerModel = null;
 	}
 	
 	// Update is called once per frame
@@ -41,8 +40,11 @@ public class PokerItem : MonoBehaviour {
 
 	//翻转到一半的时候回调
 	public void flipHalf() {
+		Debug.Log ("flipHalf11111");
 		if (pokerModel != null) {
+			Debug.Log ("flipHalf22222");
 			if (isFront) {
+				Debug.Log ("flipHalf33333");
 				gameObject.GetComponent<Image> ().sprite = pokerModel.getFrontSprite ();
 			} else {
 				gameObject.GetComponent<Image> ().sprite = pokerModel.getBackendSprite ();
