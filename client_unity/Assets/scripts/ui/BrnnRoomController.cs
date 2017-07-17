@@ -87,6 +87,7 @@ public class BrnnRoomController : MonoBehaviour {
 		});
 
 		pp.observer.brnn.onWillStart (delegate(LitJson.JsonData obj) {
+			readyForPlay();
 			//下注时间倒计时
 			MResponse res = new MResponse(obj);
 			if (res.isOk() == false) {
@@ -120,7 +121,7 @@ public class BrnnRoomController : MonoBehaviour {
 			//计算输赢结果
 			this.state = EnumGameState.Other;
 			updateStateUI(-1);
-			readyForPlay();
+
 		});
 
 	}
@@ -315,6 +316,24 @@ public class BrnnRoomController : MonoBehaviour {
 			textTotalChip2.GetComponent<Text>().text = "0";
 			textTotalChip3.GetComponent<Text>().text = "0";
 			textTotalChip4.GetComponent<Text>().text = "0";
+
+			Transform pokerLayout = panelPkChoose1.transform.FindChild ("pokerLayout");
+			for (int i = 0; i < pokerLayout.childCount; i++) {
+				Destroy(pokerLayout.GetChild (i).gameObject);
+			}
+			pokerLayout = panelPkChoose2.transform.FindChild ("pokerLayout");
+			for (int i = 0; i < pokerLayout.childCount; i++) {
+				Destroy(pokerLayout.GetChild (i).gameObject);
+			}
+			pokerLayout = panelPkChoose3.transform.FindChild ("pokerLayout");
+			for (int i = 0; i < pokerLayout.childCount; i++) {
+				Destroy(pokerLayout.GetChild (i).gameObject);
+			}
+			pokerLayout = panelPkChoose4.transform.FindChild ("pokerLayout");
+			for (int i = 0; i < pokerLayout.childCount; i++) {
+				Destroy(pokerLayout.GetChild (i).gameObject);
+			}
+
 		} else {
 			if (data.ContainsKey("1")) {
 				int p1 = (int)data["1"];
@@ -405,26 +424,27 @@ public class BrnnRoomController : MonoBehaviour {
 		for (int i = 0; i < tmpPokerList.Count; i++) {
 			MPoker pokerModel1 = pokerInRes (1, i);
 			GameObject pkit1 = pokerModel1.createPokerItem (this.pokerPrefab);
-			singlePokerAnimation (pkit1, 0.1f + (0.5f * i), new Vector2(-426, -107), delegate {
+			singlePokerAnimation (pkit1, 0.1f + (0.5f * i), new Vector2(-346, -107), delegate {
 				resetPokerParent(pkit1, panelPkChoose1.transform.FindChild("pokerLayout").gameObject);
 			});
 
 			MPoker pokerModel2 = pokerInRes (2, i);
 			GameObject pkit2 = pokerModel2.createPokerItem (this.pokerPrefab);
-			singlePokerAnimation (pkit2, 0.2f + (0.5f * i), new Vector2(-140, -107), delegate {
+			singlePokerAnimation (pkit2, 0.2f + (0.5f * i), new Vector2(-60, -107), delegate {
 				resetPokerParent(pkit2, panelPkChoose2.transform.FindChild("pokerLayout").gameObject);
 			});
 
 			MPoker pokerModel3 = pokerInRes (3, i);
 			GameObject pkit3 = pokerModel3.createPokerItem (this.pokerPrefab);
-			singlePokerAnimation (pkit3, 0.3f + (0.5f * i), new Vector2(140, -107), delegate {
+			singlePokerAnimation (pkit3, 0.3f + (0.5f * i), new Vector2(220, -107), delegate {
 				resetPokerParent(pkit3, panelPkChoose3.transform.FindChild("pokerLayout").gameObject);
 			});
 
 			MPoker pokerModel4 = pokerInRes (4, i);
 			GameObject pkit4 = pokerModel4.createPokerItem (this.pokerPrefab);
-			singlePokerAnimation (pkit4, 0.4f + (0.5f * i), new Vector2(426, -107), delegate {
+			singlePokerAnimation (pkit4, 0.4f + (0.5f * i), new Vector2(5066, -107), delegate {
 				resetPokerParent(pkit4, panelPkChoose4.transform.FindChild("pokerLayout").gameObject);
+				
 			});
 		}
 	}
@@ -444,5 +464,6 @@ public class BrnnRoomController : MonoBehaviour {
 
 	void resetPokerParent (GameObject pkObj, GameObject parentObj) {
 		pkObj.transform.SetParent (parentObj.transform);
+		pkObj.GetComponent<PokerItem> ().runFlipAnimation (true, true);
 	}
 }

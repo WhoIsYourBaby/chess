@@ -19,7 +19,7 @@ public class MPoker {
 
 	//后面
 	public Sprite getBackendSprite() {
-		string filename = string.Format ("png/{0}{1}", value, color);
+		string filename = string.Format ("png/bai20_n");
 		Sprite spri = Resources.Load<Sprite> (filename);
 		return spri;
 	}
