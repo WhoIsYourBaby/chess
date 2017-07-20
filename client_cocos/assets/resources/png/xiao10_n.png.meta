@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "70e399df-b358-4643-bbe1-6fd9c7a130ed",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "xiao10_n": {
+      "ver": "1.0.3",
+      "uuid": "bf526e56-2d15-4b5f-a890-b1d8e16e4c89",
+      "rawTextureUuid": "70e399df-b358-4643-bbe1-6fd9c7a130ed",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 1,
+      "trimX": 0,
+      "trimY": 3,
+      "width": 115,
+      "height": 114,
+      "rawWidth": 115,
+      "rawHeight": 122,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

@@ -86,6 +86,9 @@ require("protocol");
    * @return {bool} true正常回调, false不再调用rpc的回调函数
    */
   var filterAfter = function(data){
+    console.log('response---->');
+    console.log(data);
+    console.log('<----response');
     return true;
   }
 

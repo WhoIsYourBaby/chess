@@ -1,4 +1,4 @@
-require("./pomelo/pomelo-client");
+var GateConnector = require("./protocol/GateConnector");
 
 cc.Class({
     extends: cc.Component,
@@ -9,33 +9,28 @@ cc.Class({
             type: cc.Label
         },
         // defaults, set visually when attaching this script to the Canvas
-        text: 'Hello, World!'
+        text: 'Hello, World!',
+
+        buttonGuestLogin: {
+            default: null,
+            type: cc.Button
+        },
     },
 
     // use this for initialization
     onLoad: function () {
         this.label.string = this.text;
+
+        this.buttonGuestLogin.node.on('click', this.btnGuestLoginTap, this);
     },
 
     // called every frame
     update: function (dt) {
-
     },
 
     btnGuestLoginTap: function () {
-        pomelo.init({
-            host: '127.0.0.1',
-            port: 3101,
-            user: {},
-            handshakeCallback: function () { }
-        }, function () {
-            pomelo.request('gate.gateHandler.guestLogin', {}, function (data) {
-                pomelo.userinfo = data['data']['userinfo'];
-                pomelo.connector = data['data']['connector'];
-                pomelo.token = data['data']['token'];
-                console.log(pomelo.connector);
-            });
-
+        GateConnector.gateGuestLogin ('127.0.0.1', 3101, function (data) {
+            cc.director.loadScene('Home');
         });
     }
 });
