@@ -1,4 +1,4 @@
-var GateConnector = require("./protocol/GateConnector");
+var GateConnector = require("../protocol/GateConnector");
 
 cc.Class({
     extends: cc.Component,

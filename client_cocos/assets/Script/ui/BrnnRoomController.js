@@ -1,4 +1,4 @@
-var GateConnector = require("./protocol/GateConnector");
+require("../pomelo/pomelo-client");
 
 cc.Class({
     extends: cc.Component,
@@ -14,28 +14,14 @@ cc.Class({
         //    readonly: false,    // optional, default is false
         // },
         // ...
-        buttonBrnnRoom: {
-            default: null,
-            type: cc.Button
-        },
     },
 
     // use this for initialization
     onLoad: function () {
-        this.buttonBrnnRoom.node.on('click', this.buttonBrnnRoomTap, this);
     },
 
     // called every frame, uncomment this function to activate update callback
     // update: function (dt) {
 
     // },
-
-    buttonBrnnRoomTap: function () {
-        GateConnector.connectToConnector(function () {
-            GateConnector.connectorEnterRoom('brnn', null, function (data) {
-                console.log(data);
-            });
-        });
-
-    }
 });
