@@ -1,5 +1,6 @@
 require("../pomelo/pomelo-client");
 var GateConnector = require("../protocol/GateConnector");
+var BrnnProto = require("../protocol/BrnnProto");
 
 cc.Class({
     extends: cc.Component,
@@ -24,6 +25,8 @@ cc.Class({
     // use this for initialization
     onLoad: function () {
         this.buttonExit.node.on('click', this.buttonExitTap, this);
+
+        this.initBrnnEvent();
     },
 
     // called every frame, uncomment this function to activate update callback
@@ -35,5 +38,27 @@ cc.Class({
         GateConnector.connectorExit(function() {
             cc.director.loadScene('Home');
         });
-    }
+    },
+
+    initBrnnEvent: function () {
+        BrnnProto.onAdd(function(data){
+            console.log(data);
+        });
+
+        BrnnProto.onLeave(function(data){
+            console.log(data);
+        });
+
+        BrnnProto.onWillStart(function(data){
+            console.log(data);
+        });
+
+        BrnnProto.onDealPoker(function(data){
+            console.log(data);
+        });
+
+        BrnnProto.onGoldResult(function(data){
+            console.log(data);
+        });
+    },
 });

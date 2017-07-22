@@ -48,6 +48,6 @@ GateConnector.connectorEnterRoom = function (rtype, rid, callback) {
     pomelo.request('connector.entryHandler.enterRoom', data, callback);
 }
 
-GateConnector.connectorExit = function() {
+GateConnector.connectorExit = function(callback) {
     pomelo.request('connector.entryHandler.exit', callback);
 }
