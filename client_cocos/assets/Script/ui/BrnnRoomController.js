@@ -20,6 +20,10 @@ cc.Class({
             default: null,
             type: cc.Button
         },
+
+        brnnState: 2,   //state: 0,下注时间等待开始 | 1,游戏开始计算输赢 | 2,其他场景
+        brnnChipedList: [],
+        brnnChipSelect: 2000,
     },
 
     // use this for initialization
@@ -60,5 +64,17 @@ cc.Class({
         BrnnProto.onGoldResult(function(data){
             console.log(data);
         });
+    },
+
+    //下注金额按钮点击事件
+    //chipin 是下注金额
+    buttonChipInTap: function (event, chipin) {
+        this.brnnChipSelect = chipin;
+    },
+
+    buttonChipPokerTap: function(event, pkindex) {
+        if (this.brnnState != 0) {
+            return ;
+        }
     },
 });
