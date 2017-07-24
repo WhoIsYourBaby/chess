@@ -1,6 +1,7 @@
 require("../pomelo/pomelo-client");
 var GateConnector = require("../protocol/GateConnector");
 var BrnnProto = require("../protocol/BrnnProto");
+var MResponse = require("../protocol/MResponse");
 
 cc.Class({
     extends: cc.Component,
@@ -54,7 +55,15 @@ cc.Class({
         });
 
         BrnnProto.onWillStart(function(data){
-            console.log(data);
+            var res = new MResponse(data);
+            if (res.hasError()) {
+                console.error(res.msg);
+                return ;
+            }
+
+            this.brnnState = res.data['state'];
+            var time = res.data['time'];
+            this.updateStateAndTime(this.brnnState, time);
         });
 
         BrnnProto.onDealPoker(function(data){
@@ -72,9 +81,15 @@ cc.Class({
         this.brnnChipSelect = chipin;
     },
 
+    //下注牌点击事件，真正完成下注
     buttonChipPokerTap: function(event, pkindex) {
         if (this.brnnState != 0) {
             return ;
         }
     },
+
+    //update ui
+    updateStateAndTime : function (state, time) {
+
+    }
 });
