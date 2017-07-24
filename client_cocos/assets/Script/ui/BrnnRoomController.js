@@ -22,6 +22,16 @@ cc.Class({
             type: cc.Button
         },
 
+        stateSprite: {
+            default: null, 
+            type: cc.Sprite
+        },
+
+        timeLabel: {
+            default: null, 
+            type: cc.Label
+        },
+
         brnnState: 2,   //state: 0,下注时间等待开始 | 1,游戏开始计算输赢 | 2,其他场景
         brnnChipedList: [],
         brnnChipSelect: 2000,
@@ -30,7 +40,6 @@ cc.Class({
     // use this for initialization
     onLoad: function () {
         this.buttonExit.node.on('click', this.buttonExitTap, this);
-
         this.initBrnnEvent();
     },
 
@@ -46,6 +55,7 @@ cc.Class({
     },
 
     initBrnnEvent: function () {
+        var self = this;
         BrnnProto.onAdd(function(data){
             console.log(data);
         });
@@ -61,17 +71,19 @@ cc.Class({
                 return ;
             }
 
-            this.brnnState = res.data['state'];
+            self.brnnState = res.data['state'];
             var time = res.data['time'];
-            this.updateStateAndTime(this.brnnState, time);
+            self.updateStateAndTime(self.brnnState, time);
         });
 
         BrnnProto.onDealPoker(function(data){
-            console.log(data);
+            self.brnnState = 1;
+			self.updateStateAndTime(self.brnnState, -1);
         });
 
         BrnnProto.onGoldResult(function(data){
-            console.log(data);
+            self.brnnState = 2;
+			self.updateStateAndTime(self.brnnState, -1);
         });
     },
 
@@ -88,8 +100,22 @@ cc.Class({
         }
     },
 
-    //update ui
+    //update state and time ui
+    //time < 0 的时候隐藏imagetime
     updateStateAndTime : function (state, time) {
+        //update time
+        this.timeLabel.node.active = (time >= 0);
+        var fullTime = time;
+        if (fullTime < 10) {
+            fullTime = '0' + time;
+        }
+        this.timeLabel.string = fullTime;
 
-    }
+        //更新state
+        var stateurl = 'png/brnnstate_' + state;
+        var self = this;
+        cc.loader.loadRes(stateurl, cc.SpriteFrame, function(error, sf) {
+            self.stateSprite.spriteFrame = sf;
+        });
+    },
 });

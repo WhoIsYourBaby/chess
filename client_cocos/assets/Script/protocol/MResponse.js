@@ -1,5 +1,5 @@
 var MResponse = function (data) {
-    this.res = data['data'];
+    this.data = data['data'];
     this.code = data['code'];
     this.msg = data['msg'];
 }
