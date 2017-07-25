@@ -39,12 +39,15 @@ cc.Class({
 
         brnnState: 2,   //state: 0,下注时间等待开始 | 1,游戏开始计算输赢 | 2,其他场景
         brnnChipSelect: 2000,
+        brnnChipInDic: new Array(),     //{'1':0, '2':0, '3':0, '4':0};
     },
 
     // use this for initialization
     onLoad: function () {
+        this.brnnChipInDic = {'1':0, '2':0, '3':0, '4':0};
         this.buttonExit.node.on('click', this.buttonExitTap, this);
         this.initBrnnEvent();
+        
     },
     // called every frame, uncomment this function to activate update callback
     // update: function (dt) {
@@ -87,8 +90,9 @@ cc.Class({
         BrnnProto.onGoldResult(function(data){
             self.brnnState = 2;
             self.updateStateAndTime(self.brnnState, -1);
+            self.brnnChipInDic = {'1':0, '2':0, '3':0, '4':0};
             self.scheduleOnce(function() {
-                this.updateChipView({'1':0, '2':0, '3':0, '4':0});
+                this.updateChipView(this.brnnChipInDic);
             }, 2);
         });
     },
@@ -105,14 +109,17 @@ cc.Class({
             console.log('下注时间已过');
             return ;
         }
+        this.brnnChipInDic[pkindex] += this.brnnChipSelect;
 
         var self = this;
-        BrnnProto.chipIn(this.brnnChipSelect, pkindex, function(data) {
+        BrnnProto.chipIn(this.brnnChipInDic[pkindex], pkindex, function(data) {
             var res = new MResponse(data);
             if (res.hasError()) {
                 console.log(res.msg);
+                self.brnnChipInDic[pkindex] -= self.brnnChipSelect;
                 return ;
             }
+            console.log(data);
             self.updateChipView(res.data);
         });
     },
