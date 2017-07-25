@@ -39,9 +39,14 @@ cc.Class({
         myPokerList = pokerList;
     },
 
-    updateGold: function(total, mine) {
-        this.labelTotal.string = total;
-        this.labelMine.string = total;
+    updateGold: function(mine, total) {
+        if (total == null) {
+            this.labelTotal.string = 0;
+        } else {
+            this.labelTotal.string = total;
+        }
+        
+        this.labelMine.string = mine;
     },
 
     //延迟一定时间开始发牌动画
