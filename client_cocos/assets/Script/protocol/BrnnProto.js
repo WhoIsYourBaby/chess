@@ -4,9 +4,9 @@ var BrnnProto = function () {}
 
 module.exports = BrnnProto;
 
-BrnnProto.chipIn = function (userid, gold, pkindex, callback) {
+BrnnProto.chipIn = function (gold, pkindex, callback) {
     var data = {};
-    data.userid = userid;
+    data.userid = pomelo.userinfo.userid;
     data.gold = gold;
     data.pkindex = pkindex;
 

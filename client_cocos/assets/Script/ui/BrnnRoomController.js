@@ -32,8 +32,12 @@ cc.Class({
             type: cc.Label
         },
 
+        chipLayout: {
+            default: null,
+            type:cc.Layout
+        },
+
         brnnState: 2,   //state: 0,下注时间等待开始 | 1,游戏开始计算输赢 | 2,其他场景
-        brnnChipedDic: new Array(),
         brnnChipSelect: 2000,
     },
 
@@ -41,12 +45,6 @@ cc.Class({
     onLoad: function () {
         this.buttonExit.node.on('click', this.buttonExitTap, this);
         this.initBrnnEvent();
-
-        this.resetData();
-    },
-
-    resetData: function () {
-        this.brnnChipedDic = {'1' : 0, '2': 0, '3': 0, '4': 0};
     },
     // called every frame, uncomment this function to activate update callback
     // update: function (dt) {
@@ -89,7 +87,9 @@ cc.Class({
         BrnnProto.onGoldResult(function(data){
             self.brnnState = 2;
             self.updateStateAndTime(self.brnnState, -1);
-            self.resetData();
+            self.scheduleOnce(function() {
+                this.updateChipView({'1':0, '2':0, '3':0, '4':0});
+            }, 2);
         });
     },
 
@@ -102,11 +102,19 @@ cc.Class({
     //下注牌点击事件，真正完成下注
     buttonChipPokerTap: function(event, pkindex) {
         if (this.brnnState != 0) {
+            console.log('下注时间已过');
             return ;
         }
-        this.brnnChipedDic[pkindex] += this.brnnChipSelect;
 
-        console.log(this.brnnChipedDic);
+        var self = this;
+        BrnnProto.chipIn(this.brnnChipSelect, pkindex, function(data) {
+            var res = new MResponse(data);
+            if (res.hasError()) {
+                console.log(res.msg);
+                return ;
+            }
+            self.updateChipView(res.data);
+        });
     },
 
     //update state and time ui
@@ -128,9 +136,16 @@ cc.Class({
         });
     },
 
-    updateChipView: function() {
-        var cp1 = this.node.getChildByName('chipView1');
-        var cpscript = cp1.getComponent('ChipViewScript');
-        cpscript.updateGold(100, 1000);
+    updateChipView: function(mychip) {
+        for (var index = 1; index < 5; index++) {
+            if (mychip[index] == null) {
+                continue ;
+            }
+            var childName = 'chipView' + index;
+            console.log(childName);
+            var cp = this.chipLayout.node.getChildByName(childName);
+            var cpscript = cp.getComponent('ChipViewScript');
+            cpscript.updateGold(mychip[index], null);
+        }
     },
 });

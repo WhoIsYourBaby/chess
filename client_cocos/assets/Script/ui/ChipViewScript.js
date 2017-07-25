@@ -40,9 +40,7 @@ cc.Class({
     },
 
     updateGold: function(mine, total) {
-        if (total == null) {
-            this.labelTotal.string = 0;
-        } else {
+        if (total) {
             this.labelTotal.string = total;
         }
         
