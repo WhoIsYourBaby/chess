@@ -23,7 +23,8 @@ cc.Class({
             type: cc.Label
         },
 
-        myPokerList: [],    //发牌的数据
+        myPokerList: null,    //发牌的数据
+        myResult: null,
     },
 
     // use this for initialization
@@ -35,8 +36,9 @@ cc.Class({
 
     // },
 
-    bindPokers: function(pokerList) {
-        myPokerList = pokerList;
+    bindPokers: function(pokerList, result) {
+        this.myPokerList = pokerList;
+        this.myResult = result;
     },
 
     updateGold: function(mine, total) {

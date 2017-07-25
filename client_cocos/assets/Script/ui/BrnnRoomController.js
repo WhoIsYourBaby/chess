@@ -83,8 +83,14 @@ cc.Class({
         });
 
         BrnnProto.onDealPoker(function(data){
+            var res = new MResponse(data);
+            if (res.hasError() {
+                console.log(res.msg);
+                return ;
+            }
             self.brnnState = 1;
-			self.updateStateAndTime(self.brnnState, -1);
+            self.updateStateAndTime(self.brnnState, -1);
+            self.pushPokerToChipView(res.data['pokerRes']);
         });
 
         BrnnProto.onGoldResult(function(data){
@@ -149,10 +155,23 @@ cc.Class({
                 continue ;
             }
             var childName = 'chipView' + index;
-            console.log(childName);
             var cp = this.chipLayout.node.getChildByName(childName);
             var cpscript = cp.getComponent('ChipViewScript');
             cpscript.updateGold(mychip[index], null);
+        }
+    },
+
+    pushPokerToChipView: function(pokerGroup) {
+        if (pokerGroup.length !== 5) {
+            console.log('pokerGroup长度不对');
+            return ;
+        }
+        for (var index = 1; index < pokerGroup.length; index++) {
+            var element = pokerGroup[index];
+            var childName = 'chipView' + index;
+            var cp = this.chipLayout.node.getChildByName(childName);
+            var cpscript = cp.getComponent('ChipViewScript');
+            cpscript.bindPokers(element['poker'], element['result']);
         }
     },
 });
