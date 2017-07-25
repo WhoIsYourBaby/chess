@@ -100,7 +100,7 @@ cc.Class({
     //下注金额按钮点击事件
     //chipin 是下注金额
     buttonChipInTap: function (event, chipin) {
-        this.brnnChipSelect = chipin;
+        this.brnnChipSelect = parseInt(chipin);
     },
 
     //下注牌点击事件，真正完成下注
