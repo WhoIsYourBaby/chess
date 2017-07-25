@@ -121,7 +121,7 @@ DouniuRoom.prototype.chipIn = function(userid, gold, pkindex, balance) {
   if (!this.chipList[userid]) {
     this.chipList[userid] = {};
   }
-  this.chipList[userid][pkindex] = gold;
+  this.chipList[userid][pkindex] = parseInt(gold);
   return this.chipList[userid];
 };
 
