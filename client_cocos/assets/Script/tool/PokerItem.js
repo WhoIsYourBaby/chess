@@ -33,7 +33,7 @@ cc.Class({
 
     animationMoveTo: function(delay, pos, finishCallback, target){
         var dl = cc.delayTime(delay);
-        var mt = cc.moveTo(0.2, pos);
+        var mt = cc.moveTo(0.3, pos);
         mt.easing(cc.easeOut(3));
         var cal = cc.callFunc(finishCallback, target, this);
         var seq = cc.sequence(dl, mt, cal);
@@ -42,11 +42,12 @@ cc.Class({
 
     animationFlipTo: function (isFront, finishCallback, target) {
         this.frontState = isFront;
-        var flip0 = cc.scaleTo(0.1, 0, 1);
+        var flip0 = cc.scaleTo(0.2, 0, 1);
         var cal = cc.callFunc(this.switchSprite, this);
-        var flip1 = cc.scaleTo(0.1, 1, 1);
-        var calFinish = cc.callFunc(finishCallback, target);
+        var flip1 = cc.scaleTo(0.2, 1, 1);
+        var calFinish = cc.callFunc(finishCallback, target, this);
         var seq = cc.sequence(flip0, cal, flip1, calFinish);
+        this.node.runAction(seq);
     },
 
     switchSprite: function() {
@@ -56,9 +57,12 @@ cc.Class({
         } else {
             resname = 'png/pk_back';
         }
+        var self = this;
         cc.loader.loadRes(resname, cc.SpriteFrame, function(error, spriteFrame){
-            var sprite = this.node.getComponent('Sprite');
+            var oriSize = self.node.getContentSize();
+            var sprite = self.getComponent(cc.Sprite);
             sprite.spriteFrame = spriteFrame;
+            self.node.setContentSize(oriSize);
         });
     },
 });

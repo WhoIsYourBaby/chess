@@ -675,7 +675,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 14.46,
+      "width": 250.84,
       "height": 40
     },
     "_rotationX": 0,
@@ -861,6 +861,12 @@
     },
     "labelMine": {
       "__id__": 17
+    },
+    "pokerPrefab": null,
+    "pokerPosFromWorld": {
+      "__type__": "cc.Vec2",
+      "x": 1000,
+      "y": 550
     },
     "myPokerList": null,
     "myResult": null
@@ -1093,7 +1099,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 14.46,
+      "width": 250.84,
       "height": 40
     },
     "_rotationX": 0,
@@ -1279,6 +1285,12 @@
     },
     "labelMine": {
       "__id__": 31
+    },
+    "pokerPrefab": null,
+    "pokerPosFromWorld": {
+      "__type__": "cc.Vec2",
+      "x": 1000,
+      "y": 550
     },
     "myPokerList": null,
     "myResult": null
@@ -1511,7 +1523,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 14.46,
+      "width": 250.84,
       "height": 40
     },
     "_rotationX": 0,
@@ -1697,6 +1709,12 @@
     },
     "labelMine": {
       "__id__": 45
+    },
+    "pokerPrefab": null,
+    "pokerPosFromWorld": {
+      "__type__": "cc.Vec2",
+      "x": 1000,
+      "y": 550
     },
     "myPokerList": null,
     "myResult": null
@@ -1929,7 +1947,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 14.46,
+      "width": 250.84,
       "height": 40
     },
     "_rotationX": 0,
@@ -2115,6 +2133,12 @@
     },
     "labelMine": {
       "__id__": 59
+    },
+    "pokerPrefab": null,
+    "pokerPosFromWorld": {
+      "__type__": "cc.Vec2",
+      "x": 1000,
+      "y": 550
     },
     "myPokerList": null,
     "myResult": null

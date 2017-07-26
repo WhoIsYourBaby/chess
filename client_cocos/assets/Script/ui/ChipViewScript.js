@@ -80,15 +80,19 @@ cc.Class({
             pkitem.setPosition(fromPos);
             var PokerItemSC = pkitem.getComponent('PokerItem');
             PokerItemSC.bindPokerModel(element);
-            var posTo = new cc.Vec2(0, 0);
+            var viewsize = this.node.getContentSize();
+            var pksize = pkitem.getContentSize();
+            var posTo = new cc.Vec2((index-2) * pksize.width * 0.8, 0);
             PokerItemSC.animationMoveTo(delay + index * 0.1, posTo, this.pokerMoveOverCallback, this);
         }
     },
 
     pokerMoveOverCallback: function(pkitem) {
         var PokerItemSC = pkitem.getComponent('PokerItem');
-        if (PokerItemSC) {
-            console.log('find script OK');
-        }
+        PokerItemSC.animationFlipTo(true, this.pokerFlipOverCallback, this);
+    },
+
+    pokerFlipOverCallback: function(pkitem) {
+
     },
 });
