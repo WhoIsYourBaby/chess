@@ -31,20 +31,22 @@ cc.Class({
         this.pokerModel = pkmodel;
     },
 
-    animationMoveTo: function(pos, finishCallback, target){
-        var mt = new cc.moveTo(0.1, pos);
-        var cal = new cc.callFunc(finishCallback, target);
-        var seq = new cc.sequence(mt, cal);
+    animationMoveTo: function(delay, pos, finishCallback, target){
+        var dl = cc.delayTime(delay);
+        var mt = cc.moveTo(0.2, pos);
+        mt.easing(cc.easeOut(3));
+        var cal = cc.callFunc(finishCallback, target, this);
+        var seq = cc.sequence(dl, mt, cal);
         this.node.runAction(seq);
     },
 
     animationFlipTo: function (isFront, finishCallback, target) {
         this.frontState = isFront;
-        var flip0 = new cc.scaleTo(0.1, 0, 1);
-        var cal = new cc.callFunc(this.switchSprite, this);
-        var flip1 = new cc.scaleTo(0.1, 1, 1);
-        var calFinish = new cc.callFunc(finishCallback, target);
-        var seq = new cc.sequence(flip0, cal, flip1, calFinish);
+        var flip0 = cc.scaleTo(0.1, 0, 1);
+        var cal = cc.callFunc(this.switchSprite, this);
+        var flip1 = cc.scaleTo(0.1, 1, 1);
+        var calFinish = cc.callFunc(finishCallback, target);
+        var seq = cc.sequence(flip0, cal, flip1, calFinish);
     },
 
     switchSprite: function() {

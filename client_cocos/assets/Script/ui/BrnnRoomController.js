@@ -84,7 +84,7 @@ cc.Class({
 
         BrnnProto.onDealPoker(function(data){
             var res = new MResponse(data);
-            if (res.hasError() {
+            if (res.hasError()) {
                 console.log(res.msg);
                 return ;
             }
@@ -172,6 +172,7 @@ cc.Class({
             var cp = this.chipLayout.node.getChildByName(childName);
             var cpscript = cp.getComponent('ChipViewScript');
             cpscript.bindPokers(element['poker'], element['result']);
+            cpscript.pokerAnimationDelay(0.1 * (index + 1));
         }
     },
 });
