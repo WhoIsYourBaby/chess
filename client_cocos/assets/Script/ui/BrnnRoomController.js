@@ -98,7 +98,7 @@ cc.Class({
             self.updateStateAndTime(self.brnnState, -1);
             self.brnnChipInDic = {'1':0, '2':0, '3':0, '4':0};
             self.scheduleOnce(function() {
-                this.updateChipView(this.brnnChipInDic);
+                this.resetChipView();
             }, 2);
         });
     },
@@ -125,7 +125,6 @@ cc.Class({
                 self.brnnChipInDic[pkindex] -= self.brnnChipSelect;
                 return ;
             }
-            console.log(data);
             self.updateChipView(res.data);
         });
     },
@@ -158,6 +157,15 @@ cc.Class({
             var cp = this.chipLayout.node.getChildByName(childName);
             var cpscript = cp.getComponent('ChipViewScript');
             cpscript.updateGold(mychip[index], null);
+        }
+    },
+
+    resetChipView: function() {
+        for (var index = 1; index < 5; index++) {
+            var childName = 'chipView' + index;
+            var cp = this.chipLayout.node.getChildByName(childName);
+            var cpscript = cp.getComponent('ChipViewScript');
+            cpscript.resetState();
         }
     },
 
