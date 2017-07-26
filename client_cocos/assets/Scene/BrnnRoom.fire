@@ -869,7 +869,8 @@
       "y": 550
     },
     "myPokerList": null,
-    "myResult": null
+    "myResult": null,
+    "myPokerNodes": null
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -1293,7 +1294,8 @@
       "y": 550
     },
     "myPokerList": null,
-    "myResult": null
+    "myResult": null,
+    "myPokerNodes": null
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -1717,7 +1719,8 @@
       "y": 550
     },
     "myPokerList": null,
-    "myResult": null
+    "myResult": null,
+    "myPokerNodes": null
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -2141,7 +2144,8 @@
       "y": 550
     },
     "myPokerList": null,
-    "myResult": null
+    "myResult": null,
+    "myPokerNodes": null
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -2185,7 +2189,7 @@
     "node": {
       "__id__": 10
     },
-    "_enabled": true,
+    "_enabled": false,
     "_layoutSize": {
       "__type__": "cc.Size",
       "width": 1240,
@@ -2669,7 +2673,7 @@
     "duration": 0.1,
     "zoomScale": 1.2,
     "pressedSprite": {
-      "__uuid__": "e9ec654c-97a2-4787-9325-e6a10375219a"
+      "__uuid__": "196db942-8952-4d6f-b29f-a6d3f2e107eb"
     },
     "hoverSprite": {
       "__uuid__": "e9ec654c-97a2-4787-9325-e6a10375219a"

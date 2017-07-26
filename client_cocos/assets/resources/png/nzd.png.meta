@@ -1,14 +1,14 @@
 {
   "ver": "1.0.0",
-  "uuid": "4004435d-d47a-4de4-a0f7-a73264b9976e",
+  "uuid": "1f6a9958-e5ff-4c35-8229-0d9242db8b27",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "subMetas": {
-    "xiao15_n": {
+    "nzd": {
       "ver": "1.0.3",
-      "uuid": "0df134f8-f41a-4fd4-89b1-fbe8ba845eb4",
-      "rawTextureUuid": "4004435d-d47a-4de4-a0f7-a73264b9976e",
+      "uuid": "5a604984-07d8-4dc6-a04f-8bac14b4a225",
+      "rawTextureUuid": "1f6a9958-e5ff-4c35-8229-0d9242db8b27",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,

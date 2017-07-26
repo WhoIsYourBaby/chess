@@ -103,7 +103,7 @@ DouniuRoom.prototype.dealPokers = function() {
   setTimeout(function() {
     this.pushGoldResult(pokerRes);
     this.state = 2;
-  }.bind(this), 3000);
+  }.bind(this), 5000);
 };
 
 //return 下注成功返回该用户目前的下注情况，否则null（可能余额不够、或者非下注时间）
@@ -191,7 +191,7 @@ DouniuRoom.prototype.pushGoldResult = function (pokerRes) {
       this.channel.pushMessage('brnn.onGoldResult', res);
     }
 
-    setTimeout(this.startGame.bind(this), 3000);
+    setTimeout(this.startGame.bind(this), 6000);
   }.bind(this));
 };
 
