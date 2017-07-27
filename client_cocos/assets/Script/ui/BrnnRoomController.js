@@ -37,6 +37,11 @@ cc.Class({
             type:cc.Layout
         },
 
+        masterView: {
+            default: null,
+            type: cc.Node
+        },
+
         brnnState: 2,   //state: 0,下注时间等待开始 | 1,游戏开始计算输赢 | 2,其他场景
         brnnChipSelect: 2000,
         brnnChipInDic: new Array(),     //{'1':0, '2':0, '3':0, '4':0};
@@ -47,7 +52,8 @@ cc.Class({
         this.brnnChipInDic = {'1':0, '2':0, '3':0, '4':0};
         this.buttonExit.node.on('click', this.buttonExitTap, this);
         this.initBrnnEvent();
-        
+        var wod = this.node.convertToNodeSpace(cc.Vec2.ZERO);
+        console.log(wod);
     },
     // called every frame, uncomment this function to activate update callback
     // update: function (dt) {
@@ -161,6 +167,8 @@ cc.Class({
     },
 
     resetChipView: function() {
+        var masterViewSC = this.masterView.getComponent('ChipViewScript');
+        masterViewSC.resetState();
         for (var index = 1; index < 5; index++) {
             var childName = 'chipView' + index;
             var cp = this.chipLayout.node.getChildByName(childName);
@@ -174,6 +182,11 @@ cc.Class({
             console.log('pokerGroup长度不对');
             return ;
         }
+        var masterPkItem = pokerGroup[0];
+        var masterViewSC = this.masterView.getComponent('ChipViewScript');
+        masterViewSC.bindPokers(masterPkItem['poker'], masterPkItem['result']);
+        masterViewSC.pokerAnimationDelay(0);
+
         for (var index = 1; index < pokerGroup.length; index++) {
             var element = pokerGroup[index];
             var childName = 'chipView' + index;

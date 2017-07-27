@@ -35,16 +35,18 @@ cc.Class({
 
         //扑克起始点的世界坐标系
         pokerPosFromWorld: {
-            default: new cc.Vec2(1000, 450),
+            default: null,
+            visible: false
         },
 
         myPokerList: null,    //发牌的数据
         myResult: null,
-        myPokerNodes: null,     //poker节点
+        myPokerNodes: null,     //poker节点数组
     },
 
     // use this for initialization
     onLoad: function () {
+        this.pokerPosFromWorld = new cc.Vec2(cc.winSize.width/2-150,cc.winSize.height/2-50);
         var self = this;
         cc.loader.loadRes('prefab/PokerItem', function(error, pref){
             if (error) {
@@ -113,8 +115,12 @@ cc.Class({
     //重置ChipView上的状态
     //移除上面的扑克、赌注
     resetState: function() {
-        this.labelMine.string = '0';
-        this.labelTotal.string = '0';
+        if (this.labelMine != null) {
+            this.labelMine.string = '0';   
+        }
+        if (this.labelTotal != null) {
+            this.labelTotal.string = '0';
+        }
         if (this.myPokerNodes == null) {
             return ;
         }
