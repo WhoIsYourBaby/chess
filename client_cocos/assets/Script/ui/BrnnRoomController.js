@@ -45,12 +45,25 @@ cc.Class({
         brnnState: 2,   //state: 0,下注时间等待开始 | 1,游戏开始计算输赢 | 2,其他场景
         brnnChipSelect: 2000,
         brnnChipInDic: new Array(),     //{'1':0, '2':0, '3':0, '4':0};
+
+        chipViewSC: {
+            default: new Array()
+        },
     },
 
     // use this for initialization
     onLoad: function () {
         this.brnnChipInDic = {'1':0, '2':0, '3':0, '4':0};
         this.buttonExit.node.on('click', this.buttonExitTap, this);
+        var masterViewSC = this.masterView.getComponent('ChipViewScript');
+        this.chipViewSC.push(masterViewSC);
+
+        for (var index = 1; index < 5; index++) {
+            var childName = 'chipView' + index;
+            var cp = this.chipLayout.node.getChildByName(childName);
+            var cpscript = cp.getComponent('ChipViewScript');
+            this.chipViewSC.push(cpscript);
+        }
         this.initBrnnEvent();
     },
     // called every frame, uncomment this function to activate update callback
@@ -181,18 +194,23 @@ cc.Class({
             return ;
         }
         var masterPkItem = pokerGroup[0];
-        var masterViewSC = this.masterView.getComponent('ChipViewScript');
+        var masterViewSC = this.chipViewSC[0];
         masterViewSC.pokerPosFromWorld = new cc.Vec2(cc.winSize.width/2-160,cc.winSize.height/2+45);
         masterViewSC.bindPokers(masterPkItem['poker'], masterPkItem['result']);
         masterViewSC.pokerAnimationDelay(0);
 
         for (var index = 1; index < pokerGroup.length; index++) {
             var element = pokerGroup[index];
-            var childName = 'chipView' + index;
-            var cp = this.chipLayout.node.getChildByName(childName);
-            var cpscript = cp.getComponent('ChipViewScript');
+            var cpscript = this.chipViewSC[index];
             cpscript.bindPokers(element['poker'], element['result']);
             cpscript.pokerAnimationDelay(0.1 * (index + 1));
         }
+        //2s后展示牌面大小
+        this.scheduleOnce(function() {
+            for (var index = 0; index < 5; index++) {
+                var cpscript = this.chipViewSC[index];
+                cpscript.showNiuNiu();
+            }
+        }, 2);
     },
 });

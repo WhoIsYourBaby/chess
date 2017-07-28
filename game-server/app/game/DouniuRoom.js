@@ -87,6 +87,16 @@ DouniuRoom.prototype.dealPokers = function() {
     delete nnRes.pIndex1;
     delete nnRes.pIndex2;
 
+    if (index > 0) {
+      var pk0 = pokerRes[0]['result'];
+      if (comparePoker(pk0, nnRes) >= 0) {
+        //比庄家牌小
+        nnRes.win = false;
+      } else {
+        nnRes.win = true;
+      }
+    }
+
     var dic = {
       poker : aPkGroup,
       result : nnRes
@@ -103,7 +113,7 @@ DouniuRoom.prototype.dealPokers = function() {
   setTimeout(function() {
     this.pushGoldResult(pokerRes);
     this.state = 2;
-  }.bind(this), 5000);
+  }.bind(this), 1000 * 30);
 };
 
 //return 下注成功返回该用户目前的下注情况，否则null（可能余额不够、或者非下注时间）
@@ -161,7 +171,7 @@ DouniuRoom.prototype.pushGoldResult = function (pokerRes) {
       for (var pkindex in chipinfo) {
         if (chipinfo.hasOwnProperty(pkindex)) {
           var goldChiped = chipinfo[pkindex];
-          //todo .. 计算所有下注的牌输赢
+          //计算所有下注的牌输赢
           dbcount = compareResult[pkindex];
           goldResult += (dbcount * goldChiped);
         }
@@ -191,7 +201,7 @@ DouniuRoom.prototype.pushGoldResult = function (pokerRes) {
       this.channel.pushMessage('brnn.onGoldResult', res);
     }
 
-    setTimeout(this.startGame.bind(this), 6000);
+    setTimeout(this.startGame.bind(this), 8000);
   }.bind(this));
 };
 

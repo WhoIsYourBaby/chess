@@ -1,7 +1,4 @@
-/*
-nntype表示用户牌型
-炸弹(6) > 五小(5) > 五花(4) > 四花(3) > 牛牛(2) > 有牛(1) > 没牛(0)
- */
+
 
 cc.Class({
     extends: cc.Component,
@@ -129,5 +126,72 @@ cc.Class({
             element.destroy();
         }, this);
         this.myPokerNodes = null;
+    },
+
+    /*
+    nntype表示用户牌型
+    炸弹(6) > 五小(5) > 五花(4) > 四花(3) > 牛牛(2) > 有牛(1) > 没牛(0)
+    niuN
+    牌面大小
+    */
+    showNiuNiu: function () {
+        //牌型大小
+        var resName = 'png/nm';
+        if (this.myResult.nntype == 6) {
+            resName = 'png/nzd';
+        }
+        if (this.myResult.nntype == 5) {
+            resName = 'png/nwx';
+        }
+        if (this.myResult.nntype == 4) {
+            resName = 'png/nwh';
+        }
+        if (this.myResult.nntype == 3) {
+            resName = 'png/nsh';
+        }
+        if (this.myResult.nntype == 2) {
+            resName = 'png/nn';
+        }
+        if (this.myResult.nntype == 1) {
+            //有牛区分牛几
+            resName = 'png/n' + this.myResult.niuN;
+        }
+        if (this.myResult.nntype == 0) {
+            resName = 'png/nm';
+        }
+        var self = this;
+        cc.loader.loadRes(resName, cc.SpriteFrame, function(error, spriteFrame){
+                var ppNode = new cc.Node('nntype');
+                var sprite = ppNode.addComponent(cc.Sprite);
+                sprite.spriteFrame = spriteFrame;
+                self.node.addChild(ppNode);
+
+                var move = new cc.moveBy(0.5, 0, ppNode.getContentSize().height/8*5);
+                var scale = new cc.scaleTo(0.5, 0.5, 0.5);
+                var sp = new cc.spawn(move, scale);
+                ppNode.runAction(sp);
+
+                self.myPokerNodes.push(ppNode);
+        });
+
+        //输赢显示
+        //庄家没有单独的输赢标识，但是要显示倍数
+        if (this.myResult.win == null || this.myResult.win == true) {
+            return;
+        } else {
+            cc.loader.loadRes('png/shu', cc.SpriteFrame, function (error, spriteFrame) {
+                var ppNode = new cc.Node('shu');
+                var sprite = ppNode.addComponent(cc.Sprite);
+                sprite.spriteFrame = spriteFrame;
+                self.node.addChild(ppNode);
+
+                var move = new cc.moveBy(0.5, 0, -ppNode.getContentSize().height/8*5);
+                var scale = new cc.scaleTo(0.5, 0.5, 0.5);
+                var sp = new cc.spawn(move, scale);
+                ppNode.runAction(sp);
+
+                self.myPokerNodes.push(ppNode);
+            });
+        }
     },
 });
