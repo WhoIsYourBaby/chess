@@ -33,10 +33,12 @@ cc.Class({
 
     animationMoveTo: function(delay, pos, finishCallback, target){
         var dl = cc.delayTime(delay);
-        var mt = cc.moveTo(0.3, pos);
-        mt.easing(cc.easeOut(3));
+        var bpos = new cc.Vec2(pos.x, this.node.getPositionY());
+        var mt1 = cc.moveTo(0.15, bpos);
+        var mt2 = cc.moveTo(0.15, pos);
+        
         var cal = cc.callFunc(finishCallback, target, this);
-        var seq = cc.sequence(dl, mt, cal);
+        var seq = cc.sequence(dl, mt1, mt2, cal);
         this.node.runAction(seq);
     },
 

@@ -46,7 +46,7 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
-        this.pokerPosFromWorld = new cc.Vec2(cc.winSize.width/2-150,cc.winSize.height/2-50);
+        this.pokerPosFromWorld = new cc.Vec2(cc.winSize.width/2-150,cc.winSize.height/2-30);
         var self = this;
         cc.loader.loadRes('prefab/PokerItem', function(error, pref){
             if (error) {
