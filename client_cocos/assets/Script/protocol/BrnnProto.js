@@ -37,3 +37,11 @@ BrnnProto.onDealPoker = function (callback) {
 BrnnProto.onGoldResult = function (callback) {
     pomelo.on('brnn.onGoldResult', callback);
 }
+
+BrnnProto.disableEvent = function() {
+    pomelo.removeAllListeners('brnn.onGoldResult');
+    pomelo.removeAllListeners('brnn.onDealPoker');
+    pomelo.removeAllListeners('brnn.onWillStart');
+    pomelo.removeAllListeners('brnn.onAdd');
+    pomelo.removeAllListeners('brnn.onLeave');
+}

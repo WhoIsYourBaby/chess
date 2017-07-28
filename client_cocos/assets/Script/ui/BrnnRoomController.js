@@ -54,7 +54,6 @@ cc.Class({
     // use this for initialization
     onLoad: function () {
         this.brnnChipInDic = {'1':0, '2':0, '3':0, '4':0};
-        this.buttonExit.node.on('click', this.buttonExitTap, this);
         var masterViewSC = this.masterView.getComponent('ChipViewScript');
         this.chipViewSC.push(masterViewSC);
 
@@ -64,7 +63,17 @@ cc.Class({
             var cpscript = cp.getComponent('ChipViewScript');
             this.chipViewSC.push(cpscript);
         }
+        
+    },
+
+    onEnable: function () {
+        this.buttonExit.node.on('click', this.buttonExitTap, this);
         this.initBrnnEvent();
+    },
+
+    onDisable: function () {
+        this.buttonExit.node.off('click', this.buttonExitTap, this);
+        BrnnProto.disableEvent();
     },
     // called every frame, uncomment this function to activate update callback
     // update: function (dt) {
