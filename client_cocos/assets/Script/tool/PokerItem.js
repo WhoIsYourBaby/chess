@@ -34,11 +34,14 @@ cc.Class({
     animationMoveTo: function(delay, pos, finishCallback, target){
         var dl = cc.delayTime(delay);
         var bpos = new cc.Vec2(pos.x, this.node.getPositionY());
-        var mt1 = cc.moveTo(0.15, bpos);
-        var mt2 = cc.moveTo(0.15, pos);
+        // var mt1 = cc.moveTo(0.15, bpos);
+        // var mt2 = cc.moveTo(0.15, pos);
+        //改为贝塞尔移动
+        var ar = [this.node.getPosition(), bpos, pos];
+        var beiz = cc.bezierTo(0.3,ar);
         
         var cal = cc.callFunc(finishCallback, target, this);
-        var seq = cc.sequence(dl, mt1, mt2, cal);
+        var seq = cc.sequence(dl, beiz, cal);
         this.node.runAction(seq);
     },
 

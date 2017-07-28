@@ -52,8 +52,6 @@ cc.Class({
         this.brnnChipInDic = {'1':0, '2':0, '3':0, '4':0};
         this.buttonExit.node.on('click', this.buttonExitTap, this);
         this.initBrnnEvent();
-        var wod = this.node.convertToNodeSpace(cc.Vec2.ZERO);
-        console.log(wod);
     },
     // called every frame, uncomment this function to activate update callback
     // update: function (dt) {
@@ -184,6 +182,7 @@ cc.Class({
         }
         var masterPkItem = pokerGroup[0];
         var masterViewSC = this.masterView.getComponent('ChipViewScript');
+        masterViewSC.pokerPosFromWorld = new cc.Vec2(cc.winSize.width/2-160,cc.winSize.height/2+45);
         masterViewSC.bindPokers(masterPkItem['poker'], masterPkItem['result']);
         masterViewSC.pokerAnimationDelay(0);
 
