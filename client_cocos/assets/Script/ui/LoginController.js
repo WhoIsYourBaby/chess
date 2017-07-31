@@ -29,15 +29,15 @@ cc.Class({
     },
 
     btnGuestLoginTap: function () {
-        var token = cc.sys.localStorage.getItem('token');
-        if (token) {
-            GateConnector.gateRefreshToken('39.108.83.192', 3101, function (data) {
-                cc.director.loadScene('Home');
-            });
-        } else {
+        // var token = cc.sys.localStorage.getItem('token');
+        // if (token) {
+        //     GateConnector.gateRefreshToken('39.108.83.192', 3101, function (data) {
+        //         cc.director.loadScene('Home');
+        //     });
+        // } else {
             GateConnector.gateGuestLogin('39.108.83.192', 3101, function (data) {
                 cc.director.loadScene('Home');
             });
-        }
+        // }
     }
 });

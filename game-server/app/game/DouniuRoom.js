@@ -113,7 +113,7 @@ DouniuRoom.prototype.dealPokers = function() {
   setTimeout(function() {
     this.pushGoldResult(pokerRes);
     this.state = 2;
-  }.bind(this), 1000 * 30);
+  }.bind(this), 1000 * 10);
 };
 
 //return 下注成功返回该用户目前的下注情况，否则null（可能余额不够、或者非下注时间）
