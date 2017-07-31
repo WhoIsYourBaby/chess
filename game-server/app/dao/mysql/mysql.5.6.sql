@@ -17,34 +17,6 @@ USE `chess`;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
---
--- Table structure for table `t_token`
---
-
-DROP TABLE IF EXISTS `t_token`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `t_token` (
-  `userid` int(11) NOT NULL,
-  `token` varchar(256) DEFAULT NULL,
-  UNIQUE KEY `userid_UNIQUE` (`userid`),
-  CONSTRAINT `userid` FOREIGN KEY (`userid`) REFERENCES `t_user` (`userid`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `t_token`
---
-
-LOCK TABLES `t_token` WRITE;
-/*!40000 ALTER TABLE `t_token` DISABLE KEYS */;
-/*!40000 ALTER TABLE `t_token` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `t_user`
---
-
 DROP TABLE IF EXISTS `t_user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -75,6 +47,36 @@ LOCK TABLES `t_user` WRITE;
 INSERT INTO `t_user` VALUES (3,NULL,'游客登录',NULL,NULL,'2017-06-16 08:14:22',3000,0,0,NULL),(4,NULL,'游客登录',NULL,NULL,'2017-06-16 09:43:20',3000,0,0,NULL),(5,NULL,'游客登录',NULL,NULL,'2017-06-16 09:45:58',3000,0,0,NULL),(6,NULL,'游客登录',NULL,NULL,'2017-06-16 09:47:38',3000,0,0,NULL),(7,NULL,'游客登录',NULL,NULL,'2017-06-16 09:47:48',3000,0,0,NULL);
 /*!40000 ALTER TABLE `t_user` ENABLE KEYS */;
 UNLOCK TABLES;
+
+
+--
+-- Table structure for table `t_token`
+--
+
+DROP TABLE IF EXISTS `t_token`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `t_token` (
+  `userid` int(11) NOT NULL,
+  `token` varchar(256) DEFAULT NULL,
+  UNIQUE KEY `userid_UNIQUE` (`userid`),
+  CONSTRAINT `userid` FOREIGN KEY (`userid`) REFERENCES `t_user` (`userid`) ON DELETE CASCADE ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `t_token`
+--
+
+LOCK TABLES `t_token` WRITE;
+/*!40000 ALTER TABLE `t_token` DISABLE KEYS */;
+/*!40000 ALTER TABLE `t_token` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `t_user`
+--
+
 
 --
 -- Dumping events for database 'chess'

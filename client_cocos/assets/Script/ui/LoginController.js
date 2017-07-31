@@ -31,11 +31,11 @@ cc.Class({
     btnGuestLoginTap: function () {
         var token = cc.sys.localStorage.getItem('token');
         if (token) {
-            GateConnector.gateRefreshToken('127.0.0.1', 3101, function (data) {
+            GateConnector.gateRefreshToken('39.108.83.192', 3101, function (data) {
                 cc.director.loadScene('Home');
             });
         } else {
-            GateConnector.gateGuestLogin('127.0.0.1', 3101, function (data) {
+            GateConnector.gateGuestLogin('39.108.83.192', 3101, function (data) {
                 cc.director.loadScene('Home');
             });
         }
