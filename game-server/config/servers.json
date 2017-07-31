@@ -18,10 +18,10 @@
              {"id":"connector-server-1", "host":"39.108.83.192", "port":3102, "clientPort": 3103, "frontend": true}
          ],
         "chat":[
-             {"id":"chat-server-1", "host":"39.108.83.192", "port":3104}
+             {"id":"chat-server-1", "host":"127.0.0.1", "port":3104}
         ],
         "brnn":[
-             {"id":"brnn-server-1", "host":"39.108.83.192", "port":3105}
+             {"id":"brnn-server-1", "host":"127.0.0.1", "port":3105}
         ],
         "gate":[
            {"id": "gate-server-1", "host": "39.108.83.192", "clientPort": 3101, "frontend": true}
