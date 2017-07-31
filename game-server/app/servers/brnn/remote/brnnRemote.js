@@ -13,29 +13,29 @@ var BrnnRemote = function(app) {
 /**
  * Add user into brnn channel.
  *
- * @param {String} uid unique id for user
+ * @param {String} userid unique id for user
  * @param {String} sid server id
  * @param {String} name channel name
  * @param {boolean} flag channel parameter
  *
  */
-BrnnRemote.prototype.add = function(uid, sid, name, flag, cb) {
+BrnnRemote.prototype.add = function(userid, sid, name, flag, cb) {
 	var channel = this.channelService.getChannel(name, flag);
-	var userid = uid.split('*')[0];
 	var param = {
 		route: 'brnn.onAdd',
-		user: userid
+		userid: userid
 	};
 	channel.pushMessage(param);
 
 	if( !! channel) {
 		if (!channel.gameRoom) {
-			var room = new DouniuRoom(channel);
+			var sqlHelper = this.app.get('sqlHelper');
+			var room = new DouniuRoom(channel, sqlHelper);
 			channel.gameRoom = room;
 			channel.gameRoom.startGame();
 		}
-		channel.add(uid, sid);
-		channel.gameRoom.joinUser(uid);
+		channel.add(userid, sid);
+		channel.gameRoom.joinUser(userid);
 	}
 
 	cb(this.get(name, flag));
@@ -47,7 +47,7 @@ BrnnRemote.prototype.add = function(uid, sid, name, flag, cb) {
  * @param {Object} opts parameters for request
  * @param {String} name channel name
  * @param {boolean} flag channel parameter
- * @return {Array} users uids in channel
+ * @return {Array} users userids in channel
  *
  */
 BrnnRemote.prototype.get = function(name, flag) {
@@ -56,28 +56,24 @@ BrnnRemote.prototype.get = function(name, flag) {
 	if( !! channel) {
 		users = channel.getMembers();
 	}
-	for(var i = 0; i < users.length; i++) {
-		users[i] = users[i].split('*')[0];
-	}
 	return users;
 };
 
 /**
  * Kick user out brnn channel.
  *
- * @param {String} uid unique id for user
+ * @param {String} userids unique id for user
  * @param {String} sid server id
  * @param {String} name channel name
  *
  */
-BrnnRemote.prototype.kick = function(uid, sid, name) {
+BrnnRemote.prototype.kick = function(userid, sid, name) {
 	var channel = this.channelService.getChannel(name, false);
 	// leave channel
 	if( !! channel) {
-		channel.leave(uid, sid);
-		channel.gameRoom.kickUser(uid);
+		channel.leave(userid, sid);
+		channel.gameRoom.kickUser(userid);
 	}
-	var userid = uid.split('*')[0];
 	var param = {
 		route: 'brnn.onLeave',
 		user: userid
@@ -86,26 +82,33 @@ BrnnRemote.prototype.kick = function(uid, sid, name) {
 };
 
 
-BrnnRemote.prototype.exit = function(uid, sid, name, cb) {
+BrnnRemote.prototype.exit = function(userid, sid, name, cb) {
     var rid = name;
-    var userid = uid.split('*')[0];
     var channelService = this.app.get('channelService');
     var channel = channelService.getChannel(rid, false);
     if (!channel) {
-		cb({
+		if (cb) {
+			cb({
             code : 0,
             msg : '未找到指定房间'
-        });
+        	});
+		}
         return ;
     }
-    channel.leave(uid, sid);
-    channel.gameRoom.kickUser(uid);
+	console.log(userid + "*" + sid + "*" + rid);
+    channel.leave(userid, sid);
+    channel.gameRoom.kickUser(userid);
     if (channel.getUserAmount() == 0) {
+		channel.gameRoom.destroy();
+		delete channel.gameRoom;
         channel.destroy();
-		cb({
+		if (cb) {
+			cb({
             code : 1,
             msg : '离开房间，房间被销毁'
-        });
+        	});
+		}
+		console.log("房间释放成功");
     } else {
         channel.pushMessage('brnn.onLeave', {
             code : 1,
@@ -114,9 +117,11 @@ BrnnRemote.prototype.exit = function(uid, sid, name, cb) {
                 userid : userid
             }
         });
-		cb({
+		if (cb) {
+			cb({
             code : 1,
             msg : '离开房间'
-        });
+    		});
+		}
     }
 };

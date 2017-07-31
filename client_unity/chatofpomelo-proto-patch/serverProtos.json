@@ -1,0 +1,22 @@
+{
+  "onChat": {
+    "required string msg": 1,
+    "required string from": 2,
+    "required string target": 3
+  },
+  "onLeave": {
+    "required string user": 1
+  },
+  "onAdd": {
+    "required string user": 1
+  },
+  "gate.gateHandler.queryEntry": {
+    "required int32 code": 1,
+    "required string host": 2,
+    "required int32 port": 3
+  },
+  
+  "connector.entryHandler.enter": {
+    "repeated string users": 1
+  }
+}

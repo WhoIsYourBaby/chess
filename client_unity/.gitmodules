@@ -1,0 +1,3 @@
+[submodule "chatofpomelo-websocket"]
+	path = chatofpomelo-websocket
+	url = https://github.com/NetEase/chatofpomelo-websocket

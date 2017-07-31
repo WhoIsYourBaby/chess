@@ -1,0 +1,19 @@
+{
+	"development": {
+		"connectionLimit" : 10,
+        "host" : "localhost",
+        "port" : "3306",
+        "database" : "chess",
+        "user" : "halloworld",
+        "password" : "5815057"
+	},
+
+	"production": {
+		"connectionLimit" : 10,
+	    "host" : "localhost",
+		"port" : "3306",
+		"database" : "chess",
+		"user" : "halloworld",
+		"password" : "5815057"
+	}
+}
