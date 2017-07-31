@@ -70,7 +70,8 @@ handler.guestLogin = function(msg, session, next){
 						userinfo : userinfo,
 						token : token,
 						connector : {
-							host: res.host,
+							// host: res.host,
+							host: '39.108.83.192',
 							port: res.clientPort
 						}
 					};
@@ -108,7 +109,8 @@ handler.refreshToken = function(msg, session, next){
 						userinfo : userinfo,
 						token : tokenString,
 						connector : {
-							host: res.host,
+							// host: res.host,
+							host: '39.108.83.192',
 							port: res.clientPort
 						}
 					};
