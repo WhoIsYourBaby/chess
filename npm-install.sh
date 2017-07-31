@@ -1,4 +1,5 @@
-cd ./game-server && npm install -d && npm install mysql
+
+cd ./game-server && npm install -d --unsafe-perm && npm install mysql
 echo '============   game-server npm installed ============'
 cd ..
 cd ./web-server && npm install -d
