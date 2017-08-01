@@ -1,4 +1,5 @@
 var GateConnector = require("../protocol/GateConnector");
+require("../pomelo/pomelo-client");
 
 cc.Class({
     extends: cc.Component,
@@ -32,10 +33,25 @@ cc.Class({
 
     buttonBrnnRoomTap: function () {
         GateConnector.connectToConnector(function () {
-            GateConnector.connectorEnterRoom('brnn', null, function (data) {
+            var param = {
+                'token': pomelo.token,
+                'rtype': 'jdnn'
+            };
+            pomelo.request('connector.entryHandler.fetchRoomInfo', param, function (data) {
                 console.log(data);
-                cc.director.loadScene('BrnnRoom');
             });
         });
-    }
+    },
+
+    buttonCreateNNTap: function () {
+        GateConnector.connectToConnector(function () {
+            var param = {
+                'token': pomelo.token,
+                'rtype': 'jdnn'
+            };
+            pomelo.request('connector.entryHandler.createRoom', param, function (data) {
+                console.log(data);
+            });
+        });
+    },
 });

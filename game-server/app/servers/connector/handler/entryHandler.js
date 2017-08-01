@@ -99,7 +99,29 @@ handler.fetchRoomInfo = function (msg, session, next) {
 		return;
 	}
 
+	if (!sessionService.getByUid(token.userid)) {
+		session.bind(token.userid);
+		session.on('closed', this.exitGame.bind(null, this.app));
+	}
+
 	var roomTableName = 't_room_' + msg.rtype;
 	var sqlHelper = this.app.get('sqlHelper');
-	RoomManager.fetchRoomInfo();
+	RoomManager.fetchRoomInfo(sqlHelper, roomTableName, function(error, roomsData) {
+		console.log(roomsData);
+		var response = new GMResponse(1, 'OK', roomsData);
+		next(null, response);
+	});
+};
+
+//根据rtype创建不同类型的房间，
+//rtype:游戏类型
+//token:auth token
+handler.createRoom = function(msg, session, next) {
+	
+};
+
+handler.exitGame = function(app, session) {
+	//判断session是否有绑定的rid和rtype
+	//如果没有则直接断开连接
+	//如果有则要退出房间并调用不同的remote的exit方法
 };
