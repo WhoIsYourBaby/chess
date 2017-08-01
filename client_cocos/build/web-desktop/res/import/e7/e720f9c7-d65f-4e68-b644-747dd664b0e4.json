@@ -1,0 +1,21 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "nwx",
+    "texture": "143c2236-d688-4c83-9eec-2c4caafb0ff6",
+    "rect": [
+      1,
+      2,
+      331,
+      120
+    ],
+    "offset": [
+      0,
+      -0.5
+    ],
+    "originalSize": [
+      333,
+      123
+    ]
+  }
+}

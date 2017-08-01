@@ -1,0 +1,21 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "nzd",
+    "texture": "1f6a9958-e5ff-4c35-8229-0d9242db8b27",
+    "rect": [
+      2,
+      1,
+      330,
+      122
+    ],
+    "offset": [
+      0.5,
+      -0.5
+    ],
+    "originalSize": [
+      333,
+      123
+    ]
+  }
+}

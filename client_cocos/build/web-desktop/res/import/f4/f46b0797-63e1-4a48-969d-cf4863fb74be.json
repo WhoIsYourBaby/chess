@@ -1,0 +1,21 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "shu",
+    "texture": "20ee1b1f-4617-4042-926e-584ce69e1818",
+    "rect": [
+      0,
+      1,
+      173,
+      95
+    ],
+    "offset": [
+      0,
+      1
+    ],
+    "originalSize": [
+      173,
+      99
+    ]
+  }
+}

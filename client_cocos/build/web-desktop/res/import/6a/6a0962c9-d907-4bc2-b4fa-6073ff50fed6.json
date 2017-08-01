@@ -1,0 +1,21 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "brnnstate_0",
+    "texture": "6a80a507-7bd4-44a1-9476-5fe6287c581f",
+    "rect": [
+      6,
+      1,
+      161,
+      40
+    ],
+    "offset": [
+      2.5,
+      0
+    ],
+    "originalSize": [
+      168,
+      42
+    ]
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "wen50_n",
+    "texture": "d6bae10c-af45-41a6-bbc5-082a62cce106",
+    "rect": [
+      11,
+      1,
+      80,
+      41
+    ],
+    "offset": [
+      2.5,
+      0.5
+    ],
+    "originalSize": [
+      97,
+      44
+    ]
+  }
+}

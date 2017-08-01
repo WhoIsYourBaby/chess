@@ -1,0 +1,21 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "xiaolight_n",
+    "texture": "14c9df41-daf1-447d-a723-57936deb7df1",
+    "rect": [
+      8,
+      5,
+      601,
+      600
+    ],
+    "offset": [
+      -10.5,
+      14
+    ],
+    "originalSize": [
+      638,
+      638
+    ]
+  }
+}

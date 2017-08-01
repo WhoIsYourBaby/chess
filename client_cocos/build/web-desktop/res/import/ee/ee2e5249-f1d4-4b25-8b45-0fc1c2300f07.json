@@ -1,0 +1,21 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "bai19_n",
+    "texture": "d25cbc91-592d-473e-a85e-7c8e4c5be385",
+    "rect": [
+      0,
+      3,
+      70,
+      106
+    ],
+    "offset": [
+      0,
+      -1
+    ],
+    "originalSize": [
+      70,
+      110
+    ]
+  }
+}

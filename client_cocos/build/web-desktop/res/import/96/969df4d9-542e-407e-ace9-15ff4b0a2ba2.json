@@ -1,0 +1,27 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "xiao1_n",
+    "texture": "60516668-bc77-4ae6-9174-6b119ad98348",
+    "rect": [
+      1,
+      1,
+      574,
+      272
+    ],
+    "offset": [
+      0.5,
+      -0.5
+    ],
+    "originalSize": [
+      575,
+      273
+    ],
+    "capInsets": [
+      30,
+      30,
+      30,
+      30
+    ]
+  }
+}

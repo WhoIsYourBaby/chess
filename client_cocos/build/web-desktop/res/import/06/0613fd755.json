@@ -1,0 +1,69 @@
+[
+  {
+    "__type__": "cc.SpriteFrame",
+    "content": {
+      "name": "pk_back",
+      "texture": "e2d020a5-3042-4b64-9e93-aa7f4a77b2c2",
+      "rect": [
+        1,
+        1,
+        64,
+        89
+      ],
+      "offset": [
+        0,
+        1
+      ],
+      "originalSize": [
+        66,
+        93
+      ]
+    }
+  },
+  [
+    {
+      "__type__": "cc.Prefab",
+      "_name": "PokerItem",
+      "data": {
+        "__id__": 1
+      },
+      "asyncLoadAssets": false
+    },
+    {
+      "__type__": "cc.Node",
+      "_name": "PokerItem",
+      "_components": [
+        {
+          "__type__": "cc.Sprite",
+          "node": {
+            "__id__": 1
+          },
+          "_spriteFrame": {
+            "__uuid__": "006b4a8b-fee8-48f9-8484-d645860c8cc2"
+          }
+        },
+        {
+          "__type__": "b0463P0KZ5B65hOhjkYc58h",
+          "node": {
+            "__id__": 1
+          }
+        }
+      ],
+      "_prefab": {
+        "__type__": "cc.PrefabInfo",
+        "root": {
+          "__id__": 1
+        },
+        "asset": {
+          "__id__": 0
+        },
+        "fileId": "475a0WsISBIkJjCZxwVb6wD"
+      },
+      "_contentSize": {
+        "__type__": "cc.Size",
+        "width": 64,
+        "height": 89
+      }
+    }
+  ]
+]

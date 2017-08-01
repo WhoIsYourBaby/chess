@@ -1,0 +1,21 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "nwh",
+    "texture": "b54ab079-ddcd-4d7e-9cbe-49e9f12edef6",
+    "rect": [
+      1,
+      1,
+      331,
+      120
+    ],
+    "offset": [
+      0,
+      0.5
+    ],
+    "originalSize": [
+      333,
+      123
+    ]
+  }
+}

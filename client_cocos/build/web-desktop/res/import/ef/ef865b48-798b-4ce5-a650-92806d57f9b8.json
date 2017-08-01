@@ -1,0 +1,21 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "dazhexian",
+    "texture": "c7892d65-4791-4c2b-b71d-f5d6eeebfdd7",
+    "rect": [
+      0,
+      0,
+      128,
+      3
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      128,
+      3
+    ]
+  }
+}
