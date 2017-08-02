@@ -47,7 +47,8 @@ cc.Class({
         GateConnector.connectToConnector(function () {
             var param = {
                 'token': pomelo.token,
-                'rtype': 'jdnn'
+                'rtype': 'jdnn',
+                'userid' : pomelo.userinfo.userid
             };
             pomelo.request('connector.entryHandler.createRoom', param, function (data) {
                 console.log(data);

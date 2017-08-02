@@ -14,6 +14,7 @@ var mysqlHelper = function(app){
 module.exports = mysqlHelper;
 
 mysqlHelper.prototype.query = function(sqlString, values, callback){
+    console.log('######' + sqlString + values + '######');
     if (values) {
         this.pool.query(sqlString, values, callback);
     } else {

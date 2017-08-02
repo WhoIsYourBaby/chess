@@ -107,17 +107,47 @@ handler.fetchRoomInfo = function (msg, session, next) {
 	var roomTableName = 't_room_' + msg.rtype;
 	var sqlHelper = this.app.get('sqlHelper');
 	RoomManager.fetchRoomInfo(sqlHelper, roomTableName, function(error, roomsData) {
-		console.log(roomsData);
-		var response = new GMResponse(1, 'OK', roomsData);
-		next(null, response);
+		if (error) {
+			var response = new GMResponse(-100, '获取房间信息失败', error);
+			next(null, response);
+		} else {
+			var response = new GMResponse(1, 'OK', roomsData);
+			next(null, response);
+		}
 	});
 };
 
 //根据rtype创建不同类型的房间，
 //rtype:游戏类型
-//token:auth token
-handler.createRoom = function(msg, session, next) {
-	
+//user:查找这个userid创建的房间
+handler.createRoom = function (msg, session, next) {
+	var roomTableName = 't_room_' + msg.rtype;
+	var sqlHelper = this.app.get('sqlHelper');
+	RoomManager.fetchRoomCreatedByUser(sqlHelper, roomTableName, msg.userid,
+		function (error, roomdata) {
+			if (error) {
+				var response = new GMResponse(-100, '获取该用户创建的房间失败', error);
+				next(null, response);
+				return ;
+			}
+			if (roomdata) {
+				var response = new GMResponse(2, '不能重复创建房间', roomdata);
+				next(null, response);
+			} else {
+				RoomManager.createRoom(sqlHelper, roomTableName, msg.userid,
+					function (error, roomdata) {
+						if (error) {
+							var response = new GMResponse(-100, '创建房间失败', error);
+							next(null, response);
+						} else {
+							var response = new GMResponse(1, '成功创建房间', roomdata);
+							next(null, response);
+						}
+					}
+				);
+			}
+		}
+	);
 };
 
 handler.exitGame = function(app, session) {
