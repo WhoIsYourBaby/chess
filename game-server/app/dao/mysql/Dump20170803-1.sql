@@ -75,7 +75,7 @@ CREATE TABLE `t_user` (
   UNIQUE KEY `userid_UNIQUE` (`userid`),
   UNIQUE KEY `username_UNIQUE` (`username`),
   UNIQUE KEY `phone_UNIQUE` (`phone`)
-) ENGINE=InnoDB AUTO_INCREMENT=10000000 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=100000 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
