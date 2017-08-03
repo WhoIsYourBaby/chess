@@ -16,23 +16,25 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `t_room_jdnn`
+-- Table structure for table `t_room`
 --
 
-DROP TABLE IF EXISTS `t_room_jdnn`;
+DROP TABLE IF EXISTS `t_room`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `t_room_jdnn` (
+CREATE TABLE `t_room` (
   `roomid` int(11) NOT NULL AUTO_INCREMENT,
+  `rtype` varchar(45) DEFAULT NULL,
   `createtime` varchar(64) DEFAULT NULL,
-  `users` varchar(128) DEFAULT NULL,
   `creator` varchar(45) DEFAULT NULL,
+  `users` varchar(128) DEFAULT NULL,
   `cost` varchar(45) DEFAULT NULL,
   `banker` varchar(45) DEFAULT NULL,
   `state` int(11) DEFAULT '0',
+  `config` text,
   PRIMARY KEY (`roomid`),
   UNIQUE KEY `roomid_UNIQUE` (`roomid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -73,7 +75,7 @@ CREATE TABLE `t_user` (
   UNIQUE KEY `userid_UNIQUE` (`userid`),
   UNIQUE KEY `username_UNIQUE` (`username`),
   UNIQUE KEY `phone_UNIQUE` (`phone`)
-) ENGINE=InnoDB AUTO_INCREMENT=165 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10000000 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -93,4 +95,4 @@ CREATE TABLE `t_user` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-08-01 17:59:53
+-- Dump completed on 2017-08-03 11:07:09

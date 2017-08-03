@@ -4,10 +4,10 @@ module.exports = RoomManager;
 
 
 //state 房间状态，0：准备状态，1：正在游戏
+//rtype 房间游戏类型--(jdnn,zjh,bjl)
 //获取限制个数的游戏房间信息
-// where state = '?' limit 6
-RoomManager.fetchRoomInfo = function (sqlHelper, roomTable, callback) {
-    var sqlstring = 'select * from ' + roomTable;
+RoomManager.fetchRoomInfo = function (sqlHelper, rtype, callback) {
+    var sqlstring = "select * from t_room where rtype = '" + rtype + "' limit 6;";
     sqlHelper.query(sqlstring, null,
         function (error, results, fields) {
             callback(error, results);
@@ -16,8 +16,8 @@ RoomManager.fetchRoomInfo = function (sqlHelper, roomTable, callback) {
 };
 
 
-RoomManager.fetchRoomCreatedByUser = function (sqlHelper, roomTable, userid, callback) {
-    var sqlstring = 'select * from ' + roomTable + " where creator = '" + userid + "';";
+RoomManager.fetchRoomCreatedByUser = function (sqlHelper, userid, callback) {
+    var sqlstring = "select * from t_room where creator = '" + userid + "';";
     sqlHelper.query(sqlstring, null,
         function (error, results, fields) {
             if (callback) {
@@ -32,16 +32,16 @@ RoomManager.fetchRoomCreatedByUser = function (sqlHelper, roomTable, userid, cal
 };
 
 
-RoomManager.createRoom = function (sqlHelper, roomTable, userid, callback) {
+RoomManager.createRoom = function (sqlHelper, rtype, userid, callback) {
     var time = new Date().getTime();
-    var params = {createtime: time, users:'U'+userid, creator:userid, cost:1, banker:userid, state:0};
-    var sqlstring = 'insert into ' + roomTable + ' SET ?';
-    sqlHelper.query(sqlstring,
-        params, function (error, results, fields) {
+    var params = {rtype:rtype, createtime: time, users:'U'+userid, creator:userid, cost:1, banker:userid, state:0};
+    var sqlstring = 'insert into t_room SET ?';
+    sqlHelper.query(sqlstring, params, 
+        function (error, results, fields) {
             if (error) {
                 callback(error, results);
             } else {
-                RoomManager.fetchRoomCreatedByUser(sqlHelper, roomTable, userid, callback);
+                RoomManager.fetchRoomCreatedByUser(sqlHelper, userid, callback);
             }
         }
     );

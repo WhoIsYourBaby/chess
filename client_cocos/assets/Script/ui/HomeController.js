@@ -24,6 +24,10 @@ cc.Class({
     // use this for initialization
     onLoad: function () {
         this.buttonBrnnRoom.node.on('click', this.buttonBrnnRoomTap, this);
+
+        GateConnector.connectToConnector(function () {
+            console.log('Connect Success');
+        });
     },
 
     // called every frame, uncomment this function to activate update callback
@@ -32,27 +36,24 @@ cc.Class({
     // },
 
     buttonBrnnRoomTap: function () {
-        GateConnector.connectToConnector(function () {
-            var param = {
-                'token': pomelo.token,
-                'rtype': 'jdnn'
-            };
-            pomelo.request('connector.entryHandler.fetchRoomInfo', param, function (data) {
-                console.log(data);
-            });
+        var param = {
+            'token': pomelo.token,
+            'rtype': 'jdnn'
+        };
+        pomelo.request('connector.entryHandler.fetchRoomInfo', param, function (data) {
+            console.log(data);
         });
+
     },
 
     buttonCreateNNTap: function () {
-        GateConnector.connectToConnector(function () {
-            var param = {
-                'token': pomelo.token,
-                'rtype': 'jdnn',
-                'userid' : pomelo.userinfo.userid
-            };
-            pomelo.request('connector.entryHandler.createRoom', param, function (data) {
-                console.log(data);
-            });
+        var param = {
+            'token': pomelo.token,
+            'rtype': 'jdnn',
+            'userid': pomelo.userinfo.userid
+        };
+        pomelo.request('connector.entryHandler.createRoom', param, function (data) {
+            console.log(data);
         });
     },
 });

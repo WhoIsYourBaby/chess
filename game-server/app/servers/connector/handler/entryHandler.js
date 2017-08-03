@@ -104,9 +104,8 @@ handler.fetchRoomInfo = function (msg, session, next) {
 		session.on('closed', this.exitGame.bind(null, this.app));
 	}
 
-	var roomTableName = 't_room_' + msg.rtype;
 	var sqlHelper = this.app.get('sqlHelper');
-	RoomManager.fetchRoomInfo(sqlHelper, roomTableName, function(error, roomsData) {
+	RoomManager.fetchRoomInfo(sqlHelper, msg.rtype, function(error, roomsData) {
 		if (error) {
 			var response = new GMResponse(-100, '获取房间信息失败', error);
 			next(null, response);
@@ -121,9 +120,8 @@ handler.fetchRoomInfo = function (msg, session, next) {
 //rtype:游戏类型
 //user:查找这个userid创建的房间
 handler.createRoom = function (msg, session, next) {
-	var roomTableName = 't_room_' + msg.rtype;
 	var sqlHelper = this.app.get('sqlHelper');
-	RoomManager.fetchRoomCreatedByUser(sqlHelper, roomTableName, msg.userid,
+	RoomManager.fetchRoomCreatedByUser(sqlHelper, msg.userid,
 		function (error, roomdata) {
 			if (error) {
 				var response = new GMResponse(-100, '获取该用户创建的房间失败', error);
@@ -134,7 +132,7 @@ handler.createRoom = function (msg, session, next) {
 				var response = new GMResponse(2, '不能重复创建房间', roomdata);
 				next(null, response);
 			} else {
-				RoomManager.createRoom(sqlHelper, roomTableName, msg.userid,
+				RoomManager.createRoom(sqlHelper, msg.rtype, msg.userid,
 					function (error, roomdata) {
 						if (error) {
 							var response = new GMResponse(-100, '创建房间失败', error);
