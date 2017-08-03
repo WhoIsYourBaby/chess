@@ -31,10 +31,25 @@ RoomManager.fetchRoomCreatedByUser = function (sqlHelper, userid, callback) {
     );
 };
 
+RoomManager.fetchRoomJoinedByUser = function (sqlHelper, userid, callback) {
+    var sqlstring = "select * from t_room where users like '%" + userid + "%';";
+    sqlHelper.query(sqlstring, null,
+        function (error, results, fields) {
+            if (callback) {
+                var roomdata = null;
+                if (results) {
+                    roomdata = results[0];
+                }
+                callback(error, roomdata);
+            }
+        }
+    );
+};
+
 
 RoomManager.createRoom = function (sqlHelper, rtype, userid, callback) {
     var time = new Date().getTime();
-    var params = {rtype:rtype, createtime: time, users:'U'+userid, creator:userid, cost:1, banker:userid, state:0};
+    var params = {rtype:rtype, createtime: time, creator:userid, cost:1, state:0};
     var sqlstring = 'insert into t_room SET ?';
     sqlHelper.query(sqlstring, params, 
         function (error, results, fields) {
@@ -45,4 +60,9 @@ RoomManager.createRoom = function (sqlHelper, rtype, userid, callback) {
             }
         }
     );
+};
+
+
+RoomManager.joinRoom = function (sqlHelper, userid, roomid) {
+    
 };

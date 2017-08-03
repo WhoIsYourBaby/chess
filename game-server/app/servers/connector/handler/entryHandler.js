@@ -81,7 +81,7 @@ handler.exit = function (msg, session, next) {
  */
 
 /*
-获取不同游戏的房间信息
+获取不同游戏的房间list信息
 msg.rtype	房间类型：jdnn（经典牛牛），zjh（扎金花），bjl（百家乐）
 msg.token	必须有效的token才能建立session
  */
@@ -105,7 +105,7 @@ handler.fetchRoomInfo = function (msg, session, next) {
 	}
 
 	var sqlHelper = this.app.get('sqlHelper');
-	RoomManager.fetchRoomInfo(sqlHelper, msg.rtype, function(error, roomsData) {
+	RoomManager.fetchRoomInfo(sqlHelper, msg.rtype, function (error, roomsData) {
 		if (error) {
 			var response = new GMResponse(-100, '获取房间信息失败', error);
 			next(null, response);
@@ -121,12 +121,13 @@ handler.fetchRoomInfo = function (msg, session, next) {
 //user:查找这个userid创建的房间
 handler.createRoom = function (msg, session, next) {
 	var sqlHelper = this.app.get('sqlHelper');
+	var self = this;
 	RoomManager.fetchRoomCreatedByUser(sqlHelper, msg.userid,
 		function (error, roomdata) {
 			if (error) {
 				var response = new GMResponse(-100, '获取该用户创建的房间失败', error);
 				next(null, response);
-				return ;
+				return;
 			}
 			if (roomdata) {
 				var response = new GMResponse(2, '不能重复创建房间', roomdata);
@@ -138,8 +139,12 @@ handler.createRoom = function (msg, session, next) {
 							var response = new GMResponse(-100, '创建房间失败', error);
 							next(null, response);
 						} else {
-							var response = new GMResponse(1, '成功创建房间', roomdata);
-							next(null, response);
+							if (msg.rtype == 'jdnn') {
+								self.app.rpc.jdnn.jdnnRemote.createRoom(session, msg.userid, roomdata, function () {
+									var response = new GMResponse(1, '成功创建房间', { users: users, room: roomdata });
+									next(null, response);
+								});
+							}
 						}
 					}
 				);
@@ -148,8 +153,18 @@ handler.createRoom = function (msg, session, next) {
 	);
 };
 
-handler.exitGame = function(app, session) {
-	//判断session是否有绑定的rid和rtype
+//userid 用户id
+//roomid 房间id
+handler.joinRoom = function (msg, session, next) {
+	if (msg.rtype == 'jdnn') {
+		this.app.rpc.jdnn.jdnnRemote.joinRoom(session, msg.userid, msg.roomid, this.app.get('serverId'), function (res) {
+			next(null, res);
+		});
+	}
+};
+
+handler.exitGame = function (app, session) {
+	//判断session是否有绑定的roomid
 	//如果没有则直接断开连接
 	//如果有则要退出房间并调用不同的remote的exit方法
 };
