@@ -63,7 +63,8 @@ cc.Class({
         var param = {
             userid : pomelo.userinfo.userid,
             roomid : this.roomid,
-            rtype : 'jdnn'
+            rtype : 'jdnn',
+            token : pomelo.token
         };
         console.log(param);
         pomelo.request('connector.entryHandler.joinRoom', param, function (data) {});

@@ -86,6 +86,22 @@ msg.rtype	房间类型：jdnn（经典牛牛），zjh（扎金花），bjl（百
 msg.token	必须有效的token才能建立session
  */
 handler.fetchRoomInfo = function (msg, session, next) {
+	var sqlHelper = this.app.get('sqlHelper');
+	RoomManager.fetchRoomInfo(sqlHelper, msg.rtype, function (error, roomsData) {
+		if (error) {
+			var response = new GMResponse(-100, '获取房间信息失败', error);
+			next(null, response);
+		} else {
+			var response = new GMResponse(1, 'OK', roomsData);
+			next(null, response);
+		}
+	});
+};
+
+//根据rtype创建不同类型的房间，
+//rtype:游戏类型
+//user:查找这个userid创建的房间
+handler.createRoom = function (msg, session, next) {
 	var tokenStr = msg.token;
 	var token = new UToken();
 	token.decrypt(tokenStr);
@@ -103,23 +119,6 @@ handler.fetchRoomInfo = function (msg, session, next) {
 		session.bind(token.userid);
 		session.on('closed', this.exitGame.bind(null, this.app));
 	}
-
-	var sqlHelper = this.app.get('sqlHelper');
-	RoomManager.fetchRoomInfo(sqlHelper, msg.rtype, function (error, roomsData) {
-		if (error) {
-			var response = new GMResponse(-100, '获取房间信息失败', error);
-			next(null, response);
-		} else {
-			var response = new GMResponse(1, 'OK', roomsData);
-			next(null, response);
-		}
-	});
-};
-
-//根据rtype创建不同类型的房间，
-//rtype:游戏类型
-//user:查找这个userid创建的房间
-handler.createRoom = function (msg, session, next) {
 	var sqlHelper = this.app.get('sqlHelper');
 	var self = this;
 	RoomManager.fetchRoomCreatedByUser(sqlHelper, msg.userid,
@@ -156,8 +155,36 @@ handler.createRoom = function (msg, session, next) {
 //userid 用户id
 //roomid 房间id
 handler.joinRoom = function (msg, session, next) {
+	var tokenStr = msg.token;
+	var token = new UToken();
+	token.decrypt(tokenStr);
+	var sessionService = this.app.get('sessionService');
+	if (token.isValid() == false) {
+		next(null, {
+			code: -102,
+			msg: '无效的token'
+		});
+		sessionService.kickBySessionId(session.id);
+		return;
+	}
+
+	if (!sessionService.getByUid(token.userid)) {
+		session.bind(token.userid);
+		session.on('closed', this.exitGame.bind(null, this.app));
+	}
+	session.set('roomid', msg.roomid);
+	session.set('rtype', msg.rtype);
+	session.pushAll(function(error) {
+		console.error(error);
+	});
 	if (msg.rtype == 'jdnn') {
 		this.app.rpc.jdnn.jdnnRemote.joinRoom(session, msg.userid, msg.roomid, this.app.get('serverId'), function (res) {
+			next(null, res);
+		});
+	}
+
+	if (msg.rtype == 'brnn') {
+		this.app.rpc.brnn.brnnRemote.add(session, token.userid, this.app.get('serverId'), msg.rtype, true, function (res) {
 			next(null, res);
 		});
 	}
