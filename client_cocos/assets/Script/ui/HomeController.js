@@ -52,8 +52,20 @@ cc.Class({
             'rtype': 'jdnn',
             'userid': pomelo.userinfo.userid
         };
+        var self = this;
         pomelo.request('connector.entryHandler.createRoom', param, function (data) {
-            console.log(data);
+            var roomid = data.data.roomid;
+            self.roomid = roomid;
         });
+    },
+
+    buttonJoinNNTap: function() {
+        var param = {
+            userid : pomelo.userinfo.userid,
+            roomid : this.roomid,
+            rtype : 'jdnn'
+        };
+        console.log(param);
+        pomelo.request('connector.entryHandler.joinRoom', param, function (data) {});
     },
 });

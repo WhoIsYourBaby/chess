@@ -63,6 +63,14 @@ RoomManager.createRoom = function (sqlHelper, rtype, userid, callback) {
 };
 
 
-RoomManager.joinRoom = function (sqlHelper, userid, roomid) {
-    
-};
+//获取多个用户信息
+//uidArr    用户id数组
+RoomManager.fetchUserInfo = function (sqlHelper, uidArr, callback) {
+    var uidstring = uidArr.join(",");
+    var sqlstring = 'select * from t_user where userid in (' + uidstring + ')';
+    sqlHelper.query(sqlstring, null,
+        function (error, results, fields) {
+            callback(error, results);
+        }
+    );
+}

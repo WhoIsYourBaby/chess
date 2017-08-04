@@ -141,7 +141,7 @@ handler.createRoom = function (msg, session, next) {
 						} else {
 							if (msg.rtype == 'jdnn') {
 								self.app.rpc.jdnn.jdnnRemote.createRoom(session, msg.userid, roomdata, function () {
-									var response = new GMResponse(1, '成功创建房间', { users: users, room: roomdata });
+									var response = new GMResponse(1, '成功创建房间', roomdata);
 									next(null, response);
 								});
 							}
@@ -167,4 +167,16 @@ handler.exitGame = function (app, session) {
 	//判断session是否有绑定的roomid
 	//如果没有则直接断开连接
 	//如果有则要退出房间并调用不同的remote的exit方法
+};
+
+
+handler.fetchUserInfo = function(msg, session, next) {
+	var uidArr = msg.userList;
+	var sqlHelper = this.app.get('sqlHelper');
+	RoomManager.fetchUserInfo(sqlHelper, uidArr,
+		function (error, results) {
+			var response = new GMResponse(1, '获取用户信息成功', results);
+			next(null, response);
+		}
+	);
 };
