@@ -82,6 +82,7 @@ cc.Class({
 
     buttonExitTap: function(){
         pomelo.disconnect();
+        cc.director.loadScene('Home');
     },
 
     initBrnnEvent: function () {

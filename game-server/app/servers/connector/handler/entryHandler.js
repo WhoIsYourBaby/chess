@@ -154,6 +154,7 @@ handler.createRoom = function (msg, session, next) {
 
 //userid 用户id
 //roomid 房间id
+//rtype	 房间type,brnn、jdnn、zjh、bjl
 handler.joinRoom = function (msg, session, next) {
 	var tokenStr = msg.token;
 	var token = new UToken();
