@@ -48,3 +48,6 @@ JdnnRemote.prototype.createRoom = function (userid, roomdata, callback) {
     }
     callback();
 };
+
+
+JdnnRemote.prototype.exit = function (userid, sid, name, callback) {};

@@ -38,12 +38,11 @@ cc.Class({
     buttonBrnnRoomTap: function () {
         var param = {
             'token': pomelo.token,
-            'rtype': 'jdnn'
+            'rtype': 'brnn'
         };
-        pomelo.request('connector.entryHandler.fetchRoomInfo', param, function (data) {
-            console.log(data);
+        pomelo.request('connector.entryHandler.joinRoom', param, function (data) {
+            cc.director.loadScene('BrnnRoom');
         });
-
     },
 
     buttonCreateNNTap: function () {

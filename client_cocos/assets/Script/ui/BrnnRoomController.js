@@ -81,9 +81,7 @@ cc.Class({
     // },
 
     buttonExitTap: function(){
-        GateConnector.connectorExit(function() {
-            cc.director.loadScene('Home');
-        });
+        pomelo.disconnect();
     },
 
     initBrnnEvent: function () {

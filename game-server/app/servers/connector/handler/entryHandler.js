@@ -194,6 +194,16 @@ handler.exitGame = function (app, session) {
 	//判断session是否有绑定的roomid
 	//如果没有则直接断开连接
 	//如果有则要退出房间并调用不同的remote的exit方法
+	console.log('********' + session.uid + session.get('rtype'));
+	if (!session || !session.uid) {
+		return;
+	}
+	if (session.get('rtype') == 'brnn') {
+		app.rpc.brnn.brnnRemote.exit(session, session.uid, app.get('serverId'), session.get('rtype'), null);	
+	}
+	if (session.get('rtype') == 'jdnn') {
+		app.rpc.jdnn.jdnnRemote.exit(session, session.uid, app.get('serverId'), session.get('roomid'), null);	
+	}
 };
 
 

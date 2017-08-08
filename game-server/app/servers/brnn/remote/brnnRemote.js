@@ -83,10 +83,9 @@ BrnnRemote.prototype.kick = function (userid, sid, name) {
 };
 
 
-BrnnRemote.prototype.exit = function (userid, sid, name, callback) {
-	var rid = name;
+BrnnRemote.prototype.exit = function (userid, sid, roomid, callback) {
 	var channelService = this.app.get('channelService');
-	var channel = channelService.getChannel(rid, false);
+	var channel = channelService.getChannel(roomid, false);
 	if (!channel) {
 		if (callback) {
 			callback({
@@ -96,7 +95,7 @@ BrnnRemote.prototype.exit = function (userid, sid, name, callback) {
 		}
 		return;
 	}
-	console.log(userid + "*" + sid + "*" + rid);
+	console.log(userid + "*" + sid + "*" + roomid);
 	channel.leave(userid, sid);
 	channel.gameRoom.kickUser(userid);
 	if (channel.getUserAmount() == 0) {
