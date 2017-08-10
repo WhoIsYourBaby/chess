@@ -1587,8 +1587,8 @@
     "_cascadeOpacityEnabled": true,
     "_anchorPoint": {
       "__type__": "cc.Vec2",
-      "x": 0.5,
-      "y": 0.5
+      "x": 0.4806047816975693,
+      "y": 0.5484880457560734
     },
     "_contentSize": {
       "__type__": "cc.Size",
@@ -1601,8 +1601,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -5,
-      "y": 139
+      "x": -1.2,
+      "y": 147.6
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -1613,7 +1613,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Ready",
+    "_name": "Label",
     "_objFlags": 0,
     "_parent": {
       "__id__": 39
@@ -1679,7 +1679,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "button",
+    "_N$string": "准备就绪",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
