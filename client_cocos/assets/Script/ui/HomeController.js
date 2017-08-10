@@ -19,6 +19,8 @@ cc.Class({
             default: null,
             type: cc.Button
         },
+
+        roomCreated: null,
     },
 
     // use this for initialization
@@ -66,6 +68,19 @@ cc.Class({
             token : pomelo.token
         };
         console.log(param);
-        pomelo.request('connector.entryHandler.joinRoom', param, function (data) {});
+        pomelo.request('connector.entryHandler.joinRoom', param, function (data) {
+            console.log(data);
+        });
+    },
+
+    buttonReadyNNTap: function() {
+        var param = {
+            userid: pomelo.userinfo.userid,
+            roomid: this.roomid,
+            ready: 1
+        };
+        pomelo.request('jdnn.jdnnHandler.ready', param, function (data) {
+            console.log(data);
+        });
     },
 });

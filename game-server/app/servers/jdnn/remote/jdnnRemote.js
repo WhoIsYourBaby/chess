@@ -50,4 +50,8 @@ JdnnRemote.prototype.createRoom = function (userid, roomdata, callback) {
 };
 
 
-JdnnRemote.prototype.exit = function (userid, sid, name, callback) {};
+JdnnRemote.prototype.exit = function (userid, serverid, name, callback) {
+    var channel = this.channelService.getChannel(name);
+    var jdroom = channel.gameRoom;
+    jdroom.exitUser(userid, serverid);
+};

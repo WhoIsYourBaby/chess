@@ -11,6 +11,8 @@ var JdnnRoom = function (channel, sqlHelper, roomdata) {
   this.sqlHelper = sqlHelper;
   this.chipList = {};
 
+  this.readyList = {};
+
   this.state = 0;   //state: 0,下注时间等待开始 | 1,游戏开始计算输赢 | 2,空闲场景
 };
 
@@ -27,6 +29,7 @@ JdnnRoom.prototype.joinUser = function (userid) {
     this.roomdata.users += (userid);
   }
   this.roomdata.usercount ++;
+  this.readyList[userid] = 0; //不用bool而用int
   //sql update
   var sqlstring = "update t_room set usercount = '" + this.roomdata.usercount 
   + "', users = '" + this.roomdata.users 
@@ -43,4 +46,39 @@ JdnnRoom.prototype.hasUser = function (userid) {
   if (this.roomdata.users.indexOf(userid) < 0) {
     return false;
   } else return true;
+};
+
+JdnnRoom.prototype.userReady = function (userid, ready) {
+  if (this.hasUser(userid) == false) {
+    return null;
+  } else {
+    this.readyList[userid] = ready;
+  }
+  //检查房间所有玩家装备状态，并决定是否开始游戏
+  if (this.checkAllReady()) {
+  }
+  return this.readyList;
+};
+
+JdnnRoom.prototype.getReadyList = function () {
+  return this.readyList;
+};
+
+//检查准备状态字典所有值
+JdnnRoom.prototype.checkAllReady = function () {
+  for (var key in this.readyList) {
+    if (this.readyList.hasOwnProperty(key)) {
+      var element = this.readyList[key];
+      if (element == 0) {
+        return false;
+      }
+    }
+  }
+  return true;
+};
+
+
+JdnnRoom.prototype.exitUser = function (userid, serverid) {
+  delete this.readyList[userid];
+  var uarr = this.roomdata.users.split(',');
 };

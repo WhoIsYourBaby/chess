@@ -95,7 +95,6 @@ BrnnRemote.prototype.exit = function (userid, sid, roomid, callback) {
 		}
 		return;
 	}
-	console.log(userid + "*" + sid + "*" + roomid);
 	channel.leave(userid, sid);
 	channel.gameRoom.kickUser(userid);
 	if (channel.getUserAmount() == 0) {
