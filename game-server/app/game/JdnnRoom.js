@@ -81,4 +81,5 @@ JdnnRoom.prototype.checkAllReady = function () {
 JdnnRoom.prototype.exitUser = function (userid, serverid) {
   delete this.readyList[userid];
   var uarr = this.roomdata.users.split(',');
+  
 };
