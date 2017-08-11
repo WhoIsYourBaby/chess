@@ -1,4 +1,5 @@
 var GMResponse = require('./GMResponse.js');
+var PokerManager = require('./PokerManager.js');
 var RoomManager = require('./RoomManager.js');
 //经典牛牛
 //绑定的room
@@ -13,11 +14,14 @@ var JdnnRoom = function (channel, sqlHelper, roomdata) {
 
   this.readyList = {};
 
-  //0、产生庄家
-  //1、非庄家选择分数倍数
-  //2、发牌开始
-  //3、开牌
-  //4、空闲时间
+  //state
+  //0、准备
+  //1、产生庄家
+  //2、非庄家选择分数倍数
+  //3、发牌开始
+  //4、开牌 + 结算
+  //5、空闲时间
+  //->0
   this.state = 0;
 };
 
@@ -58,6 +62,7 @@ JdnnRoom.prototype.userReady = function (userid, ready) {
   }
   //检查房间所有玩家装备状态，并决定是否开始游戏
   if (this.checkAllReady()) {
+    this.startGame();
   }
   return this.readyList;
 };
@@ -132,9 +137,10 @@ JdnnRoom.prototype.gamePrepare = function () {
   var self = this;
   var secPre = 3;
   var prepareTimer = setInterval(function () {
-    var param = { state: 0, time: secPre };
+    self.state = 0;
+    var param = { state: self.state, time: secPre };
     var response = new GMResponse(1, '准备时间', param);
-    self.channel.pushMessage('jdnn.gamePrepare');
+    self.channel.pushMessage('jdnn.gamePrepare', response);
     //准备时间过后开始确定庄家
     secPre--;
     if (secPre <= 0) {
@@ -150,7 +156,8 @@ JdnnRoom.prototype.gameMarkBanker = function () {
   var uarr = this.roomdata.users.split(',');
   var bankerIndex = parseInt(Math.random() * uarr.length);
   var bankerUid = uarr[bankerIndex];
-  var response = new GMResponse(1, '标记庄家', { 'banker': bankerUid });
+  this.state = 1;
+  var response = new GMResponse(1, '标记庄家', { state: this.state, 'banker': bankerUid });
   this.channel.pushMessage('jdnn.markBanker', response);
 
   this.gameChip();
@@ -161,11 +168,39 @@ JdnnRoom.prototype.gameChip = function () {
   var self = this;
   var secChip = 3;
   var chipTimer = setInterval(function () {
-
-    secChip --;
+    self.state = 2;
+    var param = { state: self.state, time: secChip };
+    var response = new GMResponse(1, '请选择分数倍数', param);
+    self.channel.pushMessage('jdnn.gameChip', response);
+    secChip--;
     if (secChip <= 0) {
       clearInterval(chipTimer);
-      //todo发牌
+      //发牌
+      self.gamePoker();
     }
   }, 1000);
 };
+
+JdnnRoom.prototype.gamePoker = function () {
+  this.state = 3;
+  var pkmanager = new PokerManager();
+  pkmanager.recreatePoker(false);
+  pkmanager.randomPoker();
+  var pkitem = {};
+  var uarr = this.roomdata.users.split(',');
+  for (var index = 0; index < uarr.length; index++) {
+    var element = uarr[index];
+    pkitem[element] = pkmanager.dealSomePoker(5);
+  }
+  var param = { state: this.state, poker: pkitem };
+  var response = new GMResponse(1, '发牌', param);
+  this.channel.pushMessage('jdnn.gamePoker', response);
+
+  //3秒后发送牌大小和输赢结算
+  setTimeout(function() {
+    this.gameResult();
+  }.bind(this), 3000);
+};
+
+//结算
+JdnnRoom.prototype.gameResult = function () {};
