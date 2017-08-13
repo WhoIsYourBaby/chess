@@ -23,6 +23,8 @@ var JdnnRoom = function (channel, sqlHelper, roomdata) {
   //5、空闲时间
   //->0
   this.state = 0;
+
+  this.baseGold = 1;  //底钱
 };
 
 module.exports = JdnnRoom;
@@ -156,6 +158,7 @@ JdnnRoom.prototype.gameMarkBanker = function () {
   var uarr = this.roomdata.users.split(',');
   var bankerIndex = parseInt(Math.random() * uarr.length);
   var bankerUid = uarr[bankerIndex];
+  this.roomdata.banker = bankerUid;
   this.state = 1;
   var response = new GMResponse(1, '标记庄家', { state: this.state, 'banker': bankerUid });
   this.channel.pushMessage('jdnn.markBanker', response);
@@ -186,21 +189,61 @@ JdnnRoom.prototype.gamePoker = function () {
   var pkmanager = new PokerManager();
   pkmanager.recreatePoker(false);
   pkmanager.randomPoker();
-  var pkitem = {};
+  var pkgroup = {};
   var uarr = this.roomdata.users.split(',');
   for (var index = 0; index < uarr.length; index++) {
     var element = uarr[index];
-    pkitem[element] = pkmanager.dealSomePoker(5);
+    pkgroup[element] = pkmanager.dealSomePoker(5);
   }
-  var param = { state: this.state, poker: pkitem };
+  var param = { state: this.state, poker: pkgroup };
   var response = new GMResponse(1, '发牌', param);
   this.channel.pushMessage('jdnn.gamePoker', response);
 
   //3秒后发送牌大小和输赢结算
   setTimeout(function() {
-    this.gameResult();
+    this.gameResult(pkgroup);
   }.bind(this), 3000);
 };
 
 //结算
-JdnnRoom.prototype.gameResult = function () {};
+JdnnRoom.prototype.gameResult = function (pkgroup) {
+  //1、计算所有牌大小
+  var resultGroup = {};
+  var bankerRst = null;
+  for (var uid in pkgroup) {
+    if (object.hasOwnProperty(uid)) {
+      var pklist = object[uid];
+      var rst = PokerManager.nnResultForPoker(pklist);
+      resultGroup[uid] = rst;
+      if (this.roomdata.banker == uid) {
+        bankerRst = rst;
+      }
+    }
+  }
+
+  //2、与庄家比大小
+  for (var uid in resultGroup) {
+    if (resultGroup.hasOwnProperty(uid)) {
+      if (uid != this.roomdata.banker) {
+        var rst = resultGroup[uid];
+        var bwin = PokerManager.nnComparePoker(rst, bankerRst);
+        if (bwin > 0) {
+          //庄家输
+          rst.bwin = bwin;
+          rst.banker = this.roomdata.banker;
+          var muti = PokerManager.nnResultMuti(rst);
+          var usermuti = parseInt(this.chipList[uid]);
+          rst.goldWin = usermuti * muti * this.baseGold;
+        } else {
+          rst.bwin = bwin;
+          rst.banker = this.roomdata.banker;
+          var muti = PokerManager.nnResultMuti(bankerRst);
+          var usermuti = parseInt(this.chipList[uid]);
+          rst.goldWin = usermuti * muti * this.baseGold * -1;
+        }
+      }
+    }
+  }
+
+  this.channel.pushMessage('jdnn.gameResult', resultGroup);
+};
