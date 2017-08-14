@@ -66,6 +66,7 @@ JdnnRoom.prototype.userReady = function (userid, ready) {
     return null;
   } else {
     this.readyList[userid] = ready;
+    this.channel.pushMessage('jdnn.ready', this.readyList);
   }
   //检查房间所有玩家装备状态，并决定是否开始游戏
   if (this.checkAllReady() && this.roomdata.usercount > 1) {
@@ -210,6 +211,9 @@ JdnnRoom.prototype.gameChip = function () {
 };
 
 JdnnRoom.prototype.chipIn = function (userid, usermuti) {
+  if (this.state != 2) {
+    return false;
+  }
   if (this.hasUser(userid)) {
     this.chipList[userid] = usermuti; 
     return true;

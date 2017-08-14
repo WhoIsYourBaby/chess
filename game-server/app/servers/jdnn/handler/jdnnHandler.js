@@ -31,7 +31,7 @@ JdnnHandler.prototype.chipIn = function (msg, session, next) {
 		var response = new GMResponse(1, '选择倍数: ' + msg.muti, {muti: msg.muti});
 		next(null, response);
 	} else {
-		var response = new GMResponse(-100, '用户不在该房间', null);
+		var response = new GMResponse(-100, '用户不在该房间或该时间不可进行的操作', null);
 		next(null, response);
 	}
 };

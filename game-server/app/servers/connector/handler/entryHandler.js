@@ -83,7 +83,6 @@ handler.exit = function (msg, session, next) {
 /*
 获取不同游戏的房间list信息
 msg.rtype	房间类型：jdnn（经典牛牛），zjh（扎金花），bjl（百家乐）
-msg.token	必须有效的token才能建立session
  */
 handler.fetchRoomInfo = function (msg, session, next) {
 	var sqlHelper = this.app.get('sqlHelper');
