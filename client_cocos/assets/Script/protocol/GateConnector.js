@@ -6,7 +6,8 @@ module.exports = GateConnector;
 
 GateConnector.onLoginSuccess = function(data, callback) {
     pomelo.userinfo = data['data']['userinfo'];
-    pomelo.connector = data['data']['connector'];
+    pomelo.connector = data['data']['localConnector'];
+    // pomelo.connector = data['data']['remoteConnector'];
     var token = data['data']['token'];
     if (token) {
         pomelo.token = token;

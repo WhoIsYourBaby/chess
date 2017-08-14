@@ -108,11 +108,8 @@ handler.refreshToken = function(msg, session, next){
 			var data = {
 						userinfo : userinfo,
 						token : tokenString,
-						connector : {
-							host: res.host,
-							// host: '39.108.83.192',
-							port: res.clientPort
-						}
+						localConnector : {host: res.host,port:res.clientPort},
+						remoteConnector : {host: '39.108.83.192',port:res.clientPort},
 					};
 			var response = new GMResponse(1, 'ok', data);
 			next(null, response);
