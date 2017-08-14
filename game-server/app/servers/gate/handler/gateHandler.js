@@ -49,7 +49,7 @@ handler.guestLogin = function (msg, session, next) {
 	var sqlHelper = this.app.get('sqlHelper');//获取全局mysql client
 	sqlHelper.guestLogin(function (err, userinfo) {
 		console.log(userinfo);
-		var token = new UToken(userinfo.userid).encrypt();
+		var tokenString = new UToken(userinfo.userid).encrypt();
 		if (err) {
 			//失败
 			next(null, {
