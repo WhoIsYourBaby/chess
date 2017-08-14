@@ -191,7 +191,7 @@ JdnnRoom.prototype.gameMarkBanker = function () {
   this.gameChip();
 };
 
-//选择分数倍数
+//选择分数倍数倒计时
 JdnnRoom.prototype.gameChip = function () {
   var self = this;
   var secChip = 3;
@@ -207,6 +207,14 @@ JdnnRoom.prototype.gameChip = function () {
       self.gamePoker();
     }
   }, 1000);
+};
+
+JdnnRoom.prototype.chipIn = function (userid, usermuti) {
+  if (this.hasUser(userid)) {
+    this.chipList[userid] = usermuti; 
+    return true;
+  }
+  return false;
 };
 
 JdnnRoom.prototype.gamePoker = function () {

@@ -23,3 +23,15 @@ JdnnHandler.prototype.ready = function (msg, session, next) {
 		next(null, response);
 	}
 };
+
+JdnnHandler.prototype.chipIn = function (msg, session, next) {
+	var channel = this.channelService.getChannel(msg.roomid);
+	var jdroom = channel.gameRoom;
+	if (jdroom.chipIn(msg.userid, msg.muti)) {
+		var response = new GMResponse(1, '选择倍数: ' + msg.muti, {muti: msg.muti});
+		next(null, response);
+	} else {
+		var response = new GMResponse(-100, '用户不在该房间', null);
+		next(null, response);
+	}
+};
