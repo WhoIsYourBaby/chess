@@ -22,6 +22,10 @@ JdnnRemote.prototype.joinRoom = function (userid, roomid, serverid, callback) {
             callback(new GMResponse(-2, '不能重复加入房间'));
             return ;
         }
+        if (parseInt(room.roomdata.usercount) >=4) {
+            callback(new GMResponse(-2, '房间人数已满'));
+            return ;
+        }
         //先通知房间内用户有新人加入
         var param = {
             route: 'jdnn.onAdd',

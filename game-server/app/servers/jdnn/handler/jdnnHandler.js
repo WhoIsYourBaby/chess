@@ -17,6 +17,7 @@ JdnnHandler.prototype.ready = function (msg, session, next) {
 	var readyList = jdroom.userReady(msg.userid, msg.ready);
 	if (readyList == null) {
 		var response = new GMResponse(-100, '用户不在该房间', null);
+		next(null, response);
 	} else {
 		var response = new GMResponse(1, 'OK', jdroom.getReadyList());
 		next(null, response);

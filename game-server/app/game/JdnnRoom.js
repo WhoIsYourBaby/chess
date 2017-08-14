@@ -25,6 +25,11 @@ var JdnnRoom = function (channel, sqlHelper, roomdata) {
   this.state = 0;
 
   this.baseGold = 1;  //底钱
+
+  /*
+  this.joinUser('10000019');
+  this.userReady('10000019', true);
+  */
 };
 
 module.exports = JdnnRoom;
@@ -63,7 +68,7 @@ JdnnRoom.prototype.userReady = function (userid, ready) {
     this.readyList[userid] = ready;
   }
   //检查房间所有玩家装备状态，并决定是否开始游戏
-  if (this.checkAllReady()) {
+  if (this.checkAllReady() && this.roomdata.usercount > 1) {
     this.startGame();
   }
   return this.readyList;
@@ -116,9 +121,29 @@ JdnnRoom.prototype.updateUserInSQL = function () {
   });
 };
 
+JdnnRoom.prototype.updateGoldInSQL = function (resultGroup) {
+  var goldResult = new Array();
+  for (var userid in resultGroup) {
+    if (resultGroup.hasOwnProperty(userid)) {
+      var gobj = {};
+      var element = resultGroup[userid];
+      gobj.userid = userid;
+      gobj.getGold = element.goldWin;
+      goldResult.push(gobj);
+    }
+  }
+
+  this.sqlHelper.updateUsersGold(goldResult, function(err, userGold) {
+    console.log('********' + JSON.stringify(userGold));
+  });
+};
+
 //重置各种数据为下一把做准备
 JdnnRoom.prototype.reset = function () {
-  this.chipList = {};
+  var uarr = this.roomdata.users.split(',');
+  uarr.forEach(function(userid) {
+    this.chipList[userid] = 1;
+  }, this);
   this.state = 0;
 };
 
@@ -211,8 +236,8 @@ JdnnRoom.prototype.gameResult = function (pkgroup) {
   var resultGroup = {};
   var bankerRst = null;
   for (var uid in pkgroup) {
-    if (object.hasOwnProperty(uid)) {
-      var pklist = object[uid];
+    if (pkgroup.hasOwnProperty(uid)) {
+      var pklist = pkgroup[uid];
       var rst = PokerManager.nnResultForPoker(pklist);
       resultGroup[uid] = rst;
       if (this.roomdata.banker == uid) {
@@ -222,6 +247,7 @@ JdnnRoom.prototype.gameResult = function (pkgroup) {
   }
 
   //2、与庄家比大小
+  var bankerGoldWin = 0;  //庄家输赢
   for (var uid in resultGroup) {
     if (resultGroup.hasOwnProperty(uid)) {
       if (uid != this.roomdata.banker) {
@@ -234,16 +260,25 @@ JdnnRoom.prototype.gameResult = function (pkgroup) {
           var muti = PokerManager.nnResultMuti(rst);
           var usermuti = parseInt(this.chipList[uid]);
           rst.goldWin = usermuti * muti * this.baseGold;
+          bankerGoldWin -= rst.goldWin;
         } else {
           rst.bwin = bwin;
           rst.banker = this.roomdata.banker;
           var muti = PokerManager.nnResultMuti(bankerRst);
           var usermuti = parseInt(this.chipList[uid]);
           rst.goldWin = usermuti * muti * this.baseGold * -1;
+          bankerGoldWin -= rst.goldWin;
         }
       }
     }
   }
+  bankerRst.goldWin = bankerGoldWin;
 
   this.channel.pushMessage('jdnn.gameResult', resultGroup);
+
+  this.updateGoldInSQL(resultGroup);
+
+  setTimeout(function() {
+    this.startGame();
+  }.bind(this), 5 * 1000);
 };
