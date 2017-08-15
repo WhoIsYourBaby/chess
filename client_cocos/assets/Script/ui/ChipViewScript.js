@@ -136,28 +136,40 @@ cc.Class({
     */
     showNiuNiu: function () {
         //牌型大小
+        var muti = 1;
         var resName = 'png/nm';
         if (this.myResult.nntype == 6) {
             resName = 'png/nzd';
+            muti = 8;
         }
         if (this.myResult.nntype == 5) {
             resName = 'png/nwx';
+            muti = 6;
         }
         if (this.myResult.nntype == 4) {
             resName = 'png/nwh';
+            muti = 5;
         }
         if (this.myResult.nntype == 3) {
             resName = 'png/nsh';
+            muti = 4;
         }
         if (this.myResult.nntype == 2) {
             resName = 'png/nn';
+            muti = 3;
         }
         if (this.myResult.nntype == 1) {
             //有牛区分牛几
             resName = 'png/n' + this.myResult.niuN;
+            if (this.myResult.niuN >= 7) {
+                muti = 2;
+            } else {
+                muti = 1;
+            }
         }
         if (this.myResult.nntype == 0) {
             resName = 'png/nm';
+            muti = 1;
         }
         var self = this;
         cc.loader.loadRes(resName, cc.SpriteFrame, function(error, spriteFrame){
@@ -177,7 +189,16 @@ cc.Class({
         //输赢显示
         //庄家没有单独的输赢标识，但是要显示倍数
         if (this.myResult.win == null || this.myResult.win == true) {
-            return;
+            cc.loader.loadRes('prefab/MutiLabel', cc.Prefab, function (error, prefab) {
+                var node = cc.instantiate(prefab);
+                self.node.addChild(node);
+                node.getComponent(cc.Label).string = 'X' + muti.toString();
+                var move = new cc.moveBy(0.5, 0, -node.getContentSize().height * 1.2);
+                var scale = new cc.scaleTo(0.5, 0.7, 0.7);
+                var sp = new cc.spawn(move, scale);
+                node.runAction(sp);
+                self.myPokerNodes.push(node);
+            });
         } else {
             cc.loader.loadRes('png/shu', cc.SpriteFrame, function (error, spriteFrame) {
                 var ppNode = new cc.Node('shu');
