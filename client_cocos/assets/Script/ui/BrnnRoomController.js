@@ -132,6 +132,9 @@ cc.Class({
     //chipin 是下注金额
     buttonChipInTap: function (event, chipin) {
         this.brnnChipSelect = parseInt(chipin);
+        var chipNode = event.target;
+        var junmAct = new cc.moveBy(0.5, 0, 50);
+        chipNode.runAction(junmAct);
     },
 
     //下注牌点击事件，真正完成下注
