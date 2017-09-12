@@ -215,4 +215,16 @@ cc.Class({
             });
         }
     },
+    
+    runChipItemMoveAnimation: function (posFromWorld) {
+        var posNode = this.node.convertToNodeSpace(posFromWorld);
+        var self = this;
+        cc.loader.loadRes('prefab/ChipItem', cc.Prefab, function (error, prefab) {
+            var chipitem = cc.instantiate(prefab);
+            chipitem.setPosition(posNode);
+            self.node.addChild(chipitem);
+            var actionMove = cc.moveTo(2, cc.v2(0, 0));
+            chipitem.runAction(actionMove);
+        });
+    },
 });

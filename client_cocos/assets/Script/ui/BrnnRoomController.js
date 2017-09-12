@@ -42,6 +42,11 @@ cc.Class({
             type: cc.Node
         },
 
+        chipBar: {
+            default: null,
+            type: cc.Node,
+        },
+
         brnnState: 2,   //state: 0,下注时间等待开始 | 1,游戏开始计算输赢 | 2,其他场景
         brnnChipSelect: 100,
         brnnChipInDic: new Array(),     //{'1':0, '2':0, '3':0, '4':0};
@@ -151,6 +156,7 @@ cc.Class({
                 return ;
             }
             self.updateChipView(res.data);
+            self.runChipItemMoveAnimation(event.target);
         });
     },
 
@@ -183,6 +189,13 @@ cc.Class({
             var cpscript = cp.getComponent('ChipViewScript');
             cpscript.updateGold(mychip[index], null);
         }
+    },
+
+    runChipItemMoveAnimation: function (aNode) {
+        var cpscript = aNode.getComponent('ChipViewScript');
+        var chipBarScript = this.chipBar.getComponent('ChipBarScript');
+        var posWorld = chipBarScript.positionWorldOfSelectItem();
+        cpscript.runChipItemMoveAnimation(posWorld);
     },
 
     resetChipView: function() {

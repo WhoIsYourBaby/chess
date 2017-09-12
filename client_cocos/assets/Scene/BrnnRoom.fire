@@ -4344,7 +4344,8 @@
       "__id__": 85
     },
     "_enabled": true,
-    "chipItemList": null
+    "chipItemList": null,
+    "selectChipItem": null
   },
   {
     "__type__": "cc.Widget",
@@ -4410,6 +4411,9 @@
     },
     "masterView": {
       "__id__": 10
+    },
+    "chipBar": {
+      "__id__": 85
     },
     "brnnState": 2,
     "brnnChipSelect": 2000,
