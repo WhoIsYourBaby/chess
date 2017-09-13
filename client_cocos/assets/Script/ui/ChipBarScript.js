@@ -58,7 +58,7 @@ cc.Class({
                 tmpNode = this.chipItemList[0];
                 break;
         }
-        this.runSelectActionOnNode(anode);
+        this.runSelectActionOnNode(tmpNode);
     },
 
     stopAllChipAction: function () {

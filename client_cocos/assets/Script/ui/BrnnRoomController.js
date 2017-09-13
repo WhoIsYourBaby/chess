@@ -32,6 +32,11 @@ cc.Class({
             type: cc.Label
         },
 
+        totalMoney: {
+            default: null, 
+            type: cc.Label
+        },
+
         chipLayout: {
             default: null,
             type:cc.Layout
@@ -69,11 +74,15 @@ cc.Class({
             this.chipViewSC.push(cpscript);
         }
         
+        this.totalMoney.string = pomelo.userinfo.gold.toString();
     },
 
     onEnable: function () {
         this.buttonExit.node.on('click', this.buttonExitTap, this);
         this.initBrnnEvent();
+        
+        var chipBarScript = this.chipBar.getComponent('ChipBarScript');
+        chipBarScript.startDefaultAction(this.brnnChipSelect);
     },
 
     onDisable: function () {
@@ -124,12 +133,24 @@ cc.Class({
         });
 
         BrnnProto.onGoldResult(function(data){
+            var res = new MResponse(data);
+            if (res.hasError()) {
+                console.log(res.msg);
+                return ;
+            }
+            var goldArr = res.data;
+            goldArr.forEach(function(element) {
+                if (element.userid == pomelo.userinfo.userid) {
+                    self.totalMoney.string = element.totalGold.toString();
+                }
+            }, this);
             self.brnnState = 2;
             self.updateStateAndTime(self.brnnState, -1);
             self.brnnChipInDic = {'1':0, '2':0, '3':0, '4':0};
             self.scheduleOnce(function() {
                 this.resetChipView();
             }, 3);
+            
         });
     },
 

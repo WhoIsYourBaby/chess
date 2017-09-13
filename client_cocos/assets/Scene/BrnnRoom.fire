@@ -59,17 +59,17 @@
         "__id__": 3
       },
       {
-        "__id__": 77
+        "__id__": 80
       }
     ],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 126
+        "__id__": 129
       },
       {
-        "__id__": 127
+        "__id__": 130
       }
     ],
     "_prefab": null,
@@ -131,13 +131,16 @@
       },
       {
         "__id__": 72
+      },
+      {
+        "__id__": 76
       }
     ],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 76
+        "__id__": 79
       }
     ],
     "_prefab": null,
@@ -490,7 +493,8 @@
     },
     "myPokerList": null,
     "myResult": null,
-    "myPokerNodes": null
+    "myPokerNodes": null,
+    "myChipItemNodes": null
   },
   {
     "__type__": "cc.Node",
@@ -779,7 +783,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 250.84,
+      "width": 14.46,
       "height": 40
     },
     "_rotationX": 0,
@@ -974,7 +978,8 @@
     },
     "myPokerList": null,
     "myResult": null,
-    "myPokerNodes": null
+    "myPokerNodes": null,
+    "myChipItemNodes": null
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -1204,7 +1209,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 250.84,
+      "width": 14.46,
       "height": 40
     },
     "_rotationX": 0,
@@ -1399,7 +1404,8 @@
     },
     "myPokerList": null,
     "myResult": null,
-    "myPokerNodes": null
+    "myPokerNodes": null,
+    "myChipItemNodes": null
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -1629,7 +1635,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 250.84,
+      "width": 14.46,
       "height": 40
     },
     "_rotationX": 0,
@@ -1824,7 +1830,8 @@
     },
     "myPokerList": null,
     "myResult": null,
-    "myPokerNodes": null
+    "myPokerNodes": null,
+    "myChipItemNodes": null
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -2054,7 +2061,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 250.84,
+      "width": 14.46,
       "height": 40
     },
     "_rotationX": 0,
@@ -2249,7 +2256,8 @@
     },
     "myPokerList": null,
     "myResult": null,
-    "myPokerNodes": null
+    "myPokerNodes": null,
+    "myChipItemNodes": null
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -2476,6 +2484,111 @@
     "_atlas": null
   },
   {
+    "__type__": "cc.Node",
+    "_name": "totalMoney",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 3
+    },
+    "_children": [],
+    "_tag": -1,
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 77
+      },
+      {
+        "__id__": 78
+      }
+    ],
+    "_prefab": null,
+    "_id": "0a520FEcbZIuKT+EdPJv9ie",
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_cascadeOpacityEnabled": true,
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 157.34,
+      "height": 26.22
+    },
+    "_rotationX": 0,
+    "_rotationY": 0,
+    "_scaleX": 1,
+    "_scaleY": 1,
+    "_position": {
+      "__type__": "cc.Vec2",
+      "x": -538.33,
+      "y": -331
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_localZOrder": 0,
+    "_globalZOrder": 0,
+    "_opacityModifyRGB": false,
+    "groupIndex": 0
+  },
+  {
+    "__type__": "cc.Label",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 76
+    },
+    "_enabled": true,
+    "_useOriginalSize": false,
+    "_actualFontSize": 30,
+    "_fontSize": 30,
+    "_lineHeight": 40,
+    "_enableWrapText": true,
+    "_N$file": {
+      "__uuid__": "94e68e5e-ca50-4ab1-ae1c-f2791f3bad0e"
+    },
+    "_isSystemFontUsed": false,
+    "_spacingX": 0,
+    "_N$string": "99999",
+    "_N$horizontalAlign": 0,
+    "_N$verticalAlign": 1,
+    "_N$fontFamily": "Arial",
+    "_N$overflow": 0
+  },
+  {
+    "__type__": "cc.Widget",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 76
+    },
+    "_enabled": true,
+    "isAlignOnce": false,
+    "_target": null,
+    "_alignFlags": 12,
+    "_left": 50,
+    "_right": 0,
+    "_top": 0,
+    "_bottom": 30.89,
+    "_verticalCenter": 0,
+    "_horizontalCenter": 0,
+    "_isAbsLeft": true,
+    "_isAbsRight": true,
+    "_isAbsTop": true,
+    "_isAbsBottom": true,
+    "_isAbsHorizontalCenter": true,
+    "_isAbsVerticalCenter": true,
+    "_originalWidth": 0,
+    "_originalHeight": 0
+  },
+  {
     "__type__": "cc.Widget",
     "_name": "",
     "_objFlags": 0,
@@ -2510,17 +2623,17 @@
     },
     "_children": [
       {
-        "__id__": 78
+        "__id__": 81
       },
       {
-        "__id__": 85
+        "__id__": 88
       }
     ],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 125
+        "__id__": 128
       }
     ],
     "_prefab": null,
@@ -2565,24 +2678,24 @@
     "_name": "buttonExit",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 77
+      "__id__": 80
     },
     "_children": [
       {
-        "__id__": 79
+        "__id__": 82
       }
     ],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 82
+        "__id__": 85
       },
       {
-        "__id__": 83
+        "__id__": 86
       },
       {
-        "__id__": 84
+        "__id__": 87
       }
     ],
     "_prefab": null,
@@ -2627,17 +2740,17 @@
     "_name": "Label",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 78
+      "__id__": 81
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 80
+        "__id__": 83
       },
       {
-        "__id__": 81
+        "__id__": 84
       }
     ],
     "_prefab": null,
@@ -2682,7 +2795,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 79
+      "__id__": 82
     },
     "_enabled": false,
     "_useOriginalSize": false,
@@ -2704,7 +2817,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 79
+      "__id__": 82
     },
     "_enabled": true,
     "isAlignOnce": true,
@@ -2730,7 +2843,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 78
+      "__id__": 81
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -2756,7 +2869,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 78
+      "__id__": 81
     },
     "_enabled": true,
     "transition": 2,
@@ -2802,7 +2915,7 @@
     },
     "_N$disabledSprite": null,
     "_N$target": {
-      "__id__": 78
+      "__id__": 81
     }
   },
   {
@@ -2810,7 +2923,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 78
+      "__id__": 81
     },
     "_enabled": true,
     "isAlignOnce": true,
@@ -2836,39 +2949,39 @@
     "_name": "chipView",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 77
+      "__id__": 80
     },
     "_children": [
       {
-        "__id__": 86
+        "__id__": 89
       },
       {
-        "__id__": 92
+        "__id__": 95
       },
       {
-        "__id__": 98
+        "__id__": 101
       },
       {
-        "__id__": 104
+        "__id__": 107
       },
       {
-        "__id__": 110
+        "__id__": 113
       },
       {
-        "__id__": 116
+        "__id__": 119
       }
     ],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 122
+        "__id__": 125
       },
       {
-        "__id__": 123
+        "__id__": 126
       },
       {
-        "__id__": 124
+        "__id__": 127
       }
     ],
     "_prefab": null,
@@ -2913,21 +3026,21 @@
     "_name": "chip0",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 85
+      "__id__": 88
     },
     "_children": [
       {
-        "__id__": 87
+        "__id__": 90
       }
     ],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 89
+        "__id__": 92
       },
       {
-        "__id__": 90
+        "__id__": 93
       }
     ],
     "_prefab": null,
@@ -2972,14 +3085,14 @@
     "_name": "Label",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 86
+      "__id__": 89
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 88
+        "__id__": 91
       }
     ],
     "_prefab": null,
@@ -3024,7 +3137,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 87
+      "__id__": 90
     },
     "_enabled": false,
     "_useOriginalSize": false,
@@ -3046,7 +3159,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 86
+      "__id__": 89
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -3072,7 +3185,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 86
+      "__id__": 89
     },
     "_enabled": true,
     "transition": 2,
@@ -3096,7 +3209,7 @@
     "hoverSprite": null,
     "clickEvents": [
       {
-        "__id__": 91
+        "__id__": 94
       }
     ],
     "_N$interactable": true,
@@ -3120,7 +3233,7 @@
     },
     "_N$disabledSprite": null,
     "_N$target": {
-      "__id__": 86
+      "__id__": 89
     }
   },
   {
@@ -3137,21 +3250,21 @@
     "_name": "chip1",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 85
+      "__id__": 88
     },
     "_children": [
       {
-        "__id__": 93
+        "__id__": 96
       }
     ],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 95
+        "__id__": 98
       },
       {
-        "__id__": 96
+        "__id__": 99
       }
     ],
     "_prefab": null,
@@ -3196,14 +3309,14 @@
     "_name": "Label",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 92
+      "__id__": 95
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 94
+        "__id__": 97
       }
     ],
     "_prefab": null,
@@ -3248,7 +3361,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 93
+      "__id__": 96
     },
     "_enabled": false,
     "_useOriginalSize": false,
@@ -3270,7 +3383,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 92
+      "__id__": 95
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -3296,7 +3409,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 92
+      "__id__": 95
     },
     "_enabled": true,
     "transition": 2,
@@ -3320,7 +3433,7 @@
     "hoverSprite": null,
     "clickEvents": [
       {
-        "__id__": 97
+        "__id__": 100
       }
     ],
     "_N$interactable": true,
@@ -3344,7 +3457,7 @@
     },
     "_N$disabledSprite": null,
     "_N$target": {
-      "__id__": 92
+      "__id__": 95
     }
   },
   {
@@ -3361,21 +3474,21 @@
     "_name": "chip2",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 85
+      "__id__": 88
     },
     "_children": [
       {
-        "__id__": 99
+        "__id__": 102
       }
     ],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 101
+        "__id__": 104
       },
       {
-        "__id__": 102
+        "__id__": 105
       }
     ],
     "_prefab": null,
@@ -3420,14 +3533,14 @@
     "_name": "Label",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 98
+      "__id__": 101
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 100
+        "__id__": 103
       }
     ],
     "_prefab": null,
@@ -3472,7 +3585,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 99
+      "__id__": 102
     },
     "_enabled": false,
     "_useOriginalSize": false,
@@ -3494,7 +3607,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 98
+      "__id__": 101
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -3520,7 +3633,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 98
+      "__id__": 101
     },
     "_enabled": true,
     "transition": 2,
@@ -3544,7 +3657,7 @@
     "hoverSprite": null,
     "clickEvents": [
       {
-        "__id__": 103
+        "__id__": 106
       }
     ],
     "_N$interactable": true,
@@ -3568,7 +3681,7 @@
     },
     "_N$disabledSprite": null,
     "_N$target": {
-      "__id__": 98
+      "__id__": 101
     }
   },
   {
@@ -3585,21 +3698,21 @@
     "_name": "chip3",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 85
+      "__id__": 88
     },
     "_children": [
       {
-        "__id__": 105
+        "__id__": 108
       }
     ],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 107
+        "__id__": 110
       },
       {
-        "__id__": 108
+        "__id__": 111
       }
     ],
     "_prefab": null,
@@ -3644,14 +3757,14 @@
     "_name": "Label",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 104
+      "__id__": 107
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 106
+        "__id__": 109
       }
     ],
     "_prefab": null,
@@ -3696,7 +3809,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 105
+      "__id__": 108
     },
     "_enabled": false,
     "_useOriginalSize": false,
@@ -3718,7 +3831,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 104
+      "__id__": 107
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -3744,7 +3857,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 104
+      "__id__": 107
     },
     "_enabled": true,
     "transition": 2,
@@ -3768,7 +3881,7 @@
     "hoverSprite": null,
     "clickEvents": [
       {
-        "__id__": 109
+        "__id__": 112
       }
     ],
     "_N$interactable": true,
@@ -3792,7 +3905,7 @@
     },
     "_N$disabledSprite": null,
     "_N$target": {
-      "__id__": 104
+      "__id__": 107
     }
   },
   {
@@ -3809,21 +3922,21 @@
     "_name": "chip4",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 85
+      "__id__": 88
     },
     "_children": [
       {
-        "__id__": 111
+        "__id__": 114
       }
     ],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 113
+        "__id__": 116
       },
       {
-        "__id__": 114
+        "__id__": 117
       }
     ],
     "_prefab": null,
@@ -3868,14 +3981,14 @@
     "_name": "Label",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 110
+      "__id__": 113
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 112
+        "__id__": 115
       }
     ],
     "_prefab": null,
@@ -3920,7 +4033,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 111
+      "__id__": 114
     },
     "_enabled": false,
     "_useOriginalSize": false,
@@ -3942,7 +4055,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 110
+      "__id__": 113
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -3968,7 +4081,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 110
+      "__id__": 113
     },
     "_enabled": true,
     "transition": 2,
@@ -3992,7 +4105,7 @@
     "hoverSprite": null,
     "clickEvents": [
       {
-        "__id__": 115
+        "__id__": 118
       }
     ],
     "_N$interactable": true,
@@ -4016,7 +4129,7 @@
     },
     "_N$disabledSprite": null,
     "_N$target": {
-      "__id__": 110
+      "__id__": 113
     }
   },
   {
@@ -4033,21 +4146,21 @@
     "_name": "chip5",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 85
+      "__id__": 88
     },
     "_children": [
       {
-        "__id__": 117
+        "__id__": 120
       }
     ],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 119
+        "__id__": 122
       },
       {
-        "__id__": 120
+        "__id__": 123
       }
     ],
     "_prefab": null,
@@ -4092,14 +4205,14 @@
     "_name": "Label",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 116
+      "__id__": 119
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 118
+        "__id__": 121
       }
     ],
     "_prefab": null,
@@ -4144,7 +4257,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 117
+      "__id__": 120
     },
     "_enabled": false,
     "_useOriginalSize": false,
@@ -4166,7 +4279,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 116
+      "__id__": 119
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -4192,7 +4305,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 116
+      "__id__": 119
     },
     "_enabled": true,
     "transition": 2,
@@ -4216,7 +4329,7 @@
     "hoverSprite": null,
     "clickEvents": [
       {
-        "__id__": 121
+        "__id__": 124
       }
     ],
     "_N$interactable": true,
@@ -4240,7 +4353,7 @@
     },
     "_N$disabledSprite": null,
     "_N$target": {
-      "__id__": 116
+      "__id__": 119
     }
   },
   {
@@ -4257,7 +4370,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 85
+      "__id__": 88
     },
     "_enabled": true,
     "_spriteFrame": null,
@@ -4281,7 +4394,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 85
+      "__id__": 88
     },
     "_enabled": true,
     "isAlignOnce": true,
@@ -4307,7 +4420,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 85
+      "__id__": 88
     },
     "_enabled": true,
     "chipItemList": null,
@@ -4318,7 +4431,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 77
+      "__id__": 80
     },
     "_enabled": true,
     "isAlignOnce": true,
@@ -4364,13 +4477,16 @@
     },
     "_enabled": true,
     "buttonExit": {
-      "__id__": 83
+      "__id__": 86
     },
     "stateSprite": {
       "__id__": 75
     },
     "timeLabel": {
       "__id__": 74
+    },
+    "totalMoney": {
+      "__id__": 77
     },
     "chipLayout": {
       "__id__": 71
@@ -4379,10 +4495,10 @@
       "__id__": 10
     },
     "chipBar": {
-      "__id__": 85
+      "__id__": 88
     },
     "brnnState": 2,
-    "brnnChipSelect": 2000,
+    "brnnChipSelect": 100,
     "brnnChipInDic": [],
     "chipViewSC": []
   }
