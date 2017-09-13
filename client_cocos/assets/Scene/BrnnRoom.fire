@@ -66,10 +66,10 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 127
+        "__id__": 126
       },
       {
-        "__id__": 128
+        "__id__": 127
       }
     ],
     "_prefab": null,
@@ -2520,7 +2520,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 126
+        "__id__": 125
       }
     ],
     "_prefab": null,
@@ -2869,9 +2869,6 @@
       },
       {
         "__id__": 124
-      },
-      {
-        "__id__": 125
       }
     ],
     "_prefab": null,
@@ -4278,37 +4275,6 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_atlas": null
-  },
-  {
-    "__type__": "cc.Layout",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 85
-    },
-    "_enabled": false,
-    "_layoutSize": {
-      "__type__": "cc.Size",
-      "width": 600,
-      "height": 100
-    },
-    "_resize": 0,
-    "_N$layoutType": 1,
-    "_N$padding": 0,
-    "_N$cellSize": {
-      "__type__": "cc.Size",
-      "width": 40,
-      "height": 40
-    },
-    "_N$startAxis": 0,
-    "_N$paddingLeft": 0,
-    "_N$paddingRight": 0,
-    "_N$paddingTop": 0,
-    "_N$paddingBottom": 0,
-    "_N$spacingX": 0,
-    "_N$spacingY": 0,
-    "_N$verticalDirection": 1,
-    "_N$horizontalDirection": 0
   },
   {
     "__type__": "cc.Widget",

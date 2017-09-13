@@ -195,7 +195,7 @@ cc.Class({
         var cpscript = aNode.getComponent('ChipViewScript');
         var chipBarScript = this.chipBar.getComponent('ChipBarScript');
         var posWorld = cpscript.positionOfCenterWorld();
-        chipBarScript.runChipItemMoveAnimation(posWorld);
+        chipBarScript.runChipItemMoveAnimation(posWorld, cpscript.chipItemAnimationFinish, cpscript);
     },
 
     resetChipView: function() {

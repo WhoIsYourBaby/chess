@@ -86,12 +86,7 @@ cc.Class({
         this.selectChipItem = aNode;
     },
 
-    positionWorldOfSelectItem: function () {
-        var pos = this.selectChipItem.convertToWorldSpaceAR(cc.v2(0, 0));
-        return pos;
-    },
-
-    runChipItemMoveAnimation: function (posToWorld) {
+    runChipItemMoveAnimation: function (posToWorld, finishiCallback, target) {
         var posNode = this.node.convertToNodeSpaceAR(posToWorld);
         var self = this;
         cc.loader.loadRes('prefab/ChipItem', cc.Prefab, function (error, prefab) {
@@ -99,7 +94,8 @@ cc.Class({
             chipitem.setPosition(self.selectChipItem.getPosition());
             self.node.addChild(chipitem);
             var actionMove = cc.moveTo(1, posNode);
-            chipitem.runAction(actionMove);
+            var callback = cc.callFunc(finishiCallback, target, chipitem);
+            chipitem.runAction(cc.sequence(actionMove, callback));
         });
     },
 
