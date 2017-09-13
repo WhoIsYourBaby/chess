@@ -217,7 +217,21 @@ cc.Class({
     },
 
     positionOfCenterWorld : function () {
-        return this.node.convertToWorldSpaceAR(cc.v2(0, 0));
+        var rrr = cc.random0To1();
+        if (rrr < 0.7) {
+            //70%靠中间
+            var posOrigin = this.node.convertToWorldSpace(cc.v2(100, 100));
+            posOrigin = cc.v2(cc.random0To1() * 100 + posOrigin.x, cc.random0To1() * 100 + posOrigin.y);
+            return posOrigin;
+        } else if (rrr < 0.9) {
+            var posOrigin = this.node.convertToWorldSpace(cc.v2(75, 75));
+            posOrigin = cc.v2(cc.random0To1() * 150 + posOrigin.x, cc.random0To1() * 150 + posOrigin.y);
+            return posOrigin;
+        } else {
+            var posOrigin = this.node.convertToWorldSpace(cc.v2(25, 25));
+            posOrigin = cc.v2(cc.random0To1() * 250 + posOrigin.x, cc.random0To1() * 250 + posOrigin.y);
+            return posOrigin;
+        }
     },
 
     chipItemAnimationFinish: function (chipItem) {
