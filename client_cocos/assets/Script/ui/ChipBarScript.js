@@ -87,9 +87,22 @@ cc.Class({
     },
 
     positionWorldOfSelectItem: function () {
-        var pos = this.selectChipItem.convertToWorldSpace(cc.v2(0, 0));
+        var pos = this.selectChipItem.convertToWorldSpaceAR(cc.v2(0, 0));
         return pos;
     },
+
+    runChipItemMoveAnimation: function (posToWorld) {
+        var posNode = this.node.convertToNodeSpaceAR(posToWorld);
+        var self = this;
+        cc.loader.loadRes('prefab/ChipItem', cc.Prefab, function (error, prefab) {
+            var chipitem = cc.instantiate(prefab);
+            chipitem.setPosition(self.selectChipItem.getPosition());
+            self.node.addChild(chipitem);
+            var actionMove = cc.moveTo(1, posNode);
+            chipitem.runAction(actionMove);
+        });
+    },
+
 
     // called every frame, uncomment this function to activate update callback
     // update: function (dt) {

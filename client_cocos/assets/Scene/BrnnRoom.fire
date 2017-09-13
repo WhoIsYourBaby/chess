@@ -4286,7 +4286,7 @@
     "node": {
       "__id__": 85
     },
-    "_enabled": true,
+    "_enabled": false,
     "_layoutSize": {
       "__type__": "cc.Size",
       "width": 600,
@@ -4320,7 +4320,7 @@
     "_enabled": true,
     "isAlignOnce": true,
     "_target": null,
-    "_alignFlags": 4,
+    "_alignFlags": 20,
     "_left": 0,
     "_right": 0,
     "_top": 0,

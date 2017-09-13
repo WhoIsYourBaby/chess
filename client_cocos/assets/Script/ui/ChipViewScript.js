@@ -217,7 +217,7 @@ cc.Class({
     },
     
     runChipItemMoveAnimation: function (posFromWorld) {
-        var posNode = this.node.convertToNodeSpace(posFromWorld);
+        var posNode = this.node.convertToNodeSpaceAR(posFromWorld);
         var self = this;
         cc.loader.loadRes('prefab/ChipItem', cc.Prefab, function (error, prefab) {
             var chipitem = cc.instantiate(prefab);
@@ -226,5 +226,9 @@ cc.Class({
             var actionMove = cc.moveTo(2, cc.v2(0, 0));
             chipitem.runAction(actionMove);
         });
+    },
+
+    positionOfCenterWorld : function () {
+        return this.node.convertToWorldSpaceAR(cc.v2(0, 0));
     },
 });
