@@ -39,11 +39,13 @@ cc.Class({
         myPokerList: null,    //发牌的数据
         myResult: null,
         myPokerNodes: null,     //poker节点数组
+        myChipItemNodes: null,  //筹码节点数组
     },
 
     // use this for initialization
     onLoad: function () {
         this.pokerPosFromWorld = new cc.Vec2(cc.winSize.width/2-150,cc.winSize.height/2-30);
+        this.myChipItemNodes = new Array();
         var self = this;
         cc.loader.loadRes('prefab/PokerItem', function(error, pref){
             if (error) {
@@ -126,6 +128,12 @@ cc.Class({
             element.destroy();
         }, this);
         this.myPokerNodes = null;
+
+        this.myChipItemNodes.forEach(function(element) {
+            element.parent = null;
+            element.destroy();
+        }, this);
+        this.myChipItemNodes = new Array();
     },
 
     /*
@@ -239,5 +247,6 @@ cc.Class({
         var posNode = this.node.convertToNodeSpaceAR(posWorld);
         chipItem.parent = this.node;
         chipItem.setPosition(posNode);
+        this.myChipItemNodes.push(chipItem);
     },
 });
