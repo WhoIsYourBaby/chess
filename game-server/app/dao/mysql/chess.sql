@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `chess` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `chess`;
 -- MySQL dump 10.13  Distrib 5.7.17, for macos10.12 (x86_64)
 --
 -- Host: 127.0.0.1    Database: chess
@@ -28,13 +30,14 @@ CREATE TABLE `t_room` (
   `createtime` varchar(64) DEFAULT NULL,
   `creator` varchar(45) DEFAULT NULL,
   `users` varchar(128) DEFAULT NULL,
+  `usercount` varchar(45) DEFAULT '0',
   `cost` varchar(45) DEFAULT NULL,
   `banker` varchar(45) DEFAULT NULL,
   `state` int(11) DEFAULT '0',
   `config` text,
   PRIMARY KEY (`roomid`),
   UNIQUE KEY `roomid_UNIQUE` (`roomid`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,7 +69,7 @@ CREATE TABLE `t_user` (
   `phone` varchar(255) DEFAULT NULL,
   `password` varchar(32) DEFAULT NULL,
   `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `gold` int(11) NOT NULL DEFAULT '3000',
+  `gold` int(11) NOT NULL DEFAULT '30000',
   `roomcard` int(11) NOT NULL DEFAULT '0',
   `sex` int(11) NOT NULL DEFAULT '0',
   `image` varchar(512) DEFAULT NULL,
@@ -75,7 +78,7 @@ CREATE TABLE `t_user` (
   UNIQUE KEY `userid_UNIQUE` (`userid`),
   UNIQUE KEY `username_UNIQUE` (`username`),
   UNIQUE KEY `phone_UNIQUE` (`phone`)
-) ENGINE=InnoDB AUTO_INCREMENT=100000 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10000093 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -95,4 +98,4 @@ CREATE TABLE `t_user` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-08-03 11:07:09
+-- Dump completed on 2017-09-14 14:15:31
