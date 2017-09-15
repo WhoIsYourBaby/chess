@@ -1,51 +1,42 @@
-## Chatofpomelo
+#大圣棋牌（Pomelo + Cocos Creator）
+网易pomelo框架 + CocosCreator客户端
+安卓+iOS+H5三端通用，同时支持分布式部署
+如果了解pomelo框架会发现本项目结构十分简单，希望大家能通过本项目更好的学习和使用pomelo
 
-A simple chat room experiment using pomelo framework and html5.
-The chat server currently runs on nodejs v0.8, and should run fine on the latest stable as well.It requires the following npm libraries:
-- pomelo
-- express
-- crc
+>十分欢迎大家贡献代码，尤其是ccc客户端，因为一个人又要开发服务器又要开发客户端，还要去搞美术，实在有些忙不过来
 
-Both of them can be installed via 'sh npm-install.sh' (it will install a local copy of all the dependencies in the node_modules directory)
+#目前已有的功能和开发计划
+1、游客登录
+2、百人牛牛
+3、经典牛牛(支持房卡模式)开发中
+4、四川麻将 计划中
 
-## Viewing
+该项目的最终形态是包含许多种棋牌游戏基础玩法的、易重构易二次开发的游戏平台，任何人可以在这个基础上丰富自己特色功能
 
- * Visit [demo game github](https://github.com/NetEase/chatofpomelo) to get the source code and install it on your local machine.
+因为目前具有的功能较少，大家可以把它当做一个学习pomelo和cocos creator的入门项目对待
 
-## Configuration
+#环境搭建
+服务器支持Mac/Linux/Win
+服务器搭建教程(以Mac)：
+```
+1、安装pomelo <https://github.com/NetEase/pomelo/wiki/%E5%AE%89%E8%A3%85pomelo>
+2、clone本项目
+3、安装nodejs第三方库，执行chess/npm-install.sh
+4、安装mysql 5.6+  并设置好用户名和密码，这个mysql官网里面去找到合适的版本安装即可 <https://dev.mysql.com/downloads/>
+6、向mysql导入 chess/game-server/app/dao/mysql/chess.sql
+7、修改项目中对mysql的连接设置
+chess/game-server/config/mysql.json
+把该文件中的user  和  password 修改为上一步中mysql设置的用户名和密码
+7、运行服务器
+cd chess/game-server
+pomelo start
 
- * The server setting (server number, host and port, etc.) can be configured in 'game-server/config/servers.json' and 'game-server/config/master.json' files.
- * Other settings (log4js etc.) also can be configured in 'game-server/config' folder.
+到这里，如果不出意外，服务器就安装结束并且启动啦
+```
+客户端开发环境
+```
+CocosCreator 1.5+
+用ccc打开chess/client_cocos项目，直接运行即可
+```
 
-## Deployment
-Enter chatofpomelo/game-server, and run 'pomelo start' or 'node app.js' in order to start the game server.
-Enter chatofpomelo/web-server, and run 'node app.js' in order to start the web server, and access '3001' port (which can be changed in 'app_express.js') to load game.
 
-## Monitoring
-
-Pomelo framework provides monitoring tool: AdminConsole. After game is loaded, you can access '7001' port and monitor the game information(operating-system, process, userInfo, sceneInfo, etc.).
-
-## License
-
-(The MIT License)
-
-Copyright (c) 2013 NetEase, Inc. and other contributors
-
-Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files (the
-'Software'), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
-
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-SOFTWARE OR THE USE OR OT`HER DEALINGS IN THE SOFTWARE.
