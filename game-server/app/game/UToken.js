@@ -38,11 +38,16 @@ UToken.prototype.encrypt = function(){
 
 
 UToken.prototype.decrypt = function(tokenString){
-    var crypto = require('crypto');
-    var decipher = crypto.createDecipher('aes-256-cbc', secret_key);
-    var dec = decipher.update(tokenString,'hex','utf8');
-    dec += decipher.final('utf8');
-    var obj = JSON.parse(dec);
-    this.userid = obj.userid;
-    this.exp = obj.exp;
+    if (tokenString) {
+        var crypto = require('crypto');
+        var decipher = crypto.createDecipher('aes-256-cbc', secret_key);
+        var dec = decipher.update(tokenString,'hex','utf8');
+        dec += decipher.final('utf8');
+        var obj = JSON.parse(dec);
+        this.userid = obj.userid;
+        this.exp = obj.exp;
+    } else {
+        this.userid = null;
+        this.exp = null;
+    }
 }
