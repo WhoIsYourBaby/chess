@@ -41,4 +41,47 @@ CocosCreator 1.5+
 用ccc打开chess/client_cocos项目，直接运行即可
 ```
 
+#TRANSLATION
 
+#大圣棋牌（Pomelo + Cocos Creator）
+======
+Netease pomelo framework + CocosCreator client
+Android+iOS+H5 three-terminal universal, while supporting distributed deployment
+If you understand the pomelo framework, you will find that the structure of this project is very simple. I hope you can learn and use pomelo better through this project.
+
+>Everyone is welcome to contribute code, especially the ccc client, because one person needs to develop the server and the client, and also to do art, it is really too busy
+
+#Currently existing functions and development plans
+======
+```
+1. Tourist login
+2. Hundreds of people
+```
+The final form of the project is a game platform that contains many basic gameplays of board and card games, easy to refactor and easy to develop, and anyone can enrich their own features on this basis.
+
+You can also treat it as an introductory project for learning pomelo and cocos creator
+
+#Environment building
+======
+Server supports Mac/Linux/Win
+Server construction tutorial (for Mac):
+```
+1. Install pomelo <https://github.com/NetEase/pomelo/wiki/%E5%AE%89%E8%A3%85pomelo>
+2. Clone this project
+3. Install the nodejs third-party library and execute chess/npm-install.sh
+4. Install mysql 5.6+ and set the user name and password. Find the appropriate version and install it on the mysql official website. <https://dev.mysql.com/downloads/>
+6. Import chess/game-server/app/dao/mysql/chess.sql to mysql
+7. Modify the connection settings to mysql in the project
+chess/game-server/config/mysql.json
+Change the user and password in this file to the username and password set by mysql in the previous step
+7. Run the server
+cd chess/game-server
+pomelo start
+
+At this point, if nothing happens, the server will be installed and started.
+```
+Client development environment
+```
+CocosCreator 1.5+
+Open the chess/client_cocos project with ccc and run it directly
+```
